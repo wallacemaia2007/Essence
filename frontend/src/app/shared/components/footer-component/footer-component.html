@@ -1,0 +1,118 @@
+<footer class="bg-white border-t border-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+
+            <div class="flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-900 mb-6 tracking-wide uppercase text-sm">
+                    Contatos
+                </h3>
+                <div class="space-y-4 mb-8">
+                    @for (item of contactInfo; track $index) {
+                    <div class="flex flex-col">
+                        <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">{{ item.label
+                            }}</span>
+                        <span class="text-sm text-gray-700 mt-1">{{ item.value }}</span>
+                    </div>
+                    }
+                </div>
+                <h4 class="text-sm font-semibold text-gray-900 mb-4 tracking-wide uppercase">
+                    Lojas Físicas
+                </h4>
+                <div class="space-y-3">
+                    @for(store of physicalStores; track $index) {
+                    <div class="border-l-2 border-gray-300 pl-3 hover:border-gray-500 transition-colors duration-200">
+                        <p class="text-sm font-medium text-gray-800">{{ store.name }}</p>
+                        <p class="text-xs text-gray-500 mt-1">{{ store.hours }}</p>
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-900 mb-6 tracking-wide uppercase text-sm">
+                    Sobre a Essence
+                </h3>
+                <ul class="space-y-3">
+                    @for (link of institutionalLinks; track $index) {
+                    <li>
+                        <a [href]="link.href"
+                            class="text-sm text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium">
+                            {{ link.name }}
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </div>
+            <div class="flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-900 mb-6 tracking-wide uppercase text-sm">
+                    Ajuda & Suporte
+                </h3>
+                <ul class="space-y-3">
+                    @for (link of helpCenterLinks; track $index) {
+                    <li>
+                        <a [href]="link.href"
+                            class="text-sm text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium">
+                            {{ link.name }}
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </div>
+            <div class="flex">
+                <h3 class="text-lg font-semibold text-gray-900 mb-6 tracking-wide uppercase text-sm ">
+                    Siga-nos!
+                </h3>
+                @for (social of socialMedia; track $index) {
+                <div class="flex gap-4 ml-5 mt-5  ">
+                    <a [href]="social.href" target="_blank"
+                        class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center text-gray-700 hover:text-gray-900 font-semibold text-xs"
+                        [title]="social.name">
+                        <img [src]="social.icon" alt="{{ social.name }} Icon"
+                            class="w-7 h-7 hover:scale-110 transition">
+                    </a>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="w-full py-10">
+        <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-6">
+            <h3 class="text-center text-gray-900 font-semibold tracking-widest uppercase text-sm">
+                Fique por dentro das<br> novidades
+            </h3>
+            <input type="text" placeholder="Nome" [(ngModel)]="newsletterName"
+                class="border-b border-black focus:outline-none px-2 py-1 w-full max-w-sm text-sm" />
+            <input type="email" placeholder="E-mail" [(ngModel)]="newsletterEmail"
+                class="border-b border-black focus:outline-none px-2 py-1 w-full max-w-sm text-sm" />
+            <button (click)="registerNewsletter()"
+                class="bg-black text-white px-6 py-2 text-xs font-semibold tracking-widest uppercase hover:scale-110 transition">
+                Cadastrar
+            </button>
+        </div>
+    </div>
+    <div class="border-t border-gray-300 bg-gray-50 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div
+                class="text-center lg:text-left flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+                <div class="text-xs text-gray-600 font-medium">
+                    <span class="font-semibold text-gray-800">{{ companyInfo.name }}</span> |
+                    <span class="ml-1">{{ companyInfo.cnpj }}</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 text-center lg:text-left">
+                @for (address of storeAddresses; track $index) {
+                <div class="text-xs text-gray-500">
+                    {{ address }}
+                </div>
+                }
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-300 text-center text-xs text-gray-500">
+                <p>
+                    &copy; {{ currentYear }} Essence Passos. All rights reserved. | Designed with
+                    elegance.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+</footer>

@@ -20,6 +20,7 @@ export class HeaderComponent {
     { name: 'Ofertas', link: '/ofertas' }
   ];
 
+  cartItemCount = 1;
 
   onSearch() {
   }
