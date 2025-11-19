@@ -67,8 +67,8 @@ export class FooterComponent {
     },
     {
       name: 'Whatsapp',
-      icon: 'assets/icons/whatsapp.svg',
-      href: 'https://wa.me/553592058341',
+      icon: 'assets/icons/whatzapp.svg',
+      href: 'https://wa.me/553592050341?text=Ol%C3%A1,%20vim%20pelo%20site%20Essence%20Passos,%20gostaria%20de%20saber%20mais%20sobre%20a%20loja!',
     },
   ];
 

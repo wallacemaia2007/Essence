@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-component',
@@ -10,6 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header-component.scss',
 })
 export class HeaderComponent {
+
+  constructor(private router: Router) {}
+
   categories = [
     { name: 'Novidades', link: '/novidades' },
     { name: 'Vestidos', link: '/vestidos' },
@@ -29,6 +33,10 @@ export class HeaderComponent {
   }
 
   onCart() {
+  }
+
+  home() {
+    this.router.navigate(['/']);
   }
 }
 
