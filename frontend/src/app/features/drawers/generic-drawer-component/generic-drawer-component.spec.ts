@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CroppedsDrawer } from './croppeds-drawer';
+import { GenericDrawerComponent } from './generic-drawer-component';
 
-describe('CroppedsDrawer', () => {
-  let component: CroppedsDrawer;
-  let fixture: ComponentFixture<CroppedsDrawer>;
+describe('GenericDrawerComponent', () => {
+  let component: GenericDrawerComponent;
+  let fixture: ComponentFixture<GenericDrawerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CroppedsDrawer]
+      imports: [GenericDrawerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CroppedsDrawer);
+    fixture = TestBed.createComponent(GenericDrawerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

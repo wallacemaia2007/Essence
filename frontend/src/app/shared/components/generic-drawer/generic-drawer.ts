@@ -3,25 +3,8 @@ import { CommonModule } from '@angular/common';
 import { DrawerService } from '../../../core/services/drawer-service';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
-import { DrawerType } from '../../../core/types/drawers-types';
-
-import { VestidosDrawer } from '../../../features/drawers/vestidos-drawer/vestidos-drawer';
-import { AcessoriosDrawer } from '../../../features/drawers/acessorios-drawer/acessorios-drawer';
-import { BodysDrawer } from '../../../features/drawers/bodys-drawer/bodys-drawer';
-import { CalcasDrawer } from '../../../features/drawers/calcas-drawer/calcas-drawer';
-import { CamisetasDrawer } from '../../../features/drawers/camisetas-drawer/camisetas-drawer';
-import { CroppedsDrawer } from '../../../features/drawers/croppeds-drawer/croppeds-drawer';
-import { SaiasDrawer } from '../../../features/drawers/saias-drawer/saias-drawer';
-
-const DRAWER_COMPONENTS: Record<string, any> = {
-  [DrawerType.VESTIDOS]: VestidosDrawer,
-  [DrawerType.ACESSORIOS]: AcessoriosDrawer,
-  [DrawerType.BODYS]: BodysDrawer,
-  [DrawerType.CALCAS]: CalcasDrawer,
-  [DrawerType.CAMISETAS]: CamisetasDrawer,
-  [DrawerType.CROPPEDS]: CroppedsDrawer,
-  [DrawerType.SAIAS]: SaiasDrawer,
-};
+import { GenericDrawerContentComponent } from '../../../features/drawers/generic-drawer-component/generic-drawer-component';
+import { DRAWER_CONFIGS } from '../../../features/drawers/drawer-config';
 
 @Component({
   selector: 'app-generic-drawer',
@@ -36,6 +19,7 @@ export class GenericDrawerComponent implements OnInit {
 
   visible = false;
   currentDrawerType: string | null = null;
+  drawerConfig: any = null;
 
   constructor(private drawerService: DrawerService) {}
 
@@ -52,11 +36,13 @@ export class GenericDrawerComponent implements OnInit {
 
   private loadDrawerComponent(drawerType: string): void {
     this.dynamicContainer.clear();
+    const config = DRAWER_CONFIGS[drawerType];
 
-    const componentType = DRAWER_COMPONENTS[drawerType];
+    if (config) {
+      const componentRef = this.dynamicContainer.createComponent(GenericDrawerContentComponent);
 
-    if (componentType) {
-      this.dynamicContainer.createComponent(componentType);
+      componentRef.instance.title = config.title;
+      componentRef.instance.categories = config.categories;
     }
   }
 

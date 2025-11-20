@@ -6,4 +6,5 @@ export enum DrawerType {
   CALCAS = 'calcas',
   SAIAS = 'saias',
   BODYS = 'bodys',
+  CALCADOS = 'calçados',
 }
