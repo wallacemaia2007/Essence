@@ -22,6 +22,8 @@ export class HeaderComponent {
     DrawerType.CROPPEDS,
     DrawerType.CAMISETAS,
     DrawerType.CALCAS,
+    DrawerType.SAIAS,
+    DrawerType.BODYS,
   ];
 
   cartItemCount = 1;

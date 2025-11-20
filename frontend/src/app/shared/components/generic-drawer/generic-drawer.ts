@@ -7,10 +7,20 @@ import { DrawerType } from '../../../core/types/drawers-types';
 
 import { VestidosDrawer } from '../../../features/drawers/vestidos-drawer/vestidos-drawer';
 import { AcessoriosDrawer } from '../../../features/drawers/acessorios-drawer/acessorios-drawer';
+import { BodysDrawer } from '../../../features/drawers/bodys-drawer/bodys-drawer';
+import { CalcasDrawer } from '../../../features/drawers/calcas-drawer/calcas-drawer';
+import { CamisetasDrawer } from '../../../features/drawers/camisetas-drawer/camisetas-drawer';
+import { CroppedsDrawer } from '../../../features/drawers/croppeds-drawer/croppeds-drawer';
+import { SaiasDrawer } from '../../../features/drawers/saias-drawer/saias-drawer';
 
 const DRAWER_COMPONENTS: Record<string, any> = {
   [DrawerType.VESTIDOS]: VestidosDrawer,
   [DrawerType.ACESSORIOS]: AcessoriosDrawer,
+  [DrawerType.BODYS]: BodysDrawer,
+  [DrawerType.CALCAS]: CalcasDrawer,
+  [DrawerType.CAMISETAS]: CamisetasDrawer,
+  [DrawerType.CROPPEDS]: CroppedsDrawer,
+  [DrawerType.SAIAS]: SaiasDrawer,
 };
 
 @Component({
