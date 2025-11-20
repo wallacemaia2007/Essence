@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-generic-drawer-component',
@@ -9,4 +10,11 @@ import { Component, Input } from '@angular/core';
 export class GenericDrawerContentComponent {
   @Input() title: string = '';
   @Input() categories: DrawerCategory[] = [];
+
+  constructor(private router: Router) {}
+
+
+  youtube(){
+    this.router.navigate(['https://www.youtube.com/']);
+  }
 }

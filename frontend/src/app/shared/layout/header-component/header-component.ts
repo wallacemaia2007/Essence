@@ -13,7 +13,6 @@ import { DrawerType } from '../../../core/types/drawers-types';
   styleUrl: './header-component.scss',
 })
 export class HeaderComponent {
-
   constructor(private router: Router, private drawerService: DrawerService) {}
 
   categories = [
@@ -28,13 +27,14 @@ export class HeaderComponent {
 
   cartItemCount = 1;
 
-  onSearch() {
-  }
+  onSearch() {}
 
   onFavorites() {
+    this.router.navigate(['/favoritos']);
   }
 
   onCart() {
+    this.router.navigate(['/carrinho']);
   }
 
   home() {
@@ -43,7 +43,13 @@ export class HeaderComponent {
 
   openDrawer(categoryName: string) {
     this.drawerService.open(categoryName);
-    
+  }
+
+  news() {
+    this.router.navigate(['/novidades']);
+  }
+
+  products() {
+    this.router.navigate(['/produtos']);
   }
 }
-
