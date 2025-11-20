@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { DrawerService } from '../../../core/services/drawer-service';
+import { DrawerType } from '../../../core/types/drawers-types';
 
 @Component({
   selector: 'app-header-component',
@@ -12,16 +14,14 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private drawerService: DrawerService) {}
 
   categories = [
-    { name: 'Novidades', link: '/novidades' },
-    { name: 'Vestidos', link: '/vestidos' },
-    { name: 'Tops', link: '/tops' },
-    { name: 'Croppeds', link: '/croppeds' },
-    { name: 'Casacos', link: '/casacos' },
-    { name: 'Acessórios', link: '/acessorios' },
-    { name: 'Ofertas', link: '/ofertas' }
+    DrawerType.VESTIDOS,
+    DrawerType.ACESSORIOS,
+    DrawerType.CROPPEDS,
+    DrawerType.CAMISETAS,
+    DrawerType.CALCAS,
   ];
 
   cartItemCount = 1;
@@ -37,6 +37,11 @@ export class HeaderComponent {
 
   home() {
     this.router.navigate(['/']);
+  }
+
+  openDrawer(categoryName: string) {
+    this.drawerService.open(categoryName);
+    
   }
 }
 

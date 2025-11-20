@@ -1,0 +1,5 @@
+<p-drawer [(visible)]="visible" [position]="'left'" [modal]="true" [style]="{ width: '500px', background: '#f9f9f9' }"
+  (onHide)="onClose()">
+  <ng-template pTemplate="header" ></ng-template>
+  <ng-container #dynamicContainer></ng-container>
+</p-drawer>
