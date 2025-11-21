@@ -1,0 +1,71 @@
+<div class="w-full bg-white">
+
+  <div class="border-b border-gray-200 bg-white py-3">
+    <div class="mx-auto max-w-7xl px-6">
+      <nav class="flex items-center gap-2 text-sm">
+        <a href="/" class="text-gray-600 hover:text-gray-900 transition-colors">Início</a>
+        <span class="text-gray-300">•</span>
+        <a href="/loja" class="text-gray-600 hover:text-gray-900 transition-colors">Loja</a>
+      </nav>
+    </div>
+    <div class="border-b border-gray-200 bg-white py-8">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <h1 class="text-2xl font-semibold tracking-wide text-gray-900">Produtos</h1>
+            <p class="mt-1 text-sm text-gray-500">{{ allProducts.length }} produtos</p>
+          </div>
+          <button
+            class="flex items-center gap-2 whitespace-nowrap border border-gray-900 px-6 py-2 text-sm font-semibold text-gray-900 transition-all hover:bg-gray-900 hover:text-white">
+            <i class="pi pi-sliders-v"></i>
+            FILTRAR E ORDENAR
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      @if (allProducts.length > 0) {
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6">
+        @for (product of allProducts; track product.id) {
+        <div class="group flex flex-col transition-transform duration-300 hover:-translate-y-1">
+          <div class="relative mb-3 overflow-hidden bg-gray-100">
+            <button
+              class="absolute left-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-gray-400 transition-all hover:scale-110 hover:bg-white"
+              [class.text-red-500]="isFavorite(product.id)" (click)="onToggleFavorite(product)">
+              <i class="pi" [ngClass]="isFavorite(product.id) ? 'pi-heart-fill' : 'pi-heart'"></i>
+            </button>
+            <img [src]="product.imageUrl" [alt]="product.name"
+              class="aspect-square w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+              loading="lazy" />
+          </div>
+
+          <div class="flex flex-1 flex-col justify-between">
+            <p class="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">{{ product.category }}</p>
+            <h3 class="mb-3 line-clamp-2 text-sm font-medium leading-tight text-gray-900">
+              {{ product.name }}
+            </h3>
+
+            <div>
+              <div class="mb-1 flex items-baseline gap-2">
+                <span class="text-lg font-bold text-gray-900">
+                  R$ {{ product.price | number:'1.2-2' }}
+                </span>
+              </div>
+              <p class="text-xs text-gray-500">
+                2x de R$ {{ (product.price / 2) | number:'1.2-2' }}*
+              </p>
+            </div>
+          </div>
+
+        </div>
+        }
+      </div>
+      } @else {
+      <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-400">
+        <i class="pi pi-inbox mb-4 text-4xl opacity-50"></i>
+        <p class="text-lg">Nenhum produto encontrado</p>
+      </div>
+      }
+    </div>
+
+  </div>

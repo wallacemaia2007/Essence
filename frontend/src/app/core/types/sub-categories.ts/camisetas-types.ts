@@ -4,7 +4,7 @@ export enum CamisetasTypes {
     OVERSIZED = 'Oversized',
     CROPPED = 'Cropped',
     MALHA = 'Malha',
-    TIE_DYE = 'Tie_Dye',
+    TIE_DYE = 'Tie Dye',
     BORDADO = 'Bordado',
-    PLUS_SIZE = 'Plus_Size',
+    PLUS_SIZE = 'Plus Size',
 }

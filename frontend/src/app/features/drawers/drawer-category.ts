@@ -1,0 +1,3 @@
+interface DrawerCategory {
+  name: string;
+}

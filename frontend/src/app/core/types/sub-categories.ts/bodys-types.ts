@@ -5,5 +5,5 @@ export enum BodysTypes {
     MANGA = 'Manga',
     ESTAMPA = 'Estampa',
     CROCHE = 'Croche',
-    PLUS_SIZE = 'Plus_Size',
+    PLUS_SIZE = 'Plus Size',
 }

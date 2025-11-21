@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DrawerService } from '../../../core/services/drawer-service';
-import { DrawerType } from '../../../core/types/drawers-types';
+import { CategoriesTypes } from '../../../core/types/categories-types';
 
 @Component({
   selector: 'app-header-component',
@@ -16,13 +16,13 @@ export class HeaderComponent {
   constructor(private router: Router, private drawerService: DrawerService) {}
 
   categories = [
-    DrawerType.VESTIDOS,
-    DrawerType.ACESSORIOS,
-    DrawerType.CROPPEDS,
-    DrawerType.CAMISETAS,
-    DrawerType.CALCAS,
-    DrawerType.SAIAS,
-    DrawerType.BODYS,
+    CategoriesTypes.VESTIDOS,
+    CategoriesTypes.ACESSORIOS,
+    CategoriesTypes.CROPPEDS,
+    CategoriesTypes.CAMISETAS,
+    CategoriesTypes.CALCAS,
+    CategoriesTypes.SAIAS,
+    CategoriesTypes.BODYS,
   ];
 
   cartItemCount = 1;
@@ -50,6 +50,6 @@ export class HeaderComponent {
   }
 
   products() {
-    this.router.navigate(['/produtos']);
+    this.router.navigate(['/loja']);
   }
 }

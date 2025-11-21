@@ -1,3 +1,13 @@
+import { AcessoriosTypes } from '../../core/types/sub-categories.ts/acessorios-types';
+import { BodysTypes } from '../../core/types/sub-categories.ts/bodys-types';
+import { CalcadosTypes } from '../../core/types/sub-categories.ts/calcados-types';
+import { CalcasTypes } from '../../core/types/sub-categories.ts/calcas-types';
+import { CamisetasTypes } from '../../core/types/sub-categories.ts/camisetas-types';
+import { CroppedsTypes } from '../../core/types/sub-categories.ts/croppeds-types';
+import { SaiasTypes } from '../../core/types/sub-categories.ts/saias-types';
+import { VestidosTypes } from '../../core/types/sub-categories.ts/vestidos-types';
+import { EnumUtils } from './enum.util';
+
 export interface DrawerConfig {
   title: string;
   categories: { name: string }[];
@@ -6,114 +16,34 @@ export interface DrawerConfig {
 export const DRAWER_CONFIGS: Record<string, DrawerConfig> = {
   vestidos: {
     title: 'Vestidos',
-    categories: [
-      { name: 'Vestidos Casuais' },
-      { name: 'Vestidos Longos' },
-      { name: 'Vestidos Curtos' },
-      { name: 'Vestidos de Festa' },
-      { name: 'Vestidos de Verão' },
-      { name: 'Vestidos de Inverno' },
-      { name: 'Vestidos Midi' },
-      { name: 'Vestidos Justos' },
-      { name: 'Vestidos Soltos' },
-    ],
+    categories: EnumUtils.enumToArray(VestidosTypes),
   },
-
   acessorios: {
     title: 'Acessórios',
-    categories: [
-      { name: 'Bolsas' },
-      { name: 'Cintos' },
-      { name: 'Chapéus' },
-      { name: 'Óculos de Sol' },
-      { name: 'Joias' },
-      { name: 'Lenços' },
-      { name: 'Relógios' },
-      { name: 'Carteiras' },
-    ],
+    categories: EnumUtils.enumToArray(AcessoriosTypes),
   },
-
   croppeds: {
     title: 'Cropped',
-    categories: [
-      { name: 'Cropped Básico' },
-      { name: 'Cropped de Malha' },
-      { name: 'Cropped de Algodão' },
-      { name: 'Cropped com Estampa' },
-      { name: 'Cropped de Renda' },
-      { name: 'Cropped de Tricô' },
-      { name: 'Cropped com Amarração' },
-      { name: 'Cropped Plus Size' },
-    ],
+    categories: EnumUtils.enumToArray(CroppedsTypes),
   },
-
   camisetas: {
     title: 'Camisetas',
-    categories: [
-      { name: 'Camiseta Básica' },
-      { name: 'Camiseta Estampada' },
-      { name: 'Camiseta Oversized' },
-      { name: 'Camiseta Cropped' },
-      { name: 'Camiseta Tie-Dye' },
-      { name: 'Camiseta com Bordado' },
-      { name: 'Camiseta Plus Size' },
-    ],
+    categories: EnumUtils.enumToArray(CamisetasTypes),
   },
-
   calcas: {
     title: 'Calças',
-    categories: [
-      { name: 'Calça Jeans' },
-      { name: 'Calça de Alfaiataria' },
-      { name: 'Calça Cargo' },
-      { name: 'Calça Legging' },
-      { name: 'Calça Pantacourt' },
-      { name: 'Calça Flare' },
-      { name: 'Calça Wide Leg' },
-      { name: 'Calça Jogger' },
-      { name: 'Calça Moletom' },
-    ],
+    categories: EnumUtils.enumToArray(CalcasTypes),
   },
-
   saias: {
     title: 'Saias',
-    categories: [
-      { name: 'Saia Jeans' },
-      { name: 'Saia Midi' },
-      { name: 'Saia Longa' },
-      { name: 'Saia Plissada' },
-      { name: 'Saia Evasê' },
-      { name: 'Saia Lápis' },
-      { name: 'Saia de Couro' },
-      { name: 'Saia Plus Size' },
-    ],
+    categories: EnumUtils.enumToArray(SaiasTypes),
   },
-
   bodys: {
     title: 'Bodys',
-    categories: [
-      { name: 'Body Básico/Camisa' },
-      { name: 'Body com Saia' },
-      { name: 'Body com Babados' },
-      { name: 'Body com Manga' },
-      { name: 'Body com Gola' },
-      { name: 'Body com Estampa' },
-      { name: 'Body de Crochê' },
-      { name: 'Body Plus Size' },
-    ],
+    categories: EnumUtils.enumToArray(BodysTypes),
   },
-
   calçados: {
     title: 'Calçados',
-    categories: [
-      { name: 'Sandálias' },
-      { name: 'Tênis' },
-      { name: 'Botas' },
-      { name: 'Sapatilhas' },
-      { name: 'Saltos Altos' },
-      { name: 'Chinelos' },
-      { name: 'Mocassins' },
-      { name: 'Rasteirinhas' },
-    ],
+    categories: EnumUtils.enumToArray(CalcadosTypes),
   },
 };
