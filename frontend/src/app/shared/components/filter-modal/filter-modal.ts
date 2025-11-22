@@ -22,6 +22,14 @@ export class FilterModalComponent implements OnInit {
   visible = false;
   tempFilters: FilterOptions = {};
 
+  expandedSections = {
+    category: true,
+    price: true,
+    size: false,
+    color: false,
+    sort: false
+  };
+
   categories = [
     { label: 'Vestidos', value: 'vestidos' },
     { label: 'Acessórios', value: 'acessorios' },
@@ -69,20 +77,40 @@ export class FilterModalComponent implements OnInit {
     this.selectedSizes = current.sizes || [];
     this.selectedColors = current.colors || [];
   }
+
   openModal(): void {
     this.visible = true;
   }
+
   closeModal(): void {
     this.visible = false;
     this.modalClosed.emit();
   }
+
+  toggleFilterSection(section: keyof typeof this.expandedSections): void {
+    this.expandedSections[section] = !this.expandedSections[section];
+  }
+
+  setSortOption(value: string): void {
+    const validSortOptions: Array<'popular' | 'price-low' | 'price-high' | 'newest'> = [
+      'popular',
+      'price-low',
+      'price-high',
+      'newest'
+    ];
+
+    if (validSortOptions.includes(value as any)) {
+      this.tempFilters.sortBy = value as FilterOptions['sortBy'];
+    }
+  }
+
   applyFilters(): void {
     const filters: FilterOptions = {
       category: this.tempFilters.category,
       subcategory: this.tempFilters.subcategory,
       minPrice: this.priceRange[0],
       maxPrice: this.priceRange[1],
-      sortBy: this.tempFilters.sortBy as FilterOptions['sortBy'],
+      sortBy: this.tempFilters.sortBy,
       sizes: this.selectedSizes.length > 0 ? this.selectedSizes : undefined,
       colors: this.selectedColors.length > 0 ? this.selectedColors : undefined,
       inStock: this.tempFilters.inStock,
@@ -134,5 +162,31 @@ export class FilterModalComponent implements OnInit {
     return this.selectedColors.includes(color);
   }
 
+  getFilterCount(): number {
+    let count = 0;
+    if (this.tempFilters.category) count++;
+    if (this.selectedSizes.length > 0) count++;
+    if (this.selectedColors.length > 0) count++;
+    if (this.priceRange[0] > this.minPrice || this.priceRange[1] < this.maxPrice) count++;
+    if (this.tempFilters.sortBy) count++;
+    return count;
+  }
 
+  hasActiveFilters(): boolean {
+    return this.getFilterCount() > 0;
+  }
+  getIconForSort(value: string): string {
+    const iconMap: { [key: string]: string } = {
+      'popular': 'pi-star',
+      'price-low': 'pi-arrow-up',
+      'price-high': 'pi-arrow-down',
+      'newest': 'pi-calendar'
+    };
+    return `pi ${iconMap[value] || 'pi-sort-alt'}`;
+  }
+
+  getSortLabel(value: string): string {
+    const option = this.sortOptions.find(opt => opt.value === value);
+    return option ? option.label : 'Padrão';
+  }
 }

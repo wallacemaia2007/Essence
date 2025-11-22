@@ -1,94 +1,127 @@
-<!-- Botão que abre o modal -->
-<button (click)="openModal()"
-  class="flex items-center gap-2 whitespace-nowrap border border-gray-900 px-6 py-2 text-sm font-semibold text-gray-900 transition-all hover:bg-gray-900 hover:text-white">
-  <i class="pi pi-sliders-v "></i>
-  FILTRAR E ORDENAR
+<button (click)="openModal()" class="px-6 py-3 flex items-center gap-2 rounded-lg border border-black text-black font-semibold 
+     hover:bg-black hover:text-white transition">
+  <i class="pi pi-sliders-v"></i> Filtrar & Ordenar
 </button>
 
-<!-- Modal -->
-<p-dialog [(visible)]="visible" [modal]="true"
-  [style]="{ width: '100%', maxWidth: '500px', height: '90vh', overflowY: 'auto', padding: '1rem', borderRadius: '0.5rem', boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)', border: '1px solid #e5e7eb', backgroundColor: '#ffffff',
-   }"
-  [draggable]="false" (onHide)="closeModal()" [showHeader]="true">
-  <div class="space-y-6">
+<p-dialog [(visible)]="visible"  [modal]="true" [draggable]="false" (onHide)="closeModal()" styleClass="filter-modal"
+  [style]="{ width: '100%', maxWidth: '600px' , height: '100%', maxHeight: '90vh' , padding: '0' , borderRadius: '8px' , boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' , overflow: 'hidden' , display: 'flex', flexDirection: 'column' , backgroundColor: '#f9f9f9' }">
 
-    <!-- SEÇÃO: CATEGORIA -->
-    <div class="border-b border-gray-200 pb-6">
-      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Categoria</h3>
-      <div class="space-y-3">
-        <div *ngFor="let cat of categories" class="flex items-center">
-          <input type="radio" [id]="'cat-' + cat.value" [value]="cat.value" [(ngModel)]="tempFilters.category"
-            class="h-4 w-4 rounded border-gray-300" />
-          <label [for]="'cat-' + cat.value" class="ml-3 text-sm text-gray-700">
-            {{ cat.label }}
-          </label>
-        </div>
+  <div class="px-6 py-5 border-b bg-white flex items-center justify-between">
+    <h2 class="text-lg font-bold text-black flex items-center gap-3">
+      <i class="pi pi-sliders-v text-cyan-600"></i>
+      Filtrar Produtos
+    </h2>
+
+    <button (click)="closeModal()" class="p-2 rounded hover:bg-gray-200 transition">
+      <i class="pi pi-times text-black"></i>
+    </button>
+  </div>
+
+  <div class="px-6 py-4 max-h-[70vh] overflow-y-auto">
+
+    <div class="mb-4">
+      <button (click)="toggleFilterSection('category')"
+        class="w-full px-4 py-3 border rounded-lg flex justify-between items-center">
+        <span class="font-semibold text-black">Categoria</span>
+        <i class="pi" [class]="expandedSections.category ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+      </button>
+
+      <div *ngIf="expandedSections.category" class="mt-2 pl-3 border-l-2 border-cyan-600">
+        @for (cat of categories; track $index) {
+        <label class="flex gap-2 py-2 cursor-pointer">
+          <input type="radio" [value]="cat.value" [(ngModel)]="tempFilters.category" />
+          <span>{{ cat.label }}</span>
+        </label>
+        }
       </div>
     </div>
 
-    <!-- SEÇÃO: PREÇO -->
-    <div class="border-b border-gray-200 pb-6">
-      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Preço</h3>
-      <div class="space-y-4">
+    <div class="mb-4">
+      <button (click)="toggleFilterSection('price')"
+        class="w-full px-4 py-3 border rounded-lg flex justify-between items-center">
+        <span class="font-semibold text-black">Faixa de Preço</span>
+        <i class="pi" [class]="expandedSections.price ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+      </button>
+
+      <div *ngIf="expandedSections.price" class="mt-3 pl-3 border-l-2 border-cyan-600">
         <p-slider [ngModel]="priceRange" (ngModelChange)="priceRange = $event" [range]="true" [min]="minPrice"
-          [max]="maxPrice" [step]="10" class="w-full"></p-slider>
-        <div class="flex justify-between text-sm text-gray-600">
-          <span>R$ {{ priceRange[0] | number:'1.2-2' }}</span>
-          <span>R$ {{ priceRange[1] | number:'1.2-2' }}</span>
+          [max]="maxPrice">
+        </p-slider>
+
+        <div class="flex justify-between mt-3 text-sm">
+          <span>Min: R$ {{ priceRange[0] }}</span>
+          <span>Max: R$ {{ priceRange[1] }}</span>
         </div>
       </div>
     </div>
 
-    <!-- SEÇÃO: TAMANHOS -->
-    <div class="border-b border-gray-200 pb-6">
-      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Tamanho</h3>
-      <div class="grid grid-cols-3 gap-2">
-        <button *ngFor="let size of sizes" (click)="toggleSize(size)" [class.bg-gray-900]="isSizeSelected(size)"
-          [class.text-white]="isSizeSelected(size)" [class.border-gray-900]="isSizeSelected(size)"
-          [class.bg-white]="!isSizeSelected(size)" [class.text-gray-700]="!isSizeSelected(size)"
-          [class.border-gray-300]="!isSizeSelected(size)"
-          class="rounded border py-2 text-sm font-medium transition-all">
+    <div class="mb-4">
+      <button (click)="toggleFilterSection('size')"
+        class="w-full px-4 py-3 border rounded-lg flex justify-between items-center">
+        <span class="font-semibold text-black">Tamanho</span>
+        <i class="pi" [class]="expandedSections.size ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+      </button>
+
+      <div *ngIf="expandedSections.size" class="grid grid-cols-4 gap-2 mt-3">
+        @for (size of sizes; track $index) {
+        <button (click)="toggleSize(size)" class="py-2 rounded border text-sm transition"
+          [class.bg-cyan-600]="isSizeSelected(size)" [class.text-white]="isSizeSelected(size)"
+          [class.border-cyan-600]="isSizeSelected(size)">
           {{ size }}
         </button>
+        }
       </div>
     </div>
 
-    <!-- SEÇÃO: CORES -->
-    <div class="border-b border-gray-200 pb-6">
-      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Cor</h3>
-      <div class="grid grid-cols-2 gap-3">
-        <button *ngFor="let color of colors" (click)="toggleColor(color.value)"
-          [class.ring-2]="isColorSelected(color.value)" [class.ring-gray-900]="isColorSelected(color.value)"
-          class="flex items-center gap-2 rounded border border-gray-300 px-3 py-2 text-sm transition-all hover:border-gray-900">
-          <div class="h-4 w-4 rounded-full border border-gray-300" [style.backgroundColor]="color.value">
-          </div>
+    <div class="mb-4">
+      <button (click)="toggleFilterSection('color')"
+        class="w-full px-4 py-3 border rounded-lg flex justify-between items-center">
+        <span class="font-semibold text-black">Cor</span>
+        <i class="pi" [class]="expandedSections.color ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+      </button>
+
+      <div *ngIf="expandedSections.color" class="grid grid-cols-3 gap-3 mt-3">
+        @for (color of colors; track $index) {
+        <button (click)="toggleColor(color.value)"
+          class="flex items-center gap-2 px-3 py-2 border rounded text-sm transition"
+          [class.border-cyan-600]="isColorSelected(color.value)" [class.bg-cyan-50]="isColorSelected(color.value)">
+          <div class="h-4 w-4 rounded-full" [style.backgroundColor]="color.value"></div>
           {{ color.label }}
         </button>
+        }
       </div>
     </div>
 
-    <!-- SEÇÃO: ORDENAÇÃO -->
-    <div class="pb-6">
-      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Ordenar Por</h3>
-      <div class="space-y-2">
-        <button *ngFor="let option of sortOptions" (click)="tempFilters.sortBy = $any(option.value)"
-          [class.bg-gray-100]="tempFilters.sortBy === option.value"
-          [class.text-gray-900]="tempFilters.sortBy === option.value"
-          [class.font-semibold]="tempFilters.sortBy === option.value"
-          class="w-full rounded border border-gray-300 px-4 py-2 text-left text-sm text-gray-700 transition-all hover:border-gray-900">
+    <div class="mb-4">
+      <button (click)="toggleFilterSection('sort')"
+        class="w-full px-4 py-3 border rounded-lg flex justify-between items-center">
+        <span class="font-semibold text-black">Ordenar Por</span>
+        <i class="pi" [class]="expandedSections.sort ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+      </button>
+
+      <div *ngIf="expandedSections.sort" class="grid grid-cols-2 gap-2 mt-3">
+        @for (option of sortOptions; track $index) {
+        <button (click)="setSortOption(option.value)" class="p-3 border rounded text-sm"
+          [class.bg-cyan-600]="tempFilters.sortBy === option.value"
+          [class.text-white]="tempFilters.sortBy === option.value">
           {{ option.label }}
         </button>
+        }
       </div>
     </div>
 
   </div>
 
-  <!-- Footer do Modal -->
-  <ng-template pTemplate="footer">
-    <div class="flex gap-3">
-      <button (click)="resetFilters()" pButton type="button" label="Limpar Filtros" class="p-button-outlined"></button>
-      <button (click)="applyFilters()" pButton type="button" label="Aplicar Filtros" class="ml-auto"></button>
-    </div>
-  </ng-template>
+  <div class="px-6 py-4 border-t flex gap-3 bg-white">
+    <button (click)="resetFilters()"
+      class="w-1/2 py-3 border border-black rounded font-semibold hover:bg-gray-200 transition">
+      Limpar
+    </button>
+
+    <button (click)="applyFilters()"
+      class="w-1/2 py-3 rounded bg-black text-white font-semibold hover:bg-cyan-700 hover:text-white transition">
+      Aplicar
+    </button>
+  </div>
 
 </p-dialog>
