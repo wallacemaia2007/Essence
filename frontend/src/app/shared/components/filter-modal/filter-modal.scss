@@ -1,0 +1,30 @@
+// Customizações do modal com PrimeNG
+:deep(.p-dialog) {
+  .p-dialog-header {
+    @apply border-b border-gray-200 bg-white p-4;
+  }
+
+  .p-dialog-content {
+    @apply bg-white p-6;
+  }
+
+  .p-dialog-footer {
+    @apply border-t border-gray-200 bg-gray-50 p-4;
+  }
+}
+
+:deep(.p-dropdown) {
+  .p-dropdown-trigger {
+    @apply bg-white;
+  }
+}
+
+:deep(.p-slider) {
+  .p-slider-handle {
+    @apply bg-gray-900;
+  }
+
+  .p-slider-range {
+    @apply bg-gray-900;
+  }
+}

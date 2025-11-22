@@ -1,0 +1,94 @@
+<!-- Botão que abre o modal -->
+<button (click)="openModal()"
+  class="flex items-center gap-2 whitespace-nowrap border border-gray-900 px-6 py-2 text-sm font-semibold text-gray-900 transition-all hover:bg-gray-900 hover:text-white">
+  <i class="pi pi-sliders-v "></i>
+  FILTRAR E ORDENAR
+</button>
+
+<!-- Modal -->
+<p-dialog [(visible)]="visible" [modal]="true"
+  [style]="{ width: '100%', maxWidth: '500px', height: '90vh', overflowY: 'auto', padding: '1rem', borderRadius: '0.5rem', boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)', border: '1px solid #e5e7eb', backgroundColor: '#ffffff',
+   }"
+  [draggable]="false" (onHide)="closeModal()" [showHeader]="true">
+  <div class="space-y-6">
+
+    <!-- SEÇÃO: CATEGORIA -->
+    <div class="border-b border-gray-200 pb-6">
+      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Categoria</h3>
+      <div class="space-y-3">
+        <div *ngFor="let cat of categories" class="flex items-center">
+          <input type="radio" [id]="'cat-' + cat.value" [value]="cat.value" [(ngModel)]="tempFilters.category"
+            class="h-4 w-4 rounded border-gray-300" />
+          <label [for]="'cat-' + cat.value" class="ml-3 text-sm text-gray-700">
+            {{ cat.label }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO: PREÇO -->
+    <div class="border-b border-gray-200 pb-6">
+      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Preço</h3>
+      <div class="space-y-4">
+        <p-slider [ngModel]="priceRange" (ngModelChange)="priceRange = $event" [range]="true" [min]="minPrice"
+          [max]="maxPrice" [step]="10" class="w-full"></p-slider>
+        <div class="flex justify-between text-sm text-gray-600">
+          <span>R$ {{ priceRange[0] | number:'1.2-2' }}</span>
+          <span>R$ {{ priceRange[1] | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO: TAMANHOS -->
+    <div class="border-b border-gray-200 pb-6">
+      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Tamanho</h3>
+      <div class="grid grid-cols-3 gap-2">
+        <button *ngFor="let size of sizes" (click)="toggleSize(size)" [class.bg-gray-900]="isSizeSelected(size)"
+          [class.text-white]="isSizeSelected(size)" [class.border-gray-900]="isSizeSelected(size)"
+          [class.bg-white]="!isSizeSelected(size)" [class.text-gray-700]="!isSizeSelected(size)"
+          [class.border-gray-300]="!isSizeSelected(size)"
+          class="rounded border py-2 text-sm font-medium transition-all">
+          {{ size }}
+        </button>
+      </div>
+    </div>
+
+    <!-- SEÇÃO: CORES -->
+    <div class="border-b border-gray-200 pb-6">
+      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Cor</h3>
+      <div class="grid grid-cols-2 gap-3">
+        <button *ngFor="let color of colors" (click)="toggleColor(color.value)"
+          [class.ring-2]="isColorSelected(color.value)" [class.ring-gray-900]="isColorSelected(color.value)"
+          class="flex items-center gap-2 rounded border border-gray-300 px-3 py-2 text-sm transition-all hover:border-gray-900">
+          <div class="h-4 w-4 rounded-full border border-gray-300" [style.backgroundColor]="getColorValue(color.value)">
+          </div>
+          {{ color.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- SEÇÃO: ORDENAÇÃO -->
+    <div class="pb-6">
+      <h3 class="mb-4 text-sm font-semibold uppercase text-gray-900">Ordenar Por</h3>
+      <div class="space-y-2">
+        <button *ngFor="let option of sortOptions" (click)="tempFilters.sortBy = $any(option.value)"
+          [class.bg-gray-100]="tempFilters.sortBy === option.value"
+          [class.text-gray-900]="tempFilters.sortBy === option.value"
+          [class.font-semibold]="tempFilters.sortBy === option.value"
+          class="w-full rounded border border-gray-300 px-4 py-2 text-left text-sm text-gray-700 transition-all hover:border-gray-900">
+          {{ option.label }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer do Modal -->
+  <ng-template pTemplate="footer">
+    <div class="flex gap-3">
+      <button (click)="resetFilters()" pButton type="button" label="Limpar Filtros" class="p-button-outlined"></button>
+      <button (click)="applyFilters()" pButton type="button" label="Aplicar Filtros" class="ml-auto"></button>
+    </div>
+  </ng-template>
+
+</p-dialog>

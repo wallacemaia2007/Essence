@@ -1,36 +1,106 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StroreService } from './service/strore-service';
+import { FilterModalComponent } from '../../shared/components/filter-modal/filter-modal';
+import { MenuItem } from 'primeng/api';
+import { FilterOptions } from '../../core/types/filter-types';
+import { FilterService } from '../../core/services/filter-service';
 
 @Component({
   selector: 'app-strore-component',
-  imports: [CommonModule],
+  imports: [CommonModule, FilterModalComponent],
   templateUrl: './strore-component.html',
   styleUrls: ['./strore-component.scss'],
 })
 export class StroreComponent implements OnInit {
-  allProducts: Product[] = [];
+  @ViewChild(FilterModalComponent) filterModal!: FilterModalComponent;
+
+  allProducts: any[] = [];
+  filteredProducts: any[] = [];
   favorites: Set<string> = new Set();
 
-  constructor(private productService: StroreService, private router: Router) {}
+  // Filtros atuais
+  currentFilters: FilterOptions = {};
+
+  constructor(
+    private storeService: StroreService,
+    private filterService: FilterService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
+    
+    this.filterService.filterState$.subscribe((state) => {
+      this.currentFilters = state.filters;
+      this.applyFilters();
+    });
   }
 
   loadProducts(): void {
-    this.productService.getAllProducts().subscribe({
+    this.storeService.getAllProducts().subscribe({
       next: (products) => {
         this.allProducts = products;
-      },
-      error: (error) => {
-        console.error('Erro ao carregar produtos:', error);
+        this.applyFilters();
       },
     });
   }
 
-  onToggleFavorite(product: Product): void {
+  private applyFilters(): void {
+    let filtered = [...this.allProducts];
+
+    if (this.currentFilters.category) {
+      filtered = filtered.filter(
+        (p) => p.category.toLowerCase() === this.currentFilters.category?.toLowerCase()
+      );
+    }
+
+    if (this.currentFilters.minPrice) {
+      filtered = filtered.filter((p) => p.price >= this.currentFilters.minPrice!);
+    }
+    if (this.currentFilters.maxPrice) {
+      filtered = filtered.filter((p) => p.price <= this.currentFilters.maxPrice!);
+    }
+
+    if (this.currentFilters.sizes && this.currentFilters.sizes.length > 0) {
+      filtered = filtered.filter((p) =>
+        p.tamanho?.some((t: string) =>
+          this.currentFilters.sizes!.includes(t)
+        )
+      );
+    }
+
+    if (this.currentFilters.inStock !== undefined) {
+      filtered = filtered.filter((p) => p.inStock === this.currentFilters.inStock);
+    }
+
+    filtered = this.sortProducts(filtered);
+
+    this.filteredProducts = filtered;
+  }
+
+  private sortProducts(products: any[]): any[] {
+    const sorted = [...products];
+
+    switch (this.currentFilters.sortBy) {
+      case 'price-low':
+        return sorted.sort((a, b) => a.price - b.price);
+      case 'price-high':
+        return sorted.sort((a, b) => b.price - a.price);
+      case 'newest':
+        return sorted.sort(
+          (a, b) =>
+            new Date(b.createdDate || 0).getTime() -
+            new Date(a.createdDate || 0).getTime()
+        );
+      default:
+        return sorted;
+    }
+  }
+
+  onToggleFavorite(product: any): void {
     if (this.favorites.has(product.id)) {
       this.favorites.delete(product.id);
     } else {
@@ -42,7 +112,9 @@ export class StroreComponent implements OnInit {
     return this.favorites.has(productId);
   }
 
-  onProductClick(product: Product): void {
-    this.router.navigate(['/produto', product.id]);
+  onFiltersApplied(filters: FilterOptions): void {
+    
+    this.currentFilters = filters;
+    this.applyFilters();
   }
 }
