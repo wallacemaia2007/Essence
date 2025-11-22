@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StroreComponent } from './strore-component';
+import { StroreComponent } from './store-component';
 
 describe('StroreComponent', () => {
   let component: StroreComponent;

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { StroreService } from './store-service';
 
-import { StroreService } from './strore-service';
 
 describe('StroreService', () => {
   let service: StroreService;

@@ -6,7 +6,7 @@ import { CamisetasTypes } from '../../core/types/sub-categories.ts/camisetas-typ
 import { CroppedsTypes } from '../../core/types/sub-categories.ts/croppeds-types';
 import { SaiasTypes } from '../../core/types/sub-categories.ts/saias-types';
 import { VestidosTypes } from '../../core/types/sub-categories.ts/vestidos-types';
-import { EnumUtils } from './enum.util';
+import { EnumUtils } from '../../shared/utils/enum.util';
 
 export interface DrawerConfig {
   title: string;

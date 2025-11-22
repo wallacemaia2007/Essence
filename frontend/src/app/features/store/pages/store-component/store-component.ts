@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StroreService } from './service/strore-service';
-import { FilterModalComponent } from '../../shared/components/filter-modal/filter-modal';
-import { MenuItem } from 'primeng/api';
-import { FilterOptions } from '../../core/types/filter-types';
-import { FilterService } from '../../core/services/filter-service';
+import { StroreService } from '../../services/store-service';
+import { FilterModalComponent } from '../../../../shared/components/filter-modal/filter-modal';
+import { FilterOptions } from '../../../../core/types/filter-types';
+import { FilterService } from '../../../../core/services/filter-service';
 
 @Component({
-  selector: 'app-strore-component',
+  selector: 'app-store-component',
   imports: [CommonModule, FilterModalComponent],
-  templateUrl: './strore-component.html',
-  styleUrls: ['./strore-component.scss'],
+  templateUrl: './store-component.html',
+  styleUrls: ['./store-component.scss'],
 })
 export class StroreComponent implements OnInit {
   @ViewChild(FilterModalComponent) filterModal!: FilterModalComponent;

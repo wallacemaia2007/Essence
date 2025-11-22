@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './features/home-component/home-component';
-import { StroreComponent } from './features/strore-component/strore-component';
+import { HomeComponent } from './features/home/pages/home-component/home-component';
+import { StroreComponent } from './features/store/pages/store-component/store-component';
 import { CartComponent } from './features/cart-component/cart-component';
 import { FavoritesComponent } from './features/favorites-component/favorites-component';
 import { NewsComponent } from './features/news-component/news-component';

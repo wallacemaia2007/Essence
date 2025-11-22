@@ -60,7 +60,7 @@
         <button *ngFor="let color of colors" (click)="toggleColor(color.value)"
           [class.ring-2]="isColorSelected(color.value)" [class.ring-gray-900]="isColorSelected(color.value)"
           class="flex items-center gap-2 rounded border border-gray-300 px-3 py-2 text-sm transition-all hover:border-gray-900">
-          <div class="h-4 w-4 rounded-full border border-gray-300" [style.backgroundColor]="getColorValue(color.value)">
+          <div class="h-4 w-4 rounded-full border border-gray-300" [style.backgroundColor]="color.value">
           </div>
           {{ color.label }}
         </button>
