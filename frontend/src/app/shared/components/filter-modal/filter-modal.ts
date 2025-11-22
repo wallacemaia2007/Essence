@@ -6,7 +6,20 @@ import { ButtonModule } from 'primeng/button';
 import { SliderModule } from 'primeng/slider';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FilterService } from '../../../core/services/filter-service';
-import { FilterOptions } from '../../../core/types/filter-types';
+import {
+  FilterOptions,
+  CATEGORY_LABELS,
+  COLOR_LABELS,
+  SIZE_LABELS,
+} from '../../../core/types/filter-types';
+import { ColorTypes } from '../../../core/types/colors/colors-types';
+import { CategoriesTypes } from '../../../core/types/categories-types';
+import { SizeType } from '../../../core/types/size-types';
+
+interface FilterItem<T> {
+  label: string;
+  value: T;
+}
 
 @Component({
   selector: 'app-filter-modal',
@@ -27,46 +40,39 @@ export class FilterModalComponent implements OnInit {
     price: true,
     size: false,
     color: false,
-    sort: false
+    sort: false,
   };
 
-  categories = [
-    { label: 'Vestidos', value: 'vestidos' },
-    { label: 'Acessórios', value: 'acessorios' },
-    { label: 'Croppeds', value: 'croppeds' },
-    { label: 'Camisetas', value: 'camisetas' },
-    { label: 'Calças', value: 'calcas' },
-    { label: 'Saias', value: 'saias' },
-    { label: 'Bodys', value: 'bodys' },
-    { label: 'Calçados', value: 'calçados' },
-  ];
+  categories: FilterItem<CategoriesTypes>[] = Object.entries(CATEGORY_LABELS).map(
+    ([value, label]) => ({
+      label,
+      value: value as CategoriesTypes,
+    })
+  );
 
-  sizes = ['PP', 'P', 'M', 'G', 'GG', 'XG'];
+  sizes: FilterItem<SizeType>[] = Object.entries(SIZE_LABELS).map(([value, label]) => ({
+    label,
+    value: value as SizeType,
+  }));
 
-  colors = [
-    { label: 'Preto', value: '#000000' },
-    { label: 'Branco', value: '#FFFFFF' },
-    { label: 'Azul', value: '#0000FF' },
-    { label: 'Vermelho', value: '#FF0000' },
-    { label: 'Verde', value: '#008000' },
-    { label: 'Rosa', value: '#FFC0CB' },
-    { label: 'Amarelo', value: '#FFFF00' },
-    { label: 'Cinza', value: '#808080' },
-  ];
+  colors: FilterItem<ColorTypes>[] = Object.entries(COLOR_LABELS).map(([value, label]) => ({
+    label,
+    value: value as ColorTypes,
+  }));
 
   sortOptions = [
-    { label: 'Mais Popular', value: 'popular' },
-    { label: 'Menor Preço', value: 'price-low' },
-    { label: 'Maior Preço', value: 'price-high' },
-    { label: 'Mais Novo', value: 'newest' },
+    { label: 'Mais Popular', value: 'popular' as const },
+    { label: 'Menor Preço', value: 'price-low' as const },
+    { label: 'Maior Preço', value: 'price-high' as const },
+    { label: 'Mais Novo', value: 'newest' as const },
   ];
 
   priceRange: [number, number] = [0, 5000];
   maxPrice = 5000;
   minPrice = 0;
 
-  selectedSizes: string[] = [];
-  selectedColors: string[] = [];
+  selectedSizes: SizeType[] = [];
+  selectedColors: ColorTypes[] = [];
 
   constructor(private filterService: FilterService) {}
 
@@ -74,8 +80,8 @@ export class FilterModalComponent implements OnInit {
     const current = this.filterService.getFilters();
     this.tempFilters = { ...current };
     this.priceRange = [current.minPrice || 0, current.maxPrice || 5000];
-    this.selectedSizes = current.sizes || [];
-    this.selectedColors = current.colors || [];
+    this.selectedSizes = (current.sizes as SizeType[]) || [];
+    this.selectedColors = (current.colors as ColorTypes[]) || [];
   }
 
   openModal(): void {
@@ -96,7 +102,7 @@ export class FilterModalComponent implements OnInit {
       'popular',
       'price-low',
       'price-high',
-      'newest'
+      'newest',
     ];
 
     if (validSortOptions.includes(value as any)) {
@@ -136,7 +142,7 @@ export class FilterModalComponent implements OnInit {
     this.closeModal();
   }
 
-  toggleSize(size: string): void {
+  toggleSize(size: SizeType): void {
     const index = this.selectedSizes.indexOf(size);
     if (index > -1) {
       this.selectedSizes.splice(index, 1);
@@ -145,7 +151,7 @@ export class FilterModalComponent implements OnInit {
     }
   }
 
-  toggleColor(color: string): void {
+  toggleColor(color: ColorTypes): void {
     const index = this.selectedColors.indexOf(color);
     if (index > -1) {
       this.selectedColors.splice(index, 1);
@@ -154,11 +160,11 @@ export class FilterModalComponent implements OnInit {
     }
   }
 
-  isSizeSelected(size: string): boolean {
+  isSizeSelected(size: SizeType): boolean {
     return this.selectedSizes.includes(size);
   }
 
-  isColorSelected(color: string): boolean {
+  isColorSelected(color: ColorTypes): boolean {
     return this.selectedColors.includes(color);
   }
 
@@ -175,18 +181,19 @@ export class FilterModalComponent implements OnInit {
   hasActiveFilters(): boolean {
     return this.getFilterCount() > 0;
   }
+
   getIconForSort(value: string): string {
     const iconMap: { [key: string]: string } = {
-      'popular': 'pi-star',
+      popular: 'pi-star',
       'price-low': 'pi-arrow-up',
       'price-high': 'pi-arrow-down',
-      'newest': 'pi-calendar'
+      newest: 'pi-calendar',
     };
     return `pi ${iconMap[value] || 'pi-sort-alt'}`;
   }
 
   getSortLabel(value: string): string {
-    const option = this.sortOptions.find(opt => opt.value === value);
+    const option = this.sortOptions.find((opt) => opt.value === value);
     return option ? option.label : 'Padrão';
   }
 }
