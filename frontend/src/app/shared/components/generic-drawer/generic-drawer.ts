@@ -25,7 +25,7 @@ export class GenericDrawerComponent implements OnInit {
 
   ngOnInit(): void {
     this.drawerService.drawerState$.subscribe((state) => {
-      this.visible = state.isOpen;
+      this.visible = state. isOpen;
       this.currentDrawerType = state.type;
 
       if (state.isOpen && state.type) {
@@ -36,17 +36,19 @@ export class GenericDrawerComponent implements OnInit {
 
   private loadDrawerComponent(drawerType: string): void {
     this.dynamicContainer.clear();
-    const config = DRAWER_CONFIGS[drawerType];
+        const normalizedType = drawerType.toLowerCase(). trim();
+    const config = DRAWER_CONFIGS[normalizedType];
 
-    if (config) {
-      const componentRef = this.dynamicContainer.createComponent(GenericDrawerContentComponent);
-
-      componentRef.instance.title = config.title;
-      componentRef.instance.categories = config.categories;
+    if (! config) {
+      return;
     }
+    const componentRef = this.dynamicContainer.createComponent(GenericDrawerContentComponent);
+
+    componentRef.instance.title = config.title;
+    componentRef.instance.categories = config.categories;
   }
 
   onClose(): void {
-    this.drawerService.close();
+    this. drawerService.close();
   }
 }

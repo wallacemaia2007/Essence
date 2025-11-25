@@ -15,11 +15,17 @@ export class DrawerService {
 
   drawerState$ = this.drawerState.asObservable();
 
+  private normalizeDrawerType(drawerType: string): string {
+    return drawerType.toLowerCase().trim();
+  }
+
   open(drawerType: string): void {
-    this.drawerState.next({ isOpen: true, type: drawerType });
+    const normalizedType = this.normalizeDrawerType(drawerType);
+    console.log(`Abrindo drawer: ${drawerType} → ${normalizedType}`);
+    this.drawerState.next({ isOpen: true, type: normalizedType });
   }
 
   close(): void {
-    this.drawerState.next({ isOpen: false, type: null });
+    this. drawerState.next({ isOpen: false, type: null });
   }
 }

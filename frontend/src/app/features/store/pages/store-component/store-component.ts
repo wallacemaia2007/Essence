@@ -31,11 +31,8 @@ export class StoreComponent implements OnInit {
     this.storeService.getAllProducts().subscribe({
       next: (products) => {
         this.allProducts = products;
-        console.log('Produtos carregados:', this.allProducts.length);
-        
+
         this.route.queryParams.subscribe((params) => {
-          console.log('Query params:', params);
-          
           if (params['category'] || params['subcategory']) {
             this.applyQueryParamFilters(params);
           } else {
@@ -43,56 +40,35 @@ export class StoreComponent implements OnInit {
           }
         });
       },
-      error: (err) => console.error('Erro ao carregar produtos:', err)
     });
 
     this.filterService.filterState$.subscribe((state) => {
-      console.log('FilterService atualizado:', state.filters);
-      this.currentFilters = state.filters;
-      this.applyFilters();
+      if (Object.keys(state.filters).length > 0) {
+        this.currentFilters = state.filters;
+        this.applyFilters();
+      }
     });
   }
 
   private applyQueryParamFilters(params: any): void {
-    console.log('Aplicando filtros de query params...');
     let filtered = [...this.allProducts];
 
     const category = params['category'];
     const subcategory = params['subcategory'];
 
-    console.log('Filtrando por:', { category, subcategory });
-
     if (category) {
-      filtered = filtered.filter(p => 
-        p.category && p.category.toLowerCase() === category.toLowerCase()
+      filtered = filtered.filter(
+        (p) => p.category && p.category.toLowerCase() === category.toLowerCase()
       );
-      console.log(`Após filtro de categoria: ${filtered.length} produtos`);
     }
-
     if (subcategory) {
-      const subcategoryConverted = this.slugToSubcategory(subcategory);
-      console.log('Procurando subcategoria:', subcategoryConverted);
-      
-      filtered = filtered.filter(p => {
-        const match = p.subcategory && p.subcategory.toLowerCase() === subcategoryConverted.toLowerCase();
-        if (match) {
-          console.log('Produto encontrado:', p.name, 'Subcategoria:', p.subcategory);
-        }
+      filtered = filtered.filter((p) => {
+        const match = p.subcategory && p.subcategory.toLowerCase() === subcategory.toLowerCase();
         return match;
       });
-      
-      console.log(`Após filtro de subcategoria: ${filtered.length} produtos`);
     }
 
     this.filteredProducts = filtered;
-    console.log('Produtos finais a exibir:', filtered.length);
-  }
-
-  private slugToSubcategory(slug: string): string {
-    return slug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
   }
 
   private applyFilters(): void {
@@ -106,7 +82,9 @@ export class StoreComponent implements OnInit {
 
     if (this.currentFilters.subcategory) {
       filtered = filtered.filter(
-        (p) => p.subcategory && p.subcategory.toLowerCase() === this.currentFilters.subcategory?.toLowerCase()
+        (p) =>
+          p.subcategory &&
+          p.subcategory.toLowerCase() === this.currentFilters.subcategory?.toLowerCase()
       );
     }
 
@@ -120,18 +98,16 @@ export class StoreComponent implements OnInit {
 
     if (this.currentFilters.sizes && this.currentFilters.sizes.length > 0) {
       filtered = filtered.filter((p) =>
-        p.sizes?.some((t: string) =>
-          this.currentFilters.sizes!.includes(t)
-        )
+        p.sizes?.some((t: string) => this.currentFilters.sizes!.includes(t))
       );
     }
+
     if (this.currentFilters.colors && this.currentFilters.colors.length > 0) {
       filtered = filtered.filter((p) =>
         this.currentFilters.colors!.some((color: string) =>
           p.color.toLowerCase().includes(color.toLowerCase())
         )
       );
-      console.log(`Após filtro de cores: ${filtered.length} produtos`);
     }
 
     if (this.currentFilters.inStock !== undefined) {
@@ -143,7 +119,6 @@ export class StoreComponent implements OnInit {
     }
 
     filtered = this.sortProducts(filtered);
-
     this.filteredProducts = filtered;
   }
 
@@ -157,9 +132,7 @@ export class StoreComponent implements OnInit {
         return sorted.sort((a, b) => b.price - a.price);
       case 'newest':
         return sorted.sort(
-          (a, b) =>
-            new Date(b.createdDate || 0).getTime() -
-            new Date(a.createdDate || 0).getTime()
+          (a, b) => new Date(b.createdDate || 0).getTime() - new Date(a.createdDate || 0).getTime()
         );
       default:
         return sorted;

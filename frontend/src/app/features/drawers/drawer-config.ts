@@ -6,44 +6,58 @@ import { CamisetasTypes } from '../../core/types/sub-categories.ts/camisetas-typ
 import { CroppedsTypes } from '../../core/types/sub-categories.ts/croppeds-types';
 import { SaiasTypes } from '../../core/types/sub-categories.ts/saias-types';
 import { VestidosTypes } from '../../core/types/sub-categories.ts/vestidos-types';
-import { EnumUtils } from '../../shared/utils/enum.util';
 
 export interface DrawerConfig {
   title: string;
   categories: { name: string }[];
 }
 
+// Função para converter slug para label legível
+function slugToLabel(slug: string): string {
+  return slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+// Converter enums e adicionar labels legíveis
+function enumToDrawerCategories<T extends Record<string, string>>(enumObj: T): Array<{ name: string }> {
+  return Object.values(enumObj).map((value) => ({
+    name: slugToLabel(value), // Converte "manga-curta" → "Manga Curta"
+  }));
+}
+
 export const DRAWER_CONFIGS: Record<string, DrawerConfig> = {
   vestidos: {
     title: 'Vestidos',
-    categories: EnumUtils.enumToArray(VestidosTypes),
+    categories: enumToDrawerCategories(VestidosTypes),
   },
   acessorios: {
     title: 'Acessórios',
-    categories: EnumUtils.enumToArray(AcessoriosTypes),
+    categories: enumToDrawerCategories(AcessoriosTypes),
   },
   croppeds: {
     title: 'Cropped',
-    categories: EnumUtils.enumToArray(CroppedsTypes),
+    categories: enumToDrawerCategories(CroppedsTypes),
   },
   camisetas: {
     title: 'Camisetas',
-    categories: EnumUtils.enumToArray(CamisetasTypes),
+    categories: enumToDrawerCategories(CamisetasTypes),
   },
   calcas: {
     title: 'Calças',
-    categories: EnumUtils.enumToArray(CalcasTypes),
+    categories: enumToDrawerCategories(CalcasTypes),
   },
   saias: {
     title: 'Saias',
-    categories: EnumUtils.enumToArray(SaiasTypes),
+    categories: enumToDrawerCategories(SaiasTypes),
   },
   bodys: {
     title: 'Bodys',
-    categories: EnumUtils.enumToArray(BodysTypes),
+    categories: enumToDrawerCategories(BodysTypes),
   },
-  calçados: {
+  calcados: {
     title: 'Calçados',
-    categories: EnumUtils.enumToArray(CalcadosTypes),
+    categories: enumToDrawerCategories(CalcadosTypes),
   },
 };

@@ -1,10 +1,10 @@
 export enum SaiasTypes {
-  Jeans = 'Jeans',
-  Midi = 'Midi',
-  Longa = 'Longa',
-  Plissada = 'Plissada',
-  Evasê = 'Evasê',
-  Lápis = 'Lápis',
-  Couro = 'Couro',
-  PlusSize = 'Plus Size',
+  JEANS = 'Jeans',
+  MIDI = 'Midi',
+  LONGA = 'Longa',
+  PLISSADA = 'Plissada',
+  EVASÊ = 'Evasê',
+  LÁPIS = 'Lápis',
+  COURO = 'Couro',
+  PLUSSIZE = 'Plus Size',
 }

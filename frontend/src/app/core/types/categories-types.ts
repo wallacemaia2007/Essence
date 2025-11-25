@@ -1,4 +1,4 @@
-export enum CategoriesTypes{
+export enum CategoriesTypes {
   VESTIDOS = 'vestidos',
   ACESSORIOS = 'acessorios',
   CROPPEDS = 'croppeds',
@@ -6,5 +6,5 @@ export enum CategoriesTypes{
   CALCAS = 'calcas',
   SAIAS = 'saias',
   BODYS = 'bodys',
-  CALCADOS = 'calçados',
+  CALCADOS = 'calcados', 
 }
