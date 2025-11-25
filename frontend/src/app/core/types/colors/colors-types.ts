@@ -9,5 +9,8 @@ export enum ColorTypes {
   PURPLE = '#800080',
   PINK = '#FFC0CB',
   BROWN = '#A52A2A',
+  GOLD = '#FFD700',
+  GRAY = '#808080',
+  BEIGE = '#F5F5DC',
   
 }

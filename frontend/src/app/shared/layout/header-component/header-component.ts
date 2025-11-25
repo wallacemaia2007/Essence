@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DrawerService } from '../../../core/services/drawer-service';
 import { CategoriesTypes } from '../../../core/types/categories-types';
+import { StroreService } from '../../../features/store/services/store-service';
 
 @Component({
   selector: 'app-header-component',
@@ -13,7 +14,7 @@ import { CategoriesTypes } from '../../../core/types/categories-types';
   styleUrl: './header-component.scss',
 })
 export class HeaderComponent {
-  constructor(private router: Router, private drawerService: DrawerService) {}
+  constructor(private router: Router, private drawerService: DrawerService, private storeService: StroreService) {}
 
   categories = [
     CategoriesTypes.VESTIDOS,

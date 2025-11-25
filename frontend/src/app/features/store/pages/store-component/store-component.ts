@@ -12,14 +12,12 @@ import { FilterService } from '../../../../core/services/filter-service';
   templateUrl: './store-component.html',
   styleUrls: ['./store-component.scss'],
 })
-export class StroreComponent implements OnInit {
+export class StoreComponent implements OnInit {
   @ViewChild(FilterModalComponent) filterModal!: FilterModalComponent;
 
   allProducts: any[] = [];
   filteredProducts: any[] = [];
   favorites: Set<string> = new Set();
-
-  // Filtros atuais
   currentFilters: FilterOptions = {};
 
   constructor(
@@ -30,21 +28,71 @@ export class StroreComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadProducts();
-    
+    this.storeService.getAllProducts().subscribe({
+      next: (products) => {
+        this.allProducts = products;
+        console.log('Produtos carregados:', this.allProducts.length);
+        
+        this.route.queryParams.subscribe((params) => {
+          console.log('Query params:', params);
+          
+          if (params['category'] || params['subcategory']) {
+            this.applyQueryParamFilters(params);
+          } else {
+            this.applyFilters();
+          }
+        });
+      },
+      error: (err) => console.error('Erro ao carregar produtos:', err)
+    });
+
     this.filterService.filterState$.subscribe((state) => {
+      console.log('FilterService atualizado:', state.filters);
       this.currentFilters = state.filters;
       this.applyFilters();
     });
   }
 
-  loadProducts(): void {
-    this.storeService.getAllProducts().subscribe({
-      next: (products) => {
-        this.allProducts = products;
-        this.applyFilters();
-      },
-    });
+  private applyQueryParamFilters(params: any): void {
+    console.log('Aplicando filtros de query params...');
+    let filtered = [...this.allProducts];
+
+    const category = params['category'];
+    const subcategory = params['subcategory'];
+
+    console.log('Filtrando por:', { category, subcategory });
+
+    if (category) {
+      filtered = filtered.filter(p => 
+        p.category && p.category.toLowerCase() === category.toLowerCase()
+      );
+      console.log(`Após filtro de categoria: ${filtered.length} produtos`);
+    }
+
+    if (subcategory) {
+      const subcategoryConverted = this.slugToSubcategory(subcategory);
+      console.log('Procurando subcategoria:', subcategoryConverted);
+      
+      filtered = filtered.filter(p => {
+        const match = p.subcategory && p.subcategory.toLowerCase() === subcategoryConverted.toLowerCase();
+        if (match) {
+          console.log('Produto encontrado:', p.name, 'Subcategoria:', p.subcategory);
+        }
+        return match;
+      });
+      
+      console.log(`Após filtro de subcategoria: ${filtered.length} produtos`);
+    }
+
+    this.filteredProducts = filtered;
+    console.log('Produtos finais a exibir:', filtered.length);
+  }
+
+  private slugToSubcategory(slug: string): string {
+    return slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
 
   private applyFilters(): void {
@@ -56,23 +104,42 @@ export class StroreComponent implements OnInit {
       );
     }
 
+    if (this.currentFilters.subcategory) {
+      filtered = filtered.filter(
+        (p) => p.subcategory && p.subcategory.toLowerCase() === this.currentFilters.subcategory?.toLowerCase()
+      );
+    }
+
     if (this.currentFilters.minPrice) {
       filtered = filtered.filter((p) => p.price >= this.currentFilters.minPrice!);
     }
+
     if (this.currentFilters.maxPrice) {
       filtered = filtered.filter((p) => p.price <= this.currentFilters.maxPrice!);
     }
 
     if (this.currentFilters.sizes && this.currentFilters.sizes.length > 0) {
       filtered = filtered.filter((p) =>
-        p.tamanho?.some((t: string) =>
+        p.sizes?.some((t: string) =>
           this.currentFilters.sizes!.includes(t)
         )
       );
     }
+    if (this.currentFilters.colors && this.currentFilters.colors.length > 0) {
+      filtered = filtered.filter((p) =>
+        this.currentFilters.colors!.some((color: string) =>
+          p.color.toLowerCase().includes(color.toLowerCase())
+        )
+      );
+      console.log(`Após filtro de cores: ${filtered.length} produtos`);
+    }
 
     if (this.currentFilters.inStock !== undefined) {
       filtered = filtered.filter((p) => p.inStock === this.currentFilters.inStock);
+    }
+
+    if (this.currentFilters.rating) {
+      filtered = filtered.filter((p) => (p.rating || 0) >= this.currentFilters.rating!);
     }
 
     filtered = this.sortProducts(filtered);
@@ -112,7 +179,6 @@ export class StroreComponent implements OnInit {
   }
 
   onFiltersApplied(filters: FilterOptions): void {
-    
     this.currentFilters = filters;
     this.applyFilters();
   }

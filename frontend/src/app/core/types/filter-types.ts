@@ -64,4 +64,7 @@ export const COLOR_LABELS: Record<ColorTypes, string> = {
   [ColorTypes.PURPLE]: 'Roxo',
   [ColorTypes.PINK]: 'Rosa',
   [ColorTypes.BROWN]: 'Marrom',
+  [ColorTypes.GOLD]: 'Dourado',
+  [ColorTypes.GRAY]: 'Cinza',
+  [ColorTypes.BEIGE]: 'Bege',
 };

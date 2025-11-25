@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DrawerService } from '../../../core/services/drawer-service';
 
+interface DrawerCategory {
+  name: string;
+}
+
 @Component({
   selector: 'app-generic-drawer-component',
   standalone: true,
@@ -17,7 +21,18 @@ export class GenericDrawerContentComponent {
   constructor(private router: Router, private drawerService: DrawerService) {}
 
   onSubcategoryClick(subcategoryName: string): void {
-    const slug = subcategoryName.toLowerCase().replace(/\s+/g, '-').replace(/_/g, '-');
+    const slug = subcategoryName
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/_/g, '-')
+      .replace(/á/g, 'a')
+      .replace(/é/g, 'e')
+      .replace(/í/g, 'i')
+      .replace(/ó/g, 'o')
+      .replace(/ú/g, 'u')
+      .replace(/ã/g, 'a')
+      .replace(/õ/g, 'o')
+      .replace(/ç/g, 'c');
 
     this.router.navigate(['/loja'], {
       queryParams: {

@@ -12,7 +12,6 @@ import {
   COLOR_LABELS,
   SIZE_LABELS,
 } from '../../../core/types/filter-types';
-import { ColorTypes } from '../../../core/types/colors/colors-types';
 import { CategoriesTypes } from '../../../core/types/categories-types';
 import { SizeType } from '../../../core/types/size-types';
 
@@ -55,9 +54,9 @@ export class FilterModalComponent implements OnInit {
     value: value as SizeType,
   }));
 
-  colors: FilterItem<ColorTypes>[] = Object.entries(COLOR_LABELS).map(([value, label]) => ({
+  colors: FilterItem<string>[] = Object.entries(COLOR_LABELS).map(([value, label]) => ({
     label,
-    value: value as ColorTypes,
+    value: value as string,
   }));
 
   sortOptions = [
@@ -72,7 +71,7 @@ export class FilterModalComponent implements OnInit {
   minPrice = 0;
 
   selectedSizes: SizeType[] = [];
-  selectedColors: ColorTypes[] = [];
+  selectedColors: string[] = []; 
 
   constructor(private filterService: FilterService) {}
 
@@ -81,7 +80,7 @@ export class FilterModalComponent implements OnInit {
     this.tempFilters = { ...current };
     this.priceRange = [current.minPrice || 0, current.maxPrice || 5000];
     this.selectedSizes = (current.sizes as SizeType[]) || [];
-    this.selectedColors = (current.colors as ColorTypes[]) || [];
+    this.selectedColors = (current.colors as string[]) || []; 
   }
 
   openModal(): void {
@@ -118,7 +117,7 @@ export class FilterModalComponent implements OnInit {
       maxPrice: this.priceRange[1],
       sortBy: this.tempFilters.sortBy,
       sizes: this.selectedSizes.length > 0 ? this.selectedSizes : undefined,
-      colors: this.selectedColors.length > 0 ? this.selectedColors : undefined,
+      colors: this.selectedColors.length > 0 ? this.selectedColors : undefined, 
       inStock: this.tempFilters.inStock,
       rating: this.tempFilters.rating,
     };
@@ -151,7 +150,7 @@ export class FilterModalComponent implements OnInit {
     }
   }
 
-  toggleColor(color: ColorTypes): void {
+  toggleColor(color: string): void {
     const index = this.selectedColors.indexOf(color);
     if (index > -1) {
       this.selectedColors.splice(index, 1);
@@ -164,15 +163,15 @@ export class FilterModalComponent implements OnInit {
     return this.selectedSizes.includes(size);
   }
 
-  isColorSelected(color: ColorTypes): boolean {
-    return this.selectedColors.includes(color);
+  isColorSelectedByValue(colorValue: string): boolean {
+    return this.selectedColors.includes(colorValue);
   }
 
   getFilterCount(): number {
     let count = 0;
     if (this.tempFilters.category) count++;
     if (this.selectedSizes.length > 0) count++;
-    if (this.selectedColors.length > 0) count++;
+    if (this.selectedColors.length > 0) count++; 
     if (this.priceRange[0] > this.minPrice || this.priceRange[1] < this.maxPrice) count++;
     if (this.tempFilters.sortBy) count++;
     return count;
@@ -196,4 +195,5 @@ export class FilterModalComponent implements OnInit {
     const option = this.sortOptions.find((opt) => opt.value === value);
     return option ? option.label : 'Padrão';
   }
+
 }

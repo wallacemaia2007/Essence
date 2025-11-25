@@ -8,6 +8,7 @@ interface Product {
   sizes: string[];
   imageUrl: string;
   category: string;
+  subcategory: string;
   discount?: number;
   reviews?: number;
   inStock: boolean;

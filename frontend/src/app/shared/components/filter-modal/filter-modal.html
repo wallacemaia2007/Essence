@@ -1,9 +1,9 @@
 <button (click)="openModal()" class="px-6 py-3 flex items-center gap-2 rounded-lg border border-black text-black font-semibold 
-     hover:bg-black hover:text-white transition">
+     hover:bg-black hover:text-white transitio</button>n">
   <i class="pi pi-sliders-v"></i> Filtrar & Ordenar
 </button>
 
-<p-dialog [(visible)]="visible"  [modal]="true" [draggable]="false" (onHide)="closeModal()" styleClass="filter-modal"
+<p-dialog [(visible)]="visible" [modal]="true" [draggable]="false" (onHide)="closeModal()" styleClass="filter-modal"
   [style]="{ width: '100%', maxWidth: '600px' , height: '100%', maxHeight: '90vh' , padding: '0' , borderRadius: '8px' , boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' , overflow: 'hidden' , display: 'flex', flexDirection: 'column' , backgroundColor: '#f9f9f9' }">
 
   <div class="px-6 py-5 border-b bg-white flex items-center justify-between">
@@ -11,7 +11,6 @@
       <i class="pi pi-sliders-v text-cyan-600"></i>
       Filtrar Produtos
     </h2>
-
     <button (click)="closeModal()" class="p-2 rounded hover:bg-gray-200 transition">
       <i class="pi pi-times text-black"></i>
     </button>
@@ -23,10 +22,11 @@
       <button (click)="toggleFilterSection('category')"
         class="w-full px-4 py-3 border rounded-lg flex justify-between items-center">
         <span class="font-semibold text-black">Categoria</span>
-        <i class="pi" [class]="expandedSections.category ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+        <i class="pi" [class]="expandedSections.category ?  'pi-chevron-up' : 'pi-chevron-down'"></i>
       </button>
 
-      <div *ngIf="expandedSections.category" class="mt-2 pl-3 border-l-2 border-cyan-600">
+      @if (expandedSections.category) {
+      <div class="mt-2 pl-3 border-l-2 border-cyan-600">
         @for (cat of categories; track $index) {
         <label class="flex gap-2 py-2 cursor-pointer">
           <input type="radio" [value]="cat.value" [(ngModel)]="tempFilters.category" />
@@ -34,42 +34,38 @@
         </label>
         }
       </div>
+      }
     </div>
 
-<div class="mb-4">
-  <button (click)="toggleFilterSection('price')"
-    class="w-full px-4 py-3 border rounded-lg flex justify-between items-center">
-    <span class="font-semibold text-black">Faixa de Preço</span>
-    <i class="pi" [class]="expandedSections.price ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
-  </button>
+    <div class="mb-4">
+      <button (click)="toggleFilterSection('price')"
+        class="w-full px-4 py-3 border rounded-lg flex justify-between items-center">
+        <span class="font-semibold text-black">Faixa de Preço</span>
+        <i class="pi" [class]="expandedSections.price ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+      </button>
 
-  <div *ngIf="expandedSections.price" class="mt-3 pl-3 border-l-2 border-cyan-600">
-    <div class="grid grid-cols-2 gap-3 mb-4">
-      <div class="flex flex-col">
-        <label class="text-sm font-semibold text-gray-700 mb-1">Mínimo (R$)</label>
-        <input 
-          type="number" 
-          [(ngModel)]="priceRange[0]"
-          [max]="priceRange[1]"
-          [min]="minPrice"
-          class="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-cyan-600">
+      @if (expandedSections.price) {
+      <div class="mt-3 pl-3 border-l-2 border-cyan-600">
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div class="flex flex-col">
+            <label class="text-sm font-semibold text-gray-700 mb-1">Mínimo (R$)</label>
+            <input type="number" [(ngModel)]="priceRange[0]" [max]="priceRange[1]" [min]="minPrice"
+              class="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-cyan-600">
+          </div>
+          <div class="flex flex-col">
+            <label class="text-sm font-semibold text-gray-700 mb-1">Máximo (R$)</label>
+            <input type="number" [(ngModel)]="priceRange[1]" [min]="priceRange[0]" [max]="maxPrice"
+              class="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-cyan-600">
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-4 text-sm font-semibold text-cyan-600">
+          <span>Min: R$ {{ priceRange[0] | number:'1.2-2' }}</span>
+          <span>Max: R$ {{ priceRange[1] | number:'1.2-2' }}</span>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <label class="text-sm font-semibold text-gray-700 mb-1">Máximo (R$)</label>
-        <input 
-          type="number" 
-          [(ngModel)]="priceRange[1]"
-          [min]="priceRange[0]"
-          [max]="maxPrice"
-          class="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-cyan-600">
-      </div>
+      }
     </div>
-    <div class="flex justify-between mt-4 text-sm font-semibold text-cyan-600">
-      <span>Min: R$ {{ priceRange[0] | number:'1.2-2' }}</span>
-      <span>Max: R$ {{ priceRange[1] | number:'1.2-2' }}</span>
-    </div>
-  </div>
-</div>
 
     <div class="mb-4">
       <button (click)="toggleFilterSection('size')"
@@ -78,7 +74,8 @@
         <i class="pi" [class]="expandedSections.size ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
       </button>
 
-      <div *ngIf="expandedSections.size" class="grid grid-cols-4 gap-2 mt-3">
+      @if (expandedSections.size) {
+      <div class="grid grid-cols-4 gap-2 mt-3">
         @for (size of sizes; track $index) {
         <button (click)="toggleSize(size.value)" class="py-2 rounded border text-sm transition"
           [class.bg-cyan-600]="isSizeSelected(size.value)" [class.text-white]="isSizeSelected(size.value)"
@@ -87,6 +84,7 @@
         </button>
         }
       </div>
+      }
     </div>
 
     <div class="mb-4">
@@ -96,16 +94,19 @@
         <i class="pi" [class]="expandedSections.color ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
       </button>
 
-      <div *ngIf="expandedSections.color" class="grid grid-cols-3 gap-3 mt-3">
+      @if (expandedSections.color) {
+      <div class="grid grid-cols-3 gap-3 mt-3">
         @for (color of colors; track $index) {
         <button (click)="toggleColor(color.value)"
           class="flex items-center gap-2 px-3 py-2 border rounded text-sm transition"
-          [class.border-cyan-600]="isColorSelected(color.value)" [class.bg-cyan-50]="isColorSelected(color.value)">
+          [class.border-cyan-600]="isColorSelectedByValue(color.value)"
+          [class.bg-cyan-50]="isColorSelectedByValue(color.value)">
           <div class="h-4 w-4 rounded-full" [style.backgroundColor]="color.value"></div>
           {{ color.label }}
         </button>
         }
       </div>
+      }
     </div>
 
     <div class="mb-4">
@@ -115,7 +116,8 @@
         <i class="pi" [class]="expandedSections.sort ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
       </button>
 
-      <div *ngIf="expandedSections.sort" class="grid grid-cols-2 gap-2 mt-3">
+      @if (expandedSections.sort) {
+      <div class="grid grid-cols-2 gap-2 mt-3">
         @for (option of sortOptions; track $index) {
         <button (click)="setSortOption(option.value)" class="p-3 border rounded text-sm"
           [class.bg-cyan-600]="tempFilters.sortBy === option.value"
@@ -124,6 +126,7 @@
         </button>
         }
       </div>
+      }
     </div>
 
   </div>
