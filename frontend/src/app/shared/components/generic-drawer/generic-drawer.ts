@@ -19,13 +19,12 @@ export class GenericDrawerComponent implements OnInit {
 
   visible = false;
   currentDrawerType: string | null = null;
-  drawerConfig: any = null;
 
   constructor(private drawerService: DrawerService) {}
 
   ngOnInit(): void {
     this.drawerService.drawerState$.subscribe((state) => {
-      this.visible = state. isOpen;
+      this.visible = state.isOpen;
       this.currentDrawerType = state.type;
 
       if (state.isOpen && state.type) {
@@ -36,19 +35,19 @@ export class GenericDrawerComponent implements OnInit {
 
   private loadDrawerComponent(drawerType: string): void {
     this.dynamicContainer.clear();
-        const normalizedType = drawerType.toLowerCase(). trim();
+    const normalizedType = drawerType.toLowerCase().trim();
     const config = DRAWER_CONFIGS[normalizedType];
 
-    if (! config) {
+    if (!config) {
       return;
     }
     const componentRef = this.dynamicContainer.createComponent(GenericDrawerContentComponent);
-
     componentRef.instance.title = config.title;
     componentRef.instance.categories = config.categories;
+    componentRef.instance.categoryType = config.categoryType; 
   }
 
   onClose(): void {
-    this. drawerService.close();
+    this.drawerService.close();
   }
 }

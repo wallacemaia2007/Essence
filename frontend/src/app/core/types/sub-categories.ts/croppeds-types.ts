@@ -1,7 +1,7 @@
 export enum CroppedsTypes {
-  CURTO = 'Curto',
-  LONGO = 'Longo',
-  MANGA_CURTA = 'Manga Curta',
-  MANGA_LONGA = 'Manga Longa',
-  SEM_MANGA = 'Sem Manga',
+  CURTO = 'curto',
+  LONGO = 'longo',
+  MANGA_CURTA = 'manga-curta',
+  MANGA_LONGA = 'manga-longa',
+  SEM_MANGA = 'sem-manga',
 }

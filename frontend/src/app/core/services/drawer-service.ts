@@ -21,7 +21,6 @@ export class DrawerService {
 
   open(drawerType: string): void {
     const normalizedType = this.normalizeDrawerType(drawerType);
-    console.log(`Abrindo drawer: ${drawerType} → ${normalizedType}`);
     this.drawerState.next({ isOpen: true, type: normalizedType });
   }
 

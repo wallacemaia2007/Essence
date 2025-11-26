@@ -1,10 +1,10 @@
 export enum AcessoriosTypes {
-  BOLSAS = 'Bolsas',
-  CINTOS = 'Cintos',
-  CHAPEUS = 'Chapeus',
-  OCULOS_DE_SOL = 'Oculos de sol',
-  JOIAS = 'Joias',
-  LENÇOS = 'Lenços',
-  RELOGIOS = 'Relogios',
-  CARTEIRAS = 'Carteiras',
+  BOLSAS = 'bolsas',
+  CINTOS = 'cintos',
+  CHAPEUS = 'chapeus',
+  OCULOS_DE_SOL = 'oculos-de-sol',
+  JOIAS = 'joias',
+  LENCOS = 'lencos',
+  RELOGIOS = 'relogios',
+  CARTEIRAS = 'carteiras',
 }

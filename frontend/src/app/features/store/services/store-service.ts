@@ -12,24 +12,6 @@ import { CalcadosTypes } from '../../../core/types/sub-categories.ts/calcados-ty
 import { AcessoriosTypes } from '../../../core/types/sub-categories.ts/acessorios-types';
 import { BodysTypes } from '../../../core/types/sub-categories.ts/bodys-types';
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  description: string;
-  color: string;
-  sizes: string[];
-  imageUrl: string;
-  category: string;
-  subcategory: string;
-  discount?: number;
-  reviews?: number;
-  inStock: boolean;
-  rating?: number;
-  createdDate: Date;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -48,7 +30,7 @@ export class StroreService {
       subcategory: VestidosTypes.CASUAL,
       description:
         'Vestido casual em azul claro com tecido respirável.  Perfeito para dias quentes e passeios.',
-      color: ColorTypes. BLUE,
+      color: ColorTypes.BLUE,
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 128,
@@ -122,7 +104,7 @@ export class StroreService {
       subcategory: VestidosTypes.LONGO,
       description:
         'Vestido social preto longo elegante. Perfeito para eventos corporativos e formais.',
-      color: ColorTypes. BLACK,
+      color: ColorTypes.BLACK,
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.9,
       reviews: 189,
@@ -230,7 +212,7 @@ export class StroreService {
       category: CategoriesTypes.CAMISETAS,
       subcategory: CamisetasTypes.BASICA,
       description: 'Camiseta básica cinza mescla. Neutro que combina com qualquer estilo e cor.',
-      color: ColorTypes. GRAY,
+      color: ColorTypes.GRAY,
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.6,
       reviews: 267,
@@ -339,7 +321,7 @@ export class StroreService {
       subcategory: CalcasTypes.JEANS,
       description:
         'Calça jeans preta com múltiplos bolsos funcionais. Estilo e praticidade combinados.',
-      color: ColorTypes. BLACK,
+      color: ColorTypes.BLACK,
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.7,
       reviews: 312,
@@ -375,7 +357,7 @@ export class StroreService {
       subcategory: CalcasTypes.LEGGING,
       description:
         'Legging cinza texturizada com cintura alta. Confortável para qualquer atividade física.',
-      color: ColorTypes. GRAY,
+      color: ColorTypes.GRAY,
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 267,
@@ -407,8 +389,8 @@ export class StroreService {
       name: 'Calça Cargo Preta Aventura',
       price: 159.9,
       imageUrl: 'https://i.pinimg.com/736x/68/d1/b0/68d1b06d9f140e6bd6f463937088e2a3.jpg',
-      category: CategoriesTypes. CALCAS,
-      subcategory: CalcasTypes. CARGO,
+      category: CategoriesTypes.CALCAS,
+      subcategory: CalcasTypes.CARGO,
       description:
         'Calça cargo preta com bolsos laterais. Perfeita para aventuras e uso casual resistente.',
       color: ColorTypes.BLACK,
@@ -430,7 +412,7 @@ export class StroreService {
       subcategory: SaiasTypes.MIDI,
       description:
         'Saia midi preta elegante com comprimento perfeito. Versátil para trabalho ou eventos.',
-      color: ColorTypes. BLACK,
+      color: ColorTypes.BLACK,
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.7,
       reviews: 156,
@@ -446,7 +428,7 @@ export class StroreService {
       subcategory: SaiasTypes.MIDI,
       description:
         'Saia midi azul marinho lisa sofisticada. Ideal para looks profissionais e elegantes.',
-      color: ColorTypes. BLUE,
+      color: ColorTypes.BLUE,
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 123,
@@ -588,7 +570,7 @@ export class StroreService {
       subcategory: BodysTypes.BASICO,
       description:
         'Body branco básico minimalista.  Versátil para usar por baixo ou como peça principal.',
-      color: ColorTypes. WHITE,
+      color: ColorTypes.WHITE,
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.6,
       reviews: 267,
@@ -717,7 +699,7 @@ export class StroreService {
       subcategory: CalcadosTypes.BOTAS,
       description:
         'Bota marrom curta com design elegante. Ideal para inverno e combine com vários looks.',
-      color: ColorTypes. BROWN,
+      color: ColorTypes.BROWN,
       sizes: ['34', '35', '36', '37', '38', '39', '40'],
       rating: 4.8,
       reviews: 289,
@@ -752,7 +734,8 @@ export class StroreService {
       imageUrl: 'https://i.pinimg.com/736x/21/d3/db/21d3db79afdbc995516e6022f0ad4f2b.jpg',
       category: CategoriesTypes.ACESSORIOS,
       subcategory: AcessoriosTypes.BOLSAS,
-      description: 'Bolsa tote preta grande e espaçosa.  Perfeita para trabalho, compras e viagens.',
+      description:
+        'Bolsa tote preta grande e espaçosa.  Perfeita para trabalho, compras e viagens.',
       color: ColorTypes.BLACK,
       sizes: ['Único'],
       rating: 4.7,
@@ -769,7 +752,7 @@ export class StroreService {
       subcategory: AcessoriosTypes.BOLSAS,
       description:
         'Bolsa crossbody marrom clássica.  Versátil para dia e noite, confortável de usar.',
-      color: ColorTypes. BROWN,
+      color: ColorTypes.BROWN,
       sizes: ['Único'],
       rating: 4.6,
       reviews: 267,
@@ -805,7 +788,7 @@ export class StroreService {
       subcategory: AcessoriosTypes.OCULOS_DE_SOL,
       description:
         'Óculos de sol dourado estilo aviador clássico. Sofisticado e elegante para qualquer look.',
-      color: ColorTypes. GOLD,
+      color: ColorTypes.GOLD,
       sizes: ['Único'],
       rating: 4.7,
       reviews: 234,
@@ -867,8 +850,8 @@ export class StroreService {
     return of(
       this.products.filter(
         (p) =>
-          p.name. toLowerCase().includes(lowerQuery) ||
-          (p.description && p.description. toLowerCase().includes(lowerQuery))
+          p.name.toLowerCase().includes(lowerQuery) ||
+          (p.description && p.description.toLowerCase().includes(lowerQuery))
       )
     );
   }
@@ -876,7 +859,7 @@ export class StroreService {
   getProductsBySubcategory(subcategory: string): Observable<Product[]> {
     return of(
       this.products.filter(
-        (p) => p. subcategory && p.subcategory.toLowerCase() === subcategory.toLowerCase()
+        (p) => p.subcategory && p.subcategory.toLowerCase() === subcategory.toLowerCase()
       )
     );
   }
@@ -890,28 +873,28 @@ export class StroreService {
         (p) =>
           p.category.toLowerCase() === category.toLowerCase() &&
           p.subcategory &&
-          p.subcategory. toLowerCase() === subcategory.toLowerCase()
+          p.subcategory.toLowerCase() === subcategory.toLowerCase()
       )
     );
   }
 
   getAvailableColors(): Observable<string[]> {
     const colors = Array.from(new Set(this.products.map((p) => p.color)));
-    return of(colors. sort());
+    return of(colors.sort());
   }
 
   getColorsByCategory(category: string): Observable<string[]> {
     const colors = Array.from(
       new Set(
         this.products
-          .filter((p) => p.category. toLowerCase() === category.toLowerCase())
+          .filter((p) => p.category.toLowerCase() === category.toLowerCase())
           .map((p) => p.color)
       )
     );
-    return of(colors. sort());
+    return of(colors.sort());
   }
 
   getProductsByColor(color: string): Observable<Product[]> {
-    return of(this.products.filter((p) => p.color. toLowerCase().includes(color.toLowerCase())));
+    return of(this.products.filter((p) => p.color.toLowerCase().includes(color.toLowerCase())));
   }
 }

@@ -1,9 +1,9 @@
 export enum BodysTypes {
-    BASICO = 'Basico',
-    SAIA = 'Saia',
-    BABADOS = 'Babados',
-    MANGA = 'Manga',
-    ESTAMPA = 'Estampa',
-    CROCHE = 'Croche',
-    PLUS_SIZE = 'Plus Size',
+  BASICO = 'basico',
+  SAIA = 'saia',
+  BABADOS = 'babados',
+  MANGA = 'manga',
+  ESTAMPA = 'estampa',
+  CROCHE = 'croche',
+  PLUS_SIZE = 'plus-size',
 }

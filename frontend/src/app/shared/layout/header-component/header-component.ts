@@ -24,6 +24,7 @@ export class HeaderComponent {
     CategoriesTypes.CALCAS,
     CategoriesTypes.SAIAS,
     CategoriesTypes.BODYS,
+    CategoriesTypes.CALCADOS,
   ];
 
   cartItemCount = 1;

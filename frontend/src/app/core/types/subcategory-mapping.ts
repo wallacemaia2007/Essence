@@ -1,60 +1,76 @@
-export const SUBCATEGORY_SLUG_MAP: Record<string, string> = {
-  casual: 'Casual',
-  festa: 'Festa',
-  longo: 'Longo',
-  curto: 'Curto',
-  midi: 'Midi',
-
-  basica: 'Básica',
-  estampada: 'Estampada',
-  oversized: 'Oversized',
-
-  jeans: 'Jeans',
-  legging: 'Legging',
-  cargo: 'Cargo',
-
-  plissada: 'Plissada',
-
+export const SUBCATEGORY_SLUG_LABEL_MAP: Record<string, string> = {
+  // CROPPEDS
+  'curto': 'Curto',
+  'longo': 'Longo',
   'manga-curta': 'Manga Curta',
+  'manga-longa': 'Manga Longa',
+  'sem-manga': 'Sem Manga',
 
-  basico: 'Básico',
-  manga: 'Manga',
+  // VESTIDOS
+  'casual': 'Casual',
+  'festa': 'Festa',
+  'midi': 'Midi',
+  'verao': 'Verão',
+  'inverno': 'Inverno',
+  'justos': 'Justos',
+  'soltos': 'Soltos',
 
-  tenis: 'Tênis',
-  sandalias: 'Sandálias',
-  botas: 'Botas',
+  // CAMISETAS
+  'basica': 'Básica',
+  'estampada': 'Estampada',
+  'oversized': 'Oversized',
+  'cropped': 'Cropped',
+  'malha': 'Malha',
+  'tie-dye': 'Tie Dye',
+  'bordado': 'Bordado',
+  'plus-size': 'Plus Size',
 
-  bolsas: 'Bolsas',
-  cintos: 'Cintos',
-  'oculos-de-sol': 'Oculos de sol',
-  chapeus: 'Chapeus',
-  joias: 'Joias',
-  lencos: 'Lenços',
-  relogios: 'Relogios',
-  carteiras: 'Carteiras',
+  // CALÇAS
+  'jeans': 'Jeans',
+  'alfaiataria': 'Alfaiataria',
+  'cargo': 'Cargo',
+  'legging': 'Legging',
+  'pantacourt': 'Pantacourt',
+  'flare': 'Flare',
+  'wide-leg': 'Wide Leg',
+  'jogger': 'Jogger',
+  'moletom': 'Moletom',
+
+  // SAIAS
+  'plissada': 'Plissada',
+  'evase': 'Evasê',
+  'lapis': 'Lápis',
+  'couro': 'Couro',
+
+  // BODYS
+  'saia': 'Saia',
+  'babados': 'Babados',
+  'manga': 'Manga',
+  'estampa': 'Estampa',
+  'croche': 'Crochê',
+
+  // ACESSÓRIOS
+  'bolsas': 'Bolsas',
+  'cintos': 'Cintos',
+  'chapeus': 'Chapéus',
+  'oculos-de-sol': 'Óculos de Sol',
+  'joias': 'Joias',
+  'lencos': 'Lenços',
+  'relogios': 'Relógios',
+  'carteiras': 'Carteiras',
+
+  // CALÇADOS
+  'sandalias': 'Sandálias',
+  'tenis': 'Tênis',
+  'botas': 'Botas',
+  'sapatilhas': 'Sapatilhas',
+  'salto-baixo': 'Salto Baixo',
+  'salto-alto': 'Salto Alto',
+  'chinelos': 'Chinelos',
+  'mocassins': 'Mocassins',
+  'rasteiras': 'Rasteiras',
 };
 
-export function slugToSubcategory(slug: string): string {
-  const converted = SUBCATEGORY_SLUG_MAP[slug.toLowerCase().trim()];
-  
-  if (!converted) {
-    return slug; 
-  }
-  
-  return converted;
-}
-
-export function subcategoryToSlug(subcategory: string): string {
-  return subcategory
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')    
-    .replace(/á/g, 'a')       
-    .replace(/é/g, 'e')
-    .replace(/í/g, 'i')
-    .replace(/ó/g, 'o')
-    . replace(/ú/g, 'u')
-    .replace(/ã/g, 'a')
-    .replace(/õ/g, 'o')
-    .replace(/ç/g, 'c');
+export function getSubcategoryLabel(slug: string): string {
+  return SUBCATEGORY_SLUG_LABEL_MAP[slug] || slug;
 }
