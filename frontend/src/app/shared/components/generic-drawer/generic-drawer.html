@@ -1,5 +1,29 @@
-<p-drawer [(visible)]="visible" [position]="'left'" [modal]="true" [style]="{ width: '500px', background: '#f9f9f9' }"
+<p-drawer 
+  [(visible)]="visible" 
+  [position]="'left'" 
+  [modal]="true" 
+  [showCloseIcon]="false"
+  [style]="{ width: '500px' }"
   (onHide)="onClose()">
-  <ng-template pTemplate="header" ></ng-template>
-  <ng-container #dynamicContainer></ng-container>
+    <ng-template pTemplate="header">
+    <div class="w-full flex items-center justify-between px-6 py-5 bg-white border-b-2 border-gray-200">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center shadow-lg">
+          <i class="pi pi-list text-white"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-black">Menu</h2>
+          <p class="text-xs text-gray-500">Navegue pelas categorias</p>
+        </div>
+      </div>
+      <button 
+        (click)="onClose()"
+        class="p-2 hover:bg-gray-100 rounded-full transition-all duration-300 flex-shrink-0 transform hover:rotate-90">
+        <i class="pi pi-times text-black text-xl"></i>
+      </button>
+    </div>
+  </ng-template>
+    <div class="h-full bg-white scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-gray-100 px-6 py-5">
+    <ng-container #dynamicContainer></ng-container>
+  </div>
 </p-drawer>

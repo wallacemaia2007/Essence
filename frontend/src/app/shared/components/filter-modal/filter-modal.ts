@@ -20,6 +20,15 @@ interface FilterItem<T> {
   value: T;
 }
 
+export interface FilterModalTheme {
+  primaryColor: string;
+  secondaryColor: string;
+  borderColor: string;
+  hoverColor: string;
+  textColor: string;
+  backgroundColor: string;
+}
+
 @Component({
   selector: 'app-filter-modal',
   standalone: true,
@@ -33,6 +42,19 @@ export class FilterModalComponent implements OnInit {
 
   visible = false;
   tempFilters: FilterOptions = {};
+
+  // Customização de tema
+  theme: FilterModalTheme = {
+    primaryColor: '#0891b2',
+    secondaryColor: '#06b6d4',
+    borderColor: '#d1d5db',
+    hoverColor: '#f3f4f6',
+    textColor: '#1f2937',
+    backgroundColor: '#ffffff'
+  };
+
+  // Animações
+  animationEnabled = true;
 
   expandedSections = {
     category: true,
@@ -81,6 +103,19 @@ export class FilterModalComponent implements OnInit {
     this.priceRange = [current.minPrice || 0, current.maxPrice || 5000];
     this.selectedSizes = (current.sizes as SizeType[]) || [];
     this.selectedColors = (current.colors as string[]) || []; 
+    this.applyThemeStyles();
+  }
+
+  applyThemeStyles(): void {
+    document.documentElement.style.setProperty('--filter-primary', this.theme.primaryColor);
+    document.documentElement.style.setProperty('--filter-secondary', this.theme.secondaryColor);
+    document.documentElement.style.setProperty('--filter-border', this.theme.borderColor);
+    document.documentElement.style.setProperty('--filter-hover', this.theme.hoverColor);
+  }
+
+  setTheme(theme: Partial<FilterModalTheme>): void {
+    this.theme = { ...this.theme, ...theme };
+    this.applyThemeStyles();
   }
 
   openModal(): void {
@@ -194,6 +229,22 @@ export class FilterModalComponent implements OnInit {
   getSortLabel(value: string): string {
     const option = this.sortOptions.find((opt) => opt.value === value);
     return option ? option.label : 'Padrão';
+  }
+
+  getThemeStyle(property: 'primary' | 'border' | 'hover'): string {
+    const map = {
+      primary: this.theme.primaryColor,
+      border: this.theme.borderColor,
+      hover: this.theme.hoverColor
+    };
+    return map[property];
+  }
+
+  formatPrice(value: number): string {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
   }
 
 }
