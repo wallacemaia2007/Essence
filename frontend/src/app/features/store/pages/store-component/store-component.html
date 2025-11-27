@@ -29,9 +29,12 @@
       <div class="group flex flex-col transition-transform duration-300 hover:-translate-y-1">
         <div class="relative mb-3 overflow-hidden bg-gray-100">
           <button
-            class="absolute left-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-gray-400 transition-all hover:scale-110 hover:bg-white"
-            [class.text-red-500]="isFavorite(product.id)" (click)="onToggleFavorite(product)">
-            <i class="pi" [ngClass]="isFavorite(product.id) ? 'pi-heart-fill' : 'pi-heart'"></i>
+            class="absolute left-2 top-2 z-10 opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-visible:opacity-100"
+            (click)="onToggleFavorite(product)" aria-label="Favoritar">
+            <i class="pi text-[16px]"
+               [ngClass]="isFavorite(product.id)
+                 ? 'pi-heart-fill text-red-500'
+                 : 'pi-heart text-black'"></i>
           </button>
           <img [src]="product.imageUrl" [alt]="product.name"
             class="aspect-square w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"

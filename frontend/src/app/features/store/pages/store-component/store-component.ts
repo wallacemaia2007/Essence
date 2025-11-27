@@ -5,6 +5,7 @@ import { StroreService } from '../../services/store-service';
 import { FilterModalComponent } from '../../../../shared/components/filter-modal/filter-modal';
 import { FilterOptions } from '../../../../core/types/filter-types';
 import { FilterService } from '../../../../core/services/filter-service';
+import { FavoriteService } from '../../../../core/services/favorite-service';
 
 @Component({
   selector: 'app-store-component',
@@ -17,12 +18,13 @@ export class StoreComponent implements OnInit {
 
   allProducts: any[] = [];
   filteredProducts: any[] = [];
-  favorites: Set<string> = new Set();
+  // Favorites now managed by FavoritesService
   currentFilters: FilterOptions = {};
 
   constructor(
     private storeService: StroreService,
     private filterService: FilterService,
+    private favoriteService: FavoriteService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -140,15 +142,11 @@ export class StoreComponent implements OnInit {
   }
 
   onToggleFavorite(product: any): void {
-    if (this.favorites.has(product.id)) {
-      this.favorites.delete(product.id);
-    } else {
-      this.favorites.add(product.id);
-    }
+    this.favoriteService.toggle(product.id);
   }
 
   isFavorite(productId: string): boolean {
-    return this.favorites.has(productId);
+    return this.favoriteService.isFavorite(productId);
   }
 
   onFiltersApplied(filters: FilterOptions): void {
