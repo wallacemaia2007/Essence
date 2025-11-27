@@ -28,8 +28,11 @@ export class HeaderComponent {
   ];
 
   cartItemCount = 1;
+  isSearchOpen = true;
 
-  onSearch() {}
+  onSearch() {
+    this.isSearchOpen = !this.isSearchOpen;
+  }
 
   onFavorites() {
     this.router.navigate(['/favoritos']);

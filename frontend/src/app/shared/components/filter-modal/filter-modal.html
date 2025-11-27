@@ -2,12 +2,6 @@
   class="px-6 py-3 flex items-center gap-2 rounded-lg border-2 border-black text-black font-semibold hover:bg-black hover:text-white transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-xl relative">
   <i class="pi pi-sliders-v"></i>
   <span>Filtrar & Ordenar</span>
-  @if (hasActiveFilters()) {
-  <span
-    class="absolute -top-2 -right-2 bg-cyan-400 text-black text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center animate-pulse">
-    {{ getFilterCount() }}
-  </span>
-  }
 </button>
 <p-dialog [(visible)]="visible" [modal]="true" [draggable]="false" [closable]="false" [showHeader]="false"
   (onHide)="closeModal()" styleClass="filter-modal" [style]="{ 
@@ -29,7 +23,7 @@
       <div>
         <h2 class="text-lg font-bold text-black">Filtrar Produtos</h2>
         @if (hasActiveFilters()) {
-        <p class="text-xs text-cyan-400 font-medium">{{ getFilterCount() }} filtro(s) ativo(s)</p>
+        <p class="text-xs text-white-400 font-medium">{{ getFilterCount() }} filtro(s) ativo(s)</p>
         }
       </div>
     </div>
