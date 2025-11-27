@@ -4,6 +4,7 @@ import { StroreService } from '../store/services/store-service';
 import { Subscription, combineLatest } from 'rxjs';
 import { FavoriteService } from '../../core/services/favorite-service';
 import { ProductModalService } from '../../core/services/product-modal-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorites-component',
@@ -18,7 +19,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   constructor(
     private favoriteService: FavoriteService,
     private storeService: StroreService,
-    private productModalService: ProductModalService
+    private productModalService: ProductModalService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,5 +55,10 @@ export class FavoritesComponent implements OnInit, OnDestroy {
       reviews: product.reviews,
       inStock: product.inStock,
     });
+  }
+
+  goToStore(): void {
+    this.router.navigate(['/loja']);
+
   }
 }
