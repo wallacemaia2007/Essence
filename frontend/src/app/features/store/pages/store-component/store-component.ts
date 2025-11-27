@@ -6,6 +6,7 @@ import { FilterModalComponent } from '../../../../shared/components/filter-modal
 import { FilterOptions } from '../../../../core/types/filter-types';
 import { FilterService } from '../../../../core/services/filter-service';
 import { FavoriteService } from '../../../../core/services/favorite-service';
+import { ProductModalService } from '../../../../core/services/product-modal-service';
 
 @Component({
   selector: 'app-store-component',
@@ -18,7 +19,6 @@ export class StoreComponent implements OnInit {
 
   allProducts: any[] = [];
   filteredProducts: any[] = [];
-  // Favorites now managed by FavoritesService
   currentFilters: FilterOptions = {};
 
   constructor(
@@ -26,7 +26,8 @@ export class StoreComponent implements OnInit {
     private filterService: FilterService,
     private favoriteService: FavoriteService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private productModalService: ProductModalService
   ) {}
 
   ngOnInit(): void {
@@ -152,5 +153,22 @@ export class StoreComponent implements OnInit {
   onFiltersApplied(filters: FilterOptions): void {
     this.currentFilters = filters;
     this.applyFilters();
+  }
+
+  openProductModal(product: any): void {
+    this.productModalService.open({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      imageUrl: product.imageUrl,
+      description: product.description,
+      category: product.category,
+      subcategory: product.subcategory,
+      sizes: product.sizes,
+      rating: product.rating,
+      reviews: product.reviews,
+      inStock: product.inStock,
+    });
   }
 }

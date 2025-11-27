@@ -14,4 +14,5 @@ interface Product {
   inStock: boolean;
   rating?: number;
   createdDate: Date;
+  maxInstallments?: number;
 }

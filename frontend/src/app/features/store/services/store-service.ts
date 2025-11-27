@@ -36,6 +36,7 @@ export class StroreService {
       reviews: 128,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 4,
     },
     {
       id: '2',
@@ -52,6 +53,7 @@ export class StroreService {
       reviews: 95,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 4,
     },
 
     // FESTA
@@ -72,6 +74,7 @@ export class StroreService {
       reviews: 156,
       inStock: true,
       createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      maxInstallments: 4,
     },
     {
       id: '4',
@@ -90,6 +93,7 @@ export class StroreService {
       reviews: 203,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 5,
     },
 
     // LONGO
@@ -110,6 +114,7 @@ export class StroreService {
       reviews: 189,
       inStock: true,
       createdDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+      maxInstallments: 5,
     },
     {
       id: '6',
@@ -128,6 +133,7 @@ export class StroreService {
       reviews: 142,
       inStock: true,
       createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      maxInstallments: 5,
     },
 
     // CURTO
@@ -148,6 +154,7 @@ export class StroreService {
       reviews: 117,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // MIDI
@@ -166,6 +173,7 @@ export class StroreService {
       reviews: 98,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // ==================== CAMISETAS ====================
@@ -187,6 +195,7 @@ export class StroreService {
       reviews: 356,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '10',
@@ -203,6 +212,7 @@ export class StroreService {
       reviews: 298,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '11',
@@ -218,6 +228,7 @@ export class StroreService {
       reviews: 267,
       inStock: true,
       createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
 
     // ESTAMPADA
@@ -236,6 +247,7 @@ export class StroreService {
       reviews: 189,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '13',
@@ -254,6 +266,7 @@ export class StroreService {
       reviews: 145,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
 
     // OVERSIZED
@@ -274,6 +287,7 @@ export class StroreService {
       reviews: 276,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '15',
@@ -290,6 +304,7 @@ export class StroreService {
       reviews: 156,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // ==================== CALÇAS ====================
@@ -311,6 +326,7 @@ export class StroreService {
       reviews: 445,
       inStock: true,
       createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '17',
@@ -327,6 +343,7 @@ export class StroreService {
       reviews: 312,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
 
     // LEGGING
@@ -345,6 +362,7 @@ export class StroreService {
       reviews: 389,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '19',
@@ -363,6 +381,7 @@ export class StroreService {
       reviews: 267,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
 
     // CARGO
@@ -383,6 +402,7 @@ export class StroreService {
       reviews: 201,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
     {
       id: '21',
@@ -399,6 +419,7 @@ export class StroreService {
       reviews: 178,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // ==================== SAIAS ====================
@@ -418,6 +439,7 @@ export class StroreService {
       reviews: 156,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
     {
       id: '23',
@@ -434,6 +456,7 @@ export class StroreService {
       reviews: 123,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // PLISSADA
@@ -454,6 +477,7 @@ export class StroreService {
       reviews: 189,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
     {
       id: '25',
@@ -469,6 +493,7 @@ export class StroreService {
       reviews: 134,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // ==================== CROPPEDS ====================
@@ -488,6 +513,7 @@ export class StroreService {
       reviews: 267,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '27',
@@ -504,6 +530,7 @@ export class StroreService {
       reviews: 198,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
 
     // MANGA CURTA
@@ -524,6 +551,7 @@ export class StroreService {
       reviews: 145,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '29',
@@ -539,6 +567,7 @@ export class StroreService {
       reviews: 112,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
 
     // ==================== BODYS ====================
@@ -560,6 +589,7 @@ export class StroreService {
       reviews: 334,
       inStock: true,
       createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '31',
@@ -576,6 +606,7 @@ export class StroreService {
       reviews: 267,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
 
     // MANGA
@@ -594,6 +625,7 @@ export class StroreService {
       reviews: 198,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '33',
@@ -610,6 +642,7 @@ export class StroreService {
       reviews: 156,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
 
     // ==================== CALÇADOS ====================
@@ -631,6 +664,7 @@ export class StroreService {
       reviews: 567,
       inStock: true,
       createdDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+      maxInstallments: 4,
     },
     {
       id: '35',
@@ -649,6 +683,7 @@ export class StroreService {
       reviews: 423,
       inStock: true,
       createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      maxInstallments: 4,
     },
 
     // SANDÁLIAS
@@ -667,6 +702,7 @@ export class StroreService {
       reviews: 312,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
     {
       id: '37',
@@ -685,6 +721,7 @@ export class StroreService {
       reviews: 267,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // BOTAS
@@ -705,6 +742,7 @@ export class StroreService {
       reviews: 289,
       inStock: true,
       createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      maxInstallments: 4,
     },
     {
       id: '39',
@@ -721,6 +759,7 @@ export class StroreService {
       reviews: 234,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 4,
     },
 
     // ==================== ACESSÓRIOS ====================
@@ -742,6 +781,7 @@ export class StroreService {
       reviews: 401,
       inStock: true,
       createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
     {
       id: '41',
@@ -758,6 +798,7 @@ export class StroreService {
       reviews: 267,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // ÓCULOS DE SOL
@@ -776,6 +817,7 @@ export class StroreService {
       reviews: 278,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
     {
       id: '43',
@@ -794,6 +836,7 @@ export class StroreService {
       reviews: 234,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 3,
     },
 
     // CINTOS
@@ -814,6 +857,7 @@ export class StroreService {
       reviews: 156,
       inStock: true,
       createdDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
     {
       id: '45',
@@ -830,6 +874,7 @@ export class StroreService {
       reviews: 198,
       inStock: true,
       createdDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      maxInstallments: 2,
     },
   ];
 

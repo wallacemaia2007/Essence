@@ -7,7 +7,7 @@
     @if (favoriteProducts.length > 0) {
         <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6">
             @for (product of favoriteProducts; track product.id) {
-                <div class="group flex flex-col transition-transform duration-300 hover:-translate-y-1">
+                <div class="group flex flex-col transition-transform duration-300 hover:-translate-y-1 cursor-pointer" (click)="openProductModal(product)">
                     <div class="relative mb-3 overflow-hidden bg-gray-100">
                         <button (click)="remove(product.id)"
                             class="absolute left-2 top-2 z-10 flex h-8 w-8 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400"
@@ -27,7 +27,7 @@
                             <div class="mb-1 flex items-baseline gap-2">
                                 <span class="text-lg font-bold text-gray-900">R$ {{ product.price | number:'1.2-2' }}</span>
                             </div>
-                            <p class="text-xs text-gray-500">2x de R$ {{ (product.price / 2) | number:'1.2-2' }}*</p>
+                            <p class="text-xs text-gray-500">{{product.maxInstallments }}x de R$ {{ (product.price / product.maxInstallments) | number:'1.2-2' }}*</p>
                         </div>
                     </div>
                 </div>

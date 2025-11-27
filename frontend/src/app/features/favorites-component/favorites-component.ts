@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StroreService } from '../store/services/store-service';
 import { Subscription, combineLatest } from 'rxjs';
 import { FavoriteService } from '../../core/services/favorite-service';
+import { ProductModalService } from '../../core/services/product-modal-service';
 
 @Component({
   selector: 'app-favorites-component',
@@ -16,7 +17,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   constructor(
     private favoriteService: FavoriteService,
-    private storeService: StroreService
+    private storeService: StroreService,
+    private productModalService: ProductModalService
   ) {}
 
   ngOnInit(): void {
@@ -34,5 +36,22 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   remove(productId: string): void {
     this.favoriteService.remove(productId);
+  }
+
+    openProductModal(product: any): void {
+    this.productModalService.open({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      imageUrl: product.imageUrl,
+      description: product.description,
+      category: product.category,
+      subcategory: product.subcategory,
+      sizes: product.sizes,
+      rating: product.rating,
+      reviews: product.reviews,
+      inStock: product.inStock,
+    });
   }
 }
