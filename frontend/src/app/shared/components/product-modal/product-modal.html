@@ -35,6 +35,9 @@
                     <span class="text-xs text-gray-500">{{ product.rating }} ★ ({{ product.reviews }})</span>
                     }
                 </div>
+                <p class="text-xs text-gray-500">
+                    {{ (product.maxInstallments ?? 2) }}x de R$ {{ (product.price / (product.maxInstallments ?? 2)) | number:'1.2-2' }}*
+                </p>
                 <p class="mb-6 text-sm leading-relaxed text-gray-600">{{ product.description }}</p>
                 @if (product.sizes?.length) {
                 <div class="mb-6">

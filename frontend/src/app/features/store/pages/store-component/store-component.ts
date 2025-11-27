@@ -169,6 +169,7 @@ export class StoreComponent implements OnInit {
       rating: product.rating,
       reviews: product.reviews,
       inStock: product.inStock,
+      maxInstallments: product.maxInstallments,
     });
   }
 }
