@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StroreService } from '../../services/store-service';
+import { StoreService } from '../../services/store-service';
 import { FilterModalComponent } from '../../../../shared/components/filter-modal/filter-modal';
 import { FilterOptions } from '../../../../core/types/filter-types';
 import { FilterService } from '../../../../core/services/filter-service';
 import { FavoriteService } from '../../../../core/services/favorite-service';
 import { ProductModalService } from '../../../../core/services/product-modal-service';
+import { Product, ProductModalData } from '../../../../core/models/product-interfaces';
+
+
+
 
 @Component({
   selector: 'app-store-component',
@@ -23,7 +27,7 @@ export class StoreComponent implements OnInit {
   title: string = '';
 
   constructor(
-    private storeService: StroreService,
+    private storeService: StoreService,
     private filterService: FilterService,
     private favoriteService: FavoriteService,
     private route: ActivatedRoute,
@@ -161,21 +165,23 @@ export class StoreComponent implements OnInit {
     this.applyFilters();
   }
 
-  openProductModal(product: any): void {
-    this.productModalService.open({
+  openProductModal(product: Product): void {
+    const modalData: ProductModalData = {
       id: product.id,
       name: product.name,
       price: product.price,
       originalPrice: product.originalPrice,
-      imageUrl: product.imageUrl,
+      imageUrl: product.imageUrl!,
       description: product.description,
       category: product.category,
       subcategory: product.subcategory,
       sizes: product.sizes,
+      colors: product.colors || (product.color ? [product.color] : undefined),
       rating: product.rating,
       reviews: product.reviews,
       inStock: product.inStock,
       maxInstallments: product.maxInstallments,
-    });
+    };
+    this.productModalService.open(modalData);
   }
 }

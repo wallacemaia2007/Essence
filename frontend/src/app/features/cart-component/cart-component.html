@@ -1,9 +1,196 @@
-<main class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold text-gray-800 mb-4">Componente Carrinho!</h1>
-    <p class="text-gray-600">Aqui vai ficar o conteuno principal desta página!</p>
-    <p class="text-gray-600">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem animi fugiat repudiandae
-        unde ducimus? Distinctio aut voluptatum velit, excepturi incidunt deleniti sunt, ab eius repudiandae veniam fuga
-        iure. Earum, illo? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem quod optio, dolore
-        architecto perspiciatis quos vel hic impedit vitae excepturi saepe, pariatur id ratione inventore laudantium
-        veniam, officiis maxime mollitia!</p>
+<main class="container mx-auto px-4 py-6 max-w-7xl">
+    <h1 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">Carrinho de compras</h1>
+
+    @if (!items.length) {
+    <div class="bg-white rounded-lg shadow-sm p-12 text-center">
+        <div class="text-gray-400 mb-4">
+            <i class="pi pi-shopping-cart text-6xl"></i>
+        </div>
+        <p class="text-xl text-gray-700 mb-2">Seu carrinho está vazio</p>
+        <p class="text-gray-500 mb-6">Adicione produtos para começar suas compras</p>
+        <button (click)="goStore()"
+            class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-medium">
+            Ir às compras
+        </button>
+    </div>
+    }
+
+    @if (items.length) {
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-4">
+            <div class="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-blue-600" />
+                    <span class="text-sm text-gray-700">Selecionar todos os produtos</span>
+                </label>
+                <button (click)="clear()" class="text-sm text-gray-500 hover:text-red-600 transition">
+                    Limpar carrinho
+                </button>
+            </div>
+
+            @for (item of items; track item.variantKey) {
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition">
+                <div class="p-4 relative">
+                    <button type="button" (click)="toggleExpanded(item.variantKey)"
+                        class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition" aria-label="Expandir">
+                        <i class="pi" [ngClass]="isExpanded(item.id) ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+                    </button>
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 pt-1">
+                            <input type="checkbox" checked class="w-4 h-4 accent-blue-600" />
+                        </div>
+
+                        <div class="flex-shrink-0">
+                            <div
+                                class="w-28 h-28 md:w-32 md:h-32 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center">
+                                @if (item.imageUrl) {
+                                <img [src]="item.imageUrl" [alt]="item.name" class="w-full h-full object-contain" />
+                                } @else {
+                                <div class="text-gray-300">
+                                    <i class="pi pi-image text-4xl"></i>
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-base font-medium text-gray-900 mb-1 line-clamp-2 cursor-pointer hover:text-blue-700" (click)="openProductDetails(item.variantKey)">{{ item.name }}</h3>
+
+                            <div class="flex flex-wrap gap-2 mb-2">
+                                @if (item.size) {
+                                <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Tamanho: {{ item.size
+                                    }}</span>
+                                }
+                                @if (item.color) {
+                                <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Cor: {{ item.color
+                                    }}</span>
+                                }
+
+                            </div>
+                            <span (click)="openProductDetails(item.variantKey)"
+                                class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded cursor-pointer hover:bg-blue-100 transition">Ver detalhes</span>
+                            <div class="mb-3 flex items-center gap-3">
+                                <span class="inline-flex items-center gap-1 text-xs text-green-700 font-medium">
+                                    <i class="pi pi-truck"></i>
+                                    Frete grátis
+                                </span>
+                                @if (discountPercent(item) !== null) {
+                                <span class="text-xs font-semibold text-pink-600 bg-pink-50 px-2 py-1 rounded">
+                                    -{{ discountPercent(item) }}%
+                                </span>
+                                }
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                <div class="flex items-center gap-4">
+                                    <div class="flex items-center gap-2">
+                                        <button (click)="decrement(item.variantKey)"
+                                            class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 transition"
+                                            [disabled]="item.quantity <= 1">
+                                            <i class="pi pi-minus text-xs"></i>
+                                        </button>
+                                        <input type="number" min="1" [value]="item.quantity"
+                                            (change)="setQuantity(item.variantKey, $any($event.target).value)"
+                                            class="w-14 text-center border border-gray-300 rounded py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                        <button (click)="increment(item.variantKey)"
+                                            class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 transition">
+                                            <i class="pi pi-plus text-xs"></i>
+                                        </button>
+                                    </div>
+
+                                    <button (click)="remove(item.variantKey)"
+                                        class="text-sm text-blue-600 hover:text-blue-800 hover:underline transition flex items-center gap-1">
+                                        <i class="pi pi-trash text-xs"></i>
+                                        Remover
+                                    </button>
+                                </div>
+
+                                <div class="text-right space-y-0.5">
+                                    @if (item.originalPrice && item.originalPrice > item.price) {
+                                    <p class="text-xs line-through text-gray-400">R$ {{ item.originalPrice | number:'1.2-2' }}</p>
+                                    }
+                                    <p class="text-xl md:text-2xl font-semibold text-gray-900">R$ {{ (item.price * item.quantity) | number:'1.2-2' }}</p>
+                                    @if (item.quantity > 1) {
+                                    <p class="text-xs text-gray-500">R$ {{ item.price | number:'1.2-2' }} cada</p>
+                                    }
+                                    @if (item.maxInstallments) {
+                                    <p class="text-[11px] text-gray-500">{{ item.maxInstallments }}x de R$ {{ (item.price * item.quantity / item.maxInstallments) | number:'1.2-2' }}</p>
+                                    }
+                                </div>
+                            </div>
+                            @if (isExpanded(item.variantKey)) {
+                            <div class="mt-4 border-t pt-4 space-y-3 text-sm">
+                                @if (item.description) {
+                                <p class="text-gray-600 leading-relaxed">{{ item.description }}</p>
+                                }
+                                @if (item.sizes?.length) {
+                                <div>
+                                    <p class="text-xs font-semibold text-gray-500 mb-1">Alterar tamanho</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        @for (s of item.sizes; track s) {
+                                        <button type="button" (click)="applySize(item.variantKey, s)"
+                                            [ngClass]="item.size === s ? 'bg-black text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                                            class="px-3 py-1 rounded text-xs font-medium transition">{{ s }}</button>
+                                        }
+                                    </div>
+                                </div>
+                                }
+                                @if (item.color) {
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-semibold text-gray-500">Cor:</span>
+                                    <span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">{{ item.color }}</span>
+                                </div>
+                                }
+                                <div class="flex justify-end">
+                                    <button (click)="openProductDetails(item.variantKey)"
+                                        class="text-xs text-blue-600 hover:text-blue-800 hover:underline transition flex items-center gap-1">
+                                        <i class="pi pi-external-link"></i> Ver no modal
+                                    </button>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-sm p-6 sticky top-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Resumo da compra</h2>
+
+                <div class="space-y-3 mb-4 pb-4 border-b border-gray-200">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Produtos ({{ totalQuantity }})</span>
+                        <span class="font-medium text-gray-900">R$ {{ totalPrice | number:'1.2-2' }}</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Frete</span>
+                        <span class="text-green-700 font-medium">Grátis</span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-gray-700 font-medium">Total</span>
+                        <span class="text-3xl font-bold text-gray-900">R$ {{ totalPrice | number:'1.2-2' }}</span>
+                    </div>
+                    <p class="text-xs text-right text-gray-500">Em até 12x de R$ {{ (totalPrice / 12) | number:'1.2-2'
+                        }}</p>
+                </div>
+
+                <button (click)="goCheckout()"
+                    class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition shadow-sm mb-3">
+                    Continuar a compra
+                </button>
+
+                <button (click)="goStore()"
+                    class="block w-fit mx-auto text-center text-sm text-blue-600 hover:underline hover:text-blue-800 transition hover:cursor-pointer">
+                    Adicionar mais produtos
+                </button>
+            </div>
+        </div>
+    </div>
+    }
 </main>

@@ -36,7 +36,8 @@
                     }
                 </div>
                 <p class="text-xs text-gray-500">
-                    {{ (product.maxInstallments ?? 2) }}x de R$ {{ (product.price / (product.maxInstallments ?? 2)) | number:'1.2-2' }}*
+                    {{ (product.maxInstallments) }}x de R$ {{ (product.price / (product.maxInstallments)) |
+                    number:'1.2-2' }}*
                 </p>
                 <p class="mb-6 text-sm leading-relaxed text-gray-600">{{ product.description }}</p>
                 @if (product.sizes?.length) {
@@ -54,10 +55,27 @@
                     </div>
                 </div>
                 }
+                @if (product.colors?.length) {
+                <div class="mb-6">
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">Selecione a cor</p>
+                    <div class="flex flex-wrap gap-3">
+                        @for (c of product.colors; track c) {
+                        <button type="button" (click)="selectColor(c)" [title]="c"
+                            class="w-10 h-10 rounded-full transition-all duration-500 ease-out hover:scale-110 active:scale-100 shadow-sm border border-black/20"
+                            [style.background-color]="getColorHex(c)"
+                            [ngClass]="selectedColor === c ? 'scale-110 border-black ring-1 ring-offset-1 ring-black shadow-md' : ''"
+                            [attr.aria-pressed]="selectedColor === c">
+                            <span class="sr-only">{{ c }}</span>
+                        </button>
+                        }
+                    </div>
+                </div>
+                }
                 <div class="mt-auto flex items-center gap-3">
                     <button
                         class="rounded-lg bg-black px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
-                        [disabled]="product.sizes?.length && !selectedSize" (click)="addToCart(product)">
+                        [disabled]="(product.sizes?.length && !selectedSize) || (product.colors?.length && !selectedColor)"
+                        (click)="addToCart(product)">
                         Adicionar ao carrinho
                     </button>
                     <button (click)="close()"

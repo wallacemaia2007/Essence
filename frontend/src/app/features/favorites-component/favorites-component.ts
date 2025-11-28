@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StroreService } from '../store/services/store-service';
 import { Subscription, combineLatest } from 'rxjs';
 import { FavoriteService } from '../../core/services/favorite-service';
 import { ProductModalService } from '../../core/services/product-modal-service';
 import { Router } from '@angular/router';
+import { Product } from '../../core/models/product-interfaces';
+import { StoreService } from '../store/services/store-service';
 
 @Component({
   selector: 'app-favorites-component',
@@ -13,12 +14,12 @@ import { Router } from '@angular/router';
   styleUrl: './favorites-component.scss',
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
-  favoriteProducts: any[] = [];
+  favoriteProducts: Product[] = [];
   private sub?: Subscription;
 
   constructor(
     private favoriteService: FavoriteService,
-    private storeService: StroreService,
+    private storeService: StoreService,
     private productModalService: ProductModalService,
     private router: Router
   ) {}
@@ -28,7 +29,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
       this.storeService.getAllProducts(),
       this.favoriteService.favoritesIds$,
     ]).subscribe(([allProducts, favIds]) => {
-      this.favoriteProducts = allProducts.filter((p) => favIds.has(p.id));
+      this.favoriteProducts = allProducts.filter((p: Product) => favIds.has(p.id));
     });
   }
 
@@ -40,20 +41,22 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.favoriteService.remove(productId);
   }
 
-    openProductModal(product: any): void {
+  openProductModal(product: Product): void {
     this.productModalService.open({
       id: product.id,
       name: product.name,
       price: product.price,
       originalPrice: product.originalPrice,
-      imageUrl: product.imageUrl,
+      imageUrl: product.imageUrl!,
       description: product.description,
       category: product.category,
       subcategory: product.subcategory,
       sizes: product.sizes,
+      colors: product.colors || (product.color ? [product.color] : undefined),
       rating: product.rating,
       reviews: product.reviews,
       inStock: product.inStock,
+      maxInstallments: product.maxInstallments,
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { StroreService } from '../../../store/services/store-service';
+import { StoreService } from '../../../store/services/store-service';
 import { map, Observable } from 'rxjs';
 
 @Component({
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     { icon: 'pi pi-credit-card', title: 'Parcelamento', subtitle: 'Até 6x sem juros' },
   ];
 
-  constructor(private storeService: StroreService, private router: Router) {}
+  constructor(private storeService: StoreService, private router: Router) {}
 
   latestProducts$!: Observable<any[]>;
 
@@ -82,7 +82,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(
         map((products) =>
           products
-            .sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime())
+            .sort((a, b) => {
+              const dateA = a.createdDate ? new Date(a.createdDate).getTime() : 0;
+              const dateB = b.createdDate ? new Date(b.createdDate).getTime() : 0;
+              return dateB - dateA;
+            })
             .slice(0, 8)
         )
       );

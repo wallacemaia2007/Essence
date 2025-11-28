@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CategoriesTypes } from '../../../core/types/categories-types';
 import { VestidosTypes } from '../../../core/types/sub-categories.ts/vestidos-types';
-
-import { ColorTypes } from '../../../core/types/colors/colors-types';
 import { CamisetasTypes } from '../../../core/types/sub-categories.ts/camisetas-types';
 import { CroppedsTypes } from '../../../core/types/sub-categories.ts/croppeds-types';
 import { SaiasTypes } from '../../../core/types/sub-categories.ts/saias-types';
@@ -11,11 +9,12 @@ import { CalcasTypes } from '../../../core/types/sub-categories.ts/calcas-types'
 import { CalcadosTypes } from '../../../core/types/sub-categories.ts/calcados-types';
 import { AcessoriosTypes } from '../../../core/types/sub-categories.ts/acessorios-types';
 import { BodysTypes } from '../../../core/types/sub-categories.ts/bodys-types';
+import { Product } from '../../../core/models/product-interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StroreService {
+export class StoreService {
   private products: Product[] = [
     // ==================== VESTIDOS ====================
     // CASUAL
@@ -30,7 +29,7 @@ export class StroreService {
       subcategory: VestidosTypes.CASUAL,
       description:
         'Vestido casual em azul claro com tecido respirável.  Perfeito para dias quentes e passeios.',
-      color: ColorTypes.BLUE,
+      color: 'BLUE',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 128,
@@ -42,12 +41,13 @@ export class StroreService {
       id: '2',
       name: 'Vestido Branco Minimalista',
       price: 179.9,
+      
       imageUrl: 'https://i.pinimg.com/736x/4c/0f/83/4c0f834ed308063c9c134b1adb3022c3.jpg',
       category: CategoriesTypes.VESTIDOS,
       subcategory: VestidosTypes.CASUAL,
       description:
         'Vestido branco com design minimalista e moderno. Versátil para qualquer ocasião.',
-      color: ColorTypes.WHITE,
+      color: 'WHITE',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.7,
       reviews: 95,
@@ -68,7 +68,7 @@ export class StroreService {
       subcategory: VestidosTypes.FESTA,
       description:
         'Vestido floral festa em tons de rosa. Ideal para eventos especiais com tecido de qualidade.',
-      color: ColorTypes.PINK,
+      color: 'PINK',
       sizes: ['P', 'M', 'G'],
       rating: 4.8,
       reviews: 156,
@@ -87,7 +87,7 @@ export class StroreService {
       subcategory: VestidosTypes.FESTA,
       description:
         'Vestido festa em dourado brilhante com acabamento premium. Destaque garantido em qualquer ocasião.',
-      color: ColorTypes.GOLD,
+      color: 'GOLD',
       sizes: ['P', 'M', 'G'],
       rating: 4.9,
       reviews: 203,
@@ -108,7 +108,7 @@ export class StroreService {
       subcategory: VestidosTypes.LONGO,
       description:
         'Vestido social preto longo elegante. Perfeito para eventos corporativos e formais.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.9,
       reviews: 189,
@@ -127,7 +127,7 @@ export class StroreService {
       subcategory: VestidosTypes.LONGO,
       description:
         'Vestido longo em azul marinho sofisticado. Ideal para cerimônias e eventos especiais.',
-      color: ColorTypes.BLUE,
+      color: 'BLUE',
       sizes: ['P', 'M', 'G'],
       rating: 4.8,
       reviews: 142,
@@ -148,7 +148,7 @@ export class StroreService {
       subcategory: VestidosTypes.CURTO,
       description:
         'Vestido curto em vermelho clássico.  Modelo versátil para noites especiais e saídas.',
-      color: ColorTypes.RED,
+      color: 'RED',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.7,
       reviews: 117,
@@ -167,7 +167,7 @@ export class StroreService {
       subcategory: VestidosTypes.MIDI,
       description:
         'Vestido midi com estampa geométrica moderna. Comprimento perfeito para dia ou noite.',
-      color: ColorTypes.BLUE,
+      color: 'BLUE',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 98,
@@ -189,7 +189,7 @@ export class StroreService {
       subcategory: CamisetasTypes.BASICA,
       description:
         'Camiseta básica preta 100% algodão premium. Confortável e durável para uso diário.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.8,
       reviews: 356,
@@ -206,7 +206,7 @@ export class StroreService {
       subcategory: CamisetasTypes.BASICA,
       description:
         'Camiseta básica branca lisa. Essencial para qualquer guarda-roupa, combina com tudo.',
-      color: ColorTypes.WHITE,
+      color: 'WHITE',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.7,
       reviews: 298,
@@ -222,7 +222,7 @@ export class StroreService {
       category: CategoriesTypes.CAMISETAS,
       subcategory: CamisetasTypes.BASICA,
       description: 'Camiseta básica cinza mescla. Neutro que combina com qualquer estilo e cor.',
-      color: ColorTypes.GRAY,
+      color: 'GRAY',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.6,
       reviews: 267,
@@ -241,7 +241,7 @@ export class StroreService {
       subcategory: CamisetasTypes.ESTAMPADA,
       description:
         'Camiseta estampada com padrão floral vibrante. Perfeita para looks descontraídos e alegres.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.5,
       reviews: 189,
@@ -260,7 +260,7 @@ export class StroreService {
       subcategory: CamisetasTypes.ESTAMPADA,
       description:
         'Camiseta estampada com design de banda rock clássico. Style vintage com conforto moderno.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 145,
@@ -281,7 +281,7 @@ export class StroreService {
       subcategory: CamisetasTypes.OVERSIZED,
       description:
         'Camiseta oversized branca tendência atual. Confortável e estilosa para looks modernos.',
-      color: ColorTypes.WHITE,
+      color: 'WHITE',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.7,
       reviews: 276,
@@ -298,7 +298,7 @@ export class StroreService {
       subcategory: CamisetasTypes.OVERSIZED,
       description:
         'Camiseta oversized cinza grafite. Ideal para looks descontraídos e aconchegantes.',
-      color: ColorTypes.GRAY,
+      color: 'GRAY',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.5,
       reviews: 156,
@@ -320,7 +320,7 @@ export class StroreService {
       subcategory: CalcasTypes.JEANS,
       description:
         'Calça jeans azul clássica com corte slim. Essencial para qualquer guarda-roupa moderno.',
-      color: ColorTypes.BLUE,
+      color: 'BLUE',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.8,
       reviews: 445,
@@ -337,7 +337,7 @@ export class StroreService {
       subcategory: CalcasTypes.JEANS,
       description:
         'Calça jeans preta com múltiplos bolsos funcionais. Estilo e praticidade combinados.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.7,
       reviews: 312,
@@ -356,7 +356,7 @@ export class StroreService {
       subcategory: CalcasTypes.LEGGING,
       description:
         'Legging preta com tecnologia de compressão. Ideal para academia ou uso casual confortável.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.7,
       reviews: 389,
@@ -375,7 +375,7 @@ export class StroreService {
       subcategory: CalcasTypes.LEGGING,
       description:
         'Legging cinza texturizada com cintura alta. Confortável para qualquer atividade física.',
-      color: ColorTypes.GRAY,
+      color: 'GRAY',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 267,
@@ -396,7 +396,7 @@ export class StroreService {
       subcategory: CalcasTypes.CARGO,
       description:
         'Calça cargo bege com múltiplos bolsos e design funcional. Estilo militar sofisticado.',
-      color: ColorTypes.BEIGE,
+      color: 'BEIGE',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.6,
       reviews: 201,
@@ -413,7 +413,7 @@ export class StroreService {
       subcategory: CalcasTypes.CARGO,
       description:
         'Calça cargo preta com bolsos laterais. Perfeita para aventuras e uso casual resistente.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.7,
       reviews: 178,
@@ -433,7 +433,7 @@ export class StroreService {
       subcategory: SaiasTypes.MIDI,
       description:
         'Saia midi preta elegante com comprimento perfeito. Versátil para trabalho ou eventos.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.7,
       reviews: 156,
@@ -450,7 +450,7 @@ export class StroreService {
       subcategory: SaiasTypes.MIDI,
       description:
         'Saia midi azul marinho lisa sofisticada. Ideal para looks profissionais e elegantes.',
-      color: ColorTypes.BLUE,
+      color: 'BLUE',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 123,
@@ -471,7 +471,7 @@ export class StroreService {
       subcategory: SaiasTypes.PLISSADA,
       description:
         'Saia plissada cinza com movimento elegante. Perfeita para trabalho ou eventos formais.',
-      color: ColorTypes.GRAY,
+      color: 'GRAY',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.8,
       reviews: 189,
@@ -487,7 +487,7 @@ export class StroreService {
       category: CategoriesTypes.SAIAS,
       subcategory: SaiasTypes.PLISSADA,
       description: 'Saia plissada branca clássica.  Versátil e elegante para diversos ocasiões.',
-      color: ColorTypes.WHITE,
+      color: 'WHITE',
       sizes: ['P', 'M', 'G'],
       rating: 4.7,
       reviews: 134,
@@ -507,7 +507,7 @@ export class StroreService {
       subcategory: CroppedsTypes.CURTO,
       description:
         'Cropped branco curto de corte perfeito. Versátil para looks modernos e descontraídos.',
-      color: ColorTypes.WHITE,
+      color: 'WHITE',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.6,
       reviews: 267,
@@ -524,7 +524,7 @@ export class StroreService {
       subcategory: CroppedsTypes.CURTO,
       description:
         'Cropped preto curto com ajuste perfeito. Sofisticado e moderno para qualquer occasion.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.7,
       reviews: 198,
@@ -545,7 +545,7 @@ export class StroreService {
       subcategory: CroppedsTypes.MANGA_CURTA,
       description:
         'Cropped amarelo vibrante com manga curta. Perfeito para looks descontraídos e alegres.',
-      color: ColorTypes.YELLOW,
+      color: 'YELLOW',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.5,
       reviews: 145,
@@ -561,7 +561,7 @@ export class StroreService {
       category: CategoriesTypes.CROPPEDS,
       subcategory: CroppedsTypes.MANGA_CURTA,
       description: 'Cropped rosa pastel com manga curta. Delicado e moderno para looks femininos.',
-      color: ColorTypes.PINK,
+      color: 'PINK',
       sizes: ['P', 'M', 'G'],
       rating: 4.6,
       reviews: 112,
@@ -583,7 +583,7 @@ export class StroreService {
       subcategory: BodysTypes.BASICO,
       description:
         'Body preto básico de corte impecável. Essencial para looks sofisticados e elegantes.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.7,
       reviews: 334,
@@ -600,7 +600,7 @@ export class StroreService {
       subcategory: BodysTypes.BASICO,
       description:
         'Body branco básico minimalista.  Versátil para usar por baixo ou como peça principal.',
-      color: ColorTypes.WHITE,
+      color: 'WHITE',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.6,
       reviews: 267,
@@ -619,7 +619,7 @@ export class StroreService {
       subcategory: BodysTypes.MANGA,
       description:
         'Body branco com decote estratégico e manga. Perfeito para usar por baixo ou sozinho.',
-      color: ColorTypes.WHITE,
+      color: 'WHITE',
       sizes: ['P', 'M', 'G', 'GG', 'XG'],
       rating: 4.6,
       reviews: 198,
@@ -636,7 +636,7 @@ export class StroreService {
       subcategory: BodysTypes.MANGA,
       description:
         'Body preto com manga ajustada e corte sofisticado. Elegante para eventos formais.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'GG'],
       rating: 4.7,
       reviews: 156,
@@ -658,7 +658,7 @@ export class StroreService {
       subcategory: CalcadosTypes.TENIS,
       description:
         'Tênis branco clássico com tecnologia de conforto. Perfeito para uso diário e esportes.',
-      color: ColorTypes.WHITE,
+      color: 'WHITE',
       sizes: ['34', '35', '36', '37', '38', '39', '40', '41'],
       rating: 4.8,
       reviews: 567,
@@ -677,7 +677,7 @@ export class StroreService {
       subcategory: CalcadosTypes.TENIS,
       description:
         'Tênis preto premium com tecnologia esportiva. Confortável para exercícios e dia a dia.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['34', '35', '36', '37', '38', '39', '40', '41'],
       rating: 4.7,
       reviews: 423,
@@ -696,7 +696,7 @@ export class StroreService {
       subcategory: CalcadosTypes.SANDALIAS,
       description:
         'Sandália rasteira preta elegante e confortável. Ideal para looks casuais e formais.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['34', '35', '36', '37', '38', '39', '40', '41'],
       rating: 4.7,
       reviews: 312,
@@ -715,7 +715,7 @@ export class StroreService {
       subcategory: CalcadosTypes.SANDALIAS,
       description:
         'Sandália rasteira dourada sofisticada. Perfeita para eventos e ocasiões especiais.',
-      color: ColorTypes.GOLD,
+      color: 'GOLD',
       sizes: ['34', '35', '36', '37', '38', '39', '40', '41'],
       rating: 4.8,
       reviews: 267,
@@ -736,7 +736,7 @@ export class StroreService {
       subcategory: CalcadosTypes.BOTAS,
       description:
         'Bota marrom curta com design elegante. Ideal para inverno e combine com vários looks.',
-      color: ColorTypes.BROWN,
+      color: 'BROWN',
       sizes: ['34', '35', '36', '37', '38', '39', '40'],
       rating: 4.8,
       reviews: 289,
@@ -753,7 +753,7 @@ export class StroreService {
       subcategory: CalcadosTypes.BOTAS,
       description:
         'Bota preta altura média com estilo casual moderno. Versátil para qualquer ocasião.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['34', '35', '36', '37', '38', '39', '40', '41'],
       rating: 4.7,
       reviews: 234,
@@ -775,7 +775,7 @@ export class StroreService {
       subcategory: AcessoriosTypes.BOLSAS,
       description:
         'Bolsa tote preta grande e espaçosa.  Perfeita para trabalho, compras e viagens.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['Único'],
       rating: 4.7,
       reviews: 401,
@@ -792,7 +792,7 @@ export class StroreService {
       subcategory: AcessoriosTypes.BOLSAS,
       description:
         'Bolsa crossbody marrom clássica.  Versátil para dia e noite, confortável de usar.',
-      color: ColorTypes.BROWN,
+      color: 'BROWN',
       sizes: ['Único'],
       rating: 4.6,
       reviews: 267,
@@ -811,7 +811,7 @@ export class StroreService {
       subcategory: AcessoriosTypes.OCULOS_DE_SOL,
       description:
         'Óculos de sol preto com lentes espelhadas. Proteção UV e estilo para dias ensolarados.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['Único'],
       rating: 4.6,
       reviews: 278,
@@ -830,7 +830,7 @@ export class StroreService {
       subcategory: AcessoriosTypes.OCULOS_DE_SOL,
       description:
         'Óculos de sol dourado estilo aviador clássico. Sofisticado e elegante para qualquer look.',
-      color: ColorTypes.GOLD,
+      color: 'GOLD',
       sizes: ['Único'],
       rating: 4.7,
       reviews: 234,
@@ -851,7 +851,7 @@ export class StroreService {
       subcategory: AcessoriosTypes.CINTOS,
       description:
         'Cinto dourado com fivela sofisticada. Acessório perfeito para qualquer look elegante.',
-      color: ColorTypes.GOLD,
+      color: 'GOLD',
       sizes: ['P', 'M', 'G', 'XG'],
       rating: 4.5,
       reviews: 156,
@@ -868,7 +868,7 @@ export class StroreService {
       subcategory: AcessoriosTypes.CINTOS,
       description:
         'Cinto preto clássico versátil. Essencial para qualquer guarda-roupa, combina com tudo.',
-      color: ColorTypes.BLACK,
+      color: 'BLACK',
       sizes: ['P', 'M', 'G', 'XG'],
       rating: 4.6,
       reviews: 198,
@@ -924,7 +924,13 @@ export class StroreService {
   }
 
   getAvailableColors(): Observable<string[]> {
-    const colors = Array.from(new Set(this.products.map((p) => p.color)));
+    const colors = Array.from(
+      new Set(
+        this.products
+          .filter((p) => p.color)
+          .map((p) => p.color as string)
+      )
+    );
     return of(colors.sort());
   }
 
@@ -932,14 +938,22 @@ export class StroreService {
     const colors = Array.from(
       new Set(
         this.products
-          .filter((p) => p.category.toLowerCase() === category.toLowerCase())
-          .map((p) => p.color)
+          .filter(
+            (p) =>
+              p.category.toLowerCase() === category.toLowerCase() &&
+              p.color
+          )
+          .map((p) => p.color as string)
       )
     );
     return of(colors.sort());
   }
 
   getProductsByColor(color: string): Observable<Product[]> {
-    return of(this.products.filter((p) => p.color.toLowerCase().includes(color.toLowerCase())));
+    return of(
+      this.products.filter(
+        (p) => p.color && p.color.toLowerCase().includes(color.toLowerCase())
+      )
+    );
   }
 }

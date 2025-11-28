@@ -1,21 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
-export interface ProductModalData {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  imageUrl: string;
-  description?: string;
-  category?: string;
-  subcategory?: string;
-  sizes?: string[];
-  rating?: number;
-  reviews?: number;
-  inStock?: boolean;
-  maxInstallments?: number;
-}
+import { ProductModalData } from '../models/product-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ProductModalService {
