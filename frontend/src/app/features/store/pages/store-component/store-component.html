@@ -14,7 +14,7 @@
     <div class="mx-auto max-w-7xl px-6">
       <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 class="text-2xl font-semibold tracking-wide text-gray-900">Produtos</h1>
+          <h1 class="text-2xl font-semibold tracking-wide text-gray-900">{{ title | titlecase}}</h1>
           <p class="mt-1 text-sm text-gray-500">{{ filteredProducts.length }} produtos</p>
         </div>
         <app-filter-modal (filtersApplied)="onFiltersApplied($event)"></app-filter-modal>
@@ -24,15 +24,15 @@
 
   <div class="mx-auto max-w-7xl px-6 py-8">
     @if (filteredProducts.length > 0) {
-    <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6">
+    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-6">
       @for (product of filteredProducts; track product.id) {
-      <div class="group flex flex-col transition-transform duration-300 hover:-translate-y-1" (click)="openProductModal(product)">
+      <div class="group flex flex-col transition-transform duration-300 hover:-translate-y-1"
+        (click)="openProductModal(product)">
         <div class="relative mb-3 overflow-hidden bg-gray-100">
           <button
             class="absolute left-2 top-2 z-10 opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-visible:opacity-100"
             (click)="onToggleFavorite(product); $event.stopPropagation()" aria-label="Favoritar">
-            <i class="pi text-[16px]"
-               [ngClass]="isFavorite(product.id)
+            <i class="pi text-[16px]" [ngClass]="isFavorite(product.id)
                  ? 'pi-heart-fill text-red-500'
                  : 'pi-heart text-black'"></i>
           </button>
@@ -63,7 +63,7 @@
               </span>
             </div>
             <p class="text-xs text-gray-500">
-             {{product.maxInstallments }}x de R$ {{ (product.price / product.maxInstallments) | number:'1.2-2' }}*
+              {{product.maxInstallments }}x de R$ {{ (product.price / product.maxInstallments) | number:'1.2-2' }}*
             </p>
           </div>
         </div>

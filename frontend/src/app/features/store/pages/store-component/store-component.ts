@@ -20,6 +20,7 @@ export class StoreComponent implements OnInit {
   allProducts: any[] = [];
   filteredProducts: any[] = [];
   currentFilters: FilterOptions = {};
+  title: string = '';
 
   constructor(
     private storeService: StroreService,
@@ -36,6 +37,11 @@ export class StoreComponent implements OnInit {
         this.allProducts = products;
 
         this.route.queryParams.subscribe((params) => {
+          if (params['category']) {
+            this.title = `Categoria: ${params['category']}`;
+          } else {
+            this.title = 'Produtos';
+          }
           if (params['category'] || params['subcategory']) {
             this.applyQueryParamFilters(params);
           } else {
