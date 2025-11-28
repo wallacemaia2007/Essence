@@ -20,7 +20,8 @@
         <div class="lg:col-span-2 space-y-4">
             <div class="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
                 <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-blue-600" />
+                    <input type="checkbox" class="w-4 h-4 accent-blue-600" [checked]="areAllSelected()"
+                        (change)="toggleSelectAll($event)" />
                     <span class="text-sm text-gray-700">Selecionar todos os produtos</span>
                 </label>
                 <button (click)="clear()" class="text-sm text-gray-500 hover:text-red-600 transition">
@@ -32,12 +33,15 @@
             <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition">
                 <div class="p-4 relative">
                     <button type="button" (click)="toggleExpanded(item.variantKey)"
-                        class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition" aria-label="Expandir">
+                        class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition"
+                        aria-label="Expandir">
                         <i class="pi" [ngClass]="isExpanded(item.id) ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
                     </button>
                     <div class="flex gap-4">
                         <div class="flex-shrink-0 pt-1">
-                            <input type="checkbox" checked class="w-4 h-4 accent-blue-600" />
+                            <input type="checkbox" class="w-4 h-4 accent-blue-600"
+                                [checked]="isSelected(item.variantKey)"
+                                (change)="toggleSelected(item.variantKey, $event)" />
                         </div>
 
                         <div class="flex-shrink-0">
@@ -54,7 +58,8 @@
                         </div>
 
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-base font-medium text-gray-900 mb-1 line-clamp-2 cursor-pointer hover:text-blue-700" (click)="openProductDetails(item.variantKey)">{{ item.name }}</h3>
+                            <h3 class="text-base font-medium text-gray-900 mb-1 line-clamp-2 cursor-pointer hover:text-blue-700"
+                                (click)="openProductDetails(item.variantKey)">{{ item.name }}</h3>
 
                             <div class="flex flex-wrap gap-2 mb-2">
                                 @if (item.size) {
@@ -68,7 +73,8 @@
 
                             </div>
                             <span (click)="openProductDetails(item.variantKey)"
-                                class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded cursor-pointer hover:bg-blue-100 transition">Ver detalhes</span>
+                                class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded cursor-pointer hover:bg-blue-100 transition">Ver
+                                detalhes</span>
                             <div class="mb-3 flex items-center gap-3">
                                 <span class="inline-flex items-center gap-1 text-xs text-green-700 font-medium">
                                     <i class="pi pi-truck"></i>
@@ -107,14 +113,17 @@
 
                                 <div class="text-right space-y-0.5">
                                     @if (item.originalPrice && item.originalPrice > item.price) {
-                                    <p class="text-xs line-through text-gray-400">R$ {{ item.originalPrice | number:'1.2-2' }}</p>
+                                    <p class="text-xs line-through text-gray-400">R$ {{ item.originalPrice |
+                                        number:'1.2-2' }}</p>
                                     }
-                                    <p class="text-xl md:text-2xl font-semibold text-gray-900">R$ {{ (item.price * item.quantity) | number:'1.2-2' }}</p>
+                                    <p class="text-xl md:text-2xl font-semibold text-gray-900">R$ {{ (item.price *
+                                        item.quantity) | number:'1.2-2' }}</p>
                                     @if (item.quantity > 1) {
                                     <p class="text-xs text-gray-500">R$ {{ item.price | number:'1.2-2' }} cada</p>
                                     }
                                     @if (item.maxInstallments) {
-                                    <p class="text-[11px] text-gray-500">{{ item.maxInstallments }}x de R$ {{ (item.price * item.quantity / item.maxInstallments) | number:'1.2-2' }}</p>
+                                    <p class="text-[11px] text-gray-500">{{ item.maxInstallments }}x de R$ {{
+                                        (item.price * item.quantity / item.maxInstallments) | number:'1.2-2' }}</p>
                                     }
                                 </div>
                             </div>
@@ -138,7 +147,8 @@
                                 @if (item.color) {
                                 <div class="flex items-center gap-2">
                                     <span class="text-xs font-semibold text-gray-500">Cor:</span>
-                                    <span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">{{ item.color }}</span>
+                                    <span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">{{ item.color
+                                        }}</span>
                                 </div>
                                 }
                                 <div class="flex justify-end">
@@ -162,8 +172,8 @@
 
                 <div class="space-y-3 mb-4 pb-4 border-b border-gray-200">
                     <div class="flex justify-between text-sm">
-                        <span class="text-gray-600">Produtos ({{ totalQuantity }})</span>
-                        <span class="font-medium text-gray-900">R$ {{ totalPrice | number:'1.2-2' }}</span>
+                        <span class="text-gray-600">Produtos ({{ selectedTotalQuantity() }})</span>
+                        <span class="font-medium text-gray-900">R$ {{ selectedTotalPrice() | number:'1.2-2' }}</span>
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-600">Frete</span>
@@ -174,9 +184,11 @@
                 <div class="mb-6">
                     <div class="flex justify-between items-center mb-1">
                         <span class="text-gray-700 font-medium">Total</span>
-                        <span class="text-3xl font-bold text-gray-900">R$ {{ totalPrice | number:'1.2-2' }}</span>
+                        <span class="text-3xl font-bold text-gray-900">R$ {{ selectedTotalPrice() | number:'1.2-2'
+                            }}</span>
                     </div>
-                    <p class="text-xs text-right text-gray-500">Em até 12x de R$ {{ (totalPrice / 12) | number:'1.2-2'
+                    <p class="text-xs text-right text-gray-500">Em até 12x de R$ {{ (selectedTotalPrice() / 12) |
+                        number:'1.2-2'
                         }}</p>
                 </div>
 

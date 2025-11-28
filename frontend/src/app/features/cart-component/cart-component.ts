@@ -16,6 +16,7 @@ export class CartComponent {
   totalQuantity = 0;
   totalPrice = 0;
   expanded: Set<string> = new Set();
+  selected: Set<string> = new Set();
   editingSizeFor: string | null = null;
   editingColorFor: string | null = null;
 
@@ -28,6 +29,16 @@ export class CartComponent {
       this.items = items;
       this.totalQuantity = this.cartService.totalQuantity();
       this.totalPrice = this.cartService.totalPrice();
+      items.forEach((i) => {
+        if (!this.selected.has(i.variantKey)) {
+          this.selected.add(i.variantKey);
+        }
+      });
+      Array.from(this.selected).forEach((key) => {
+        if (!items.find((i) => i.variantKey === key)) {
+          this.selected.delete(key);
+        }
+      });
     });
   }
 
@@ -74,6 +85,42 @@ export class CartComponent {
 
   isExpanded(id: string) {
     return this.expanded.has(id);
+  }
+
+  isSelected(variantKey: string): boolean {
+    return this.selected.has(variantKey);
+  }
+
+  toggleSelected(variantKey: string, event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input && input.checked) this.selected.add(variantKey);
+    else this.selected.delete(variantKey);
+  }
+
+  areAllSelected(): boolean {
+    if (!this.items.length) return false;
+    return this.items.every((i) => this.selected.has(i.variantKey));
+  }
+
+  toggleSelectAll(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input && input.checked) {
+      this.items.forEach((i) => this.selected.add(i.variantKey));
+    } else {
+      this.items.forEach((i) => this.selected.delete(i.variantKey));
+    }
+  }
+
+  selectedTotalPrice(): number {
+    return this.items
+      .filter((i) => this.selected.has(i.variantKey))
+      .reduce((sum, i) => sum + i.price * i.quantity, 0);
+  }
+
+  selectedTotalQuantity(): number {
+    return this.items
+      .filter((i) => this.selected.has(i.variantKey))
+      .reduce((sum, i) => sum + i.quantity, 0);
   }
 
   startEditSize(id: string) {
