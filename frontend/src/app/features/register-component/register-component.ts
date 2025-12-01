@@ -30,7 +30,7 @@ export class RegisterComponent {
   }
 
   registerProfile() {}
-  
+
   goLogin() {
     this.router.navigate(['/login']);
   }
@@ -51,6 +51,10 @@ export class RegisterComponent {
     return this.registerForm.get('terms');
   }
 
-  togglePassword(): void { this.showPassword = !this.showPassword; }
-  togglePasswordConfirm(): void { this.showPasswordConfirm = !this.showPasswordConfirm; }
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+  togglePasswordConfirm(): void {
+    this.showPasswordConfirm = !this.showPasswordConfirm;
+  }
 }

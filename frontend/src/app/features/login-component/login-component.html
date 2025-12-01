@@ -1,80 +1,83 @@
 <section class="min-h-[80vh] flex items-center justify-center py-12 px-4 bg-white">
-    <style>
-        @keyframes fadeInError { from { opacity:0; transform:translateY(-2px); } to { opacity:1; transform:translateY(0); } }
-        .error-animate { animation: fadeInError .25s ease forwards; }
-        @keyframes underlineGrow { from { width:0; } to { width:100%; } }
-        .error-underline { height:2px; background:#ef4444; width:0; animation: underlineGrow .25s ease forwards; }
-    </style>
     <div class="w-full max-w-md">
         <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8">
             <h1 class="text-2xl font-semibold text-gray-900 mb-1 tracking-tight">Entrar</h1>
             <p class="text-sm text-gray-600 mb-6">Acesse sua conta!</p>
-            <!-- Reactive Form -->
             <form [formGroup]="loginForm" (ngSubmit)="loginProfile()" novalidate class="space-y-5">
-                <!-- Email -->
                 <div>
-                    <label for="loginEmail" class="block text-xs font-medium text-gray-700 uppercase mb-1">E-mail</label>
-                          <input id="loginEmail" formControlName="email" type="email" autocomplete="email" placeholder="seuemail@exemplo.com"
-                              class="w-full px-4 py-3 rounded-xl border bg-white text-gray-900 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition placeholder:text-gray-400"
-                              [class.border-gray-300]="!email?.touched || email?.valid" [class.border-red-500]="email?.touched && email?.invalid"
-                              [attr.aria-invalid]="email?.touched && email?.invalid" [attr.aria-describedby]="email?.touched && email?.invalid ? 'login-email-error' : null">
+                    <label for="loginEmail"
+                        class="block text-xs font-medium text-gray-700 uppercase mb-1">E-mail</label>
+                    <input id="loginEmail" formControlName="email" type="email" autocomplete="email"
+                        placeholder="seuemail@exemplo.com"
+                        class="w-full px-4 py-3 rounded-xl border bg-white text-gray-900 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition placeholder:text-gray-400"
+                        [class.border-gray-300]="!email?.touched || email?.valid"
+                        [class.border-red-500]="email?.touched && email?.invalid"
+                        [attr.aria-invalid]="email?.touched && email?.invalid"
+                        [attr.aria-describedby]="email?.touched && email?.invalid ? 'login-email-error' : null">
                     @if (email?.touched && email?.invalid) {
-                        <small id="login-email-error" role="alert" class="block text-[11px] text-red-600 mt-1 error-animate">
-                            @if (email?.errors?.['required']) { O e-mail é obrigatório. }
-                            @if (email?.errors?.['email']) { Formato de e-mail inválido. }
-                        </small>
-                        <div class="error-underline"></div>
+                    <small id="login-email-error" role="alert"
+                        class="block text-[11px] text-red-600 mt-1 error-animate">
+                        @if (email?.errors?.['required']) { O e-mail é obrigatório. }
+                        @if (email?.errors?.['email']) { Formato de e-mail inválido. }
+                    </small>
+                    <div class="error-underline"></div>
                     }
                 </div>
-                <!-- Password -->
                 <div>
-                    <label for="loginPassword" class="block text-xs font-medium text-gray-700 uppercase mb-1">Senha</label>
+                    <label for="loginPassword"
+                        class="block text-xs font-medium text-gray-700 uppercase mb-1">Senha</label>
                     <div class="relative">
-                           <input id="loginPassword" formControlName="password" [type]="showPassword ? 'text' : 'password'" autocomplete="current-password" placeholder="••••••"
-                               class="w-full px-4 py-3 rounded-xl border bg-white text-gray-900 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition pr-12 placeholder:text-gray-400"
-                               [class.border-gray-300]="!password?.touched || password?.valid" [class.border-red-500]="password?.touched && password?.invalid"
-                               [attr.aria-invalid]="password?.touched && password?.invalid" [attr.aria-describedby]="password?.touched && password?.invalid ? 'login-password-error' : null">
-                           <button type="button" (click)="togglePassword()" [attr.aria-pressed]="showPassword" aria-label="Alternar visibilidade da senha"
-                                class="absolute inset-y-0 right-2 flex items-center px-2 text-gray-600 hover:text-gray-900 transition">
-                             <i [ngClass]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
-                           </button>
+                        <input id="loginPassword" formControlName="password" [type]="showPassword ? 'text' : 'password'"
+                            autocomplete="current-password" placeholder="••••••"
+                            class="w-full px-4 py-3 rounded-xl border bg-white text-gray-900 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition pr-12 placeholder:text-gray-400"
+                            [class.border-gray-300]="!password?.touched || password?.valid"
+                            [class.border-red-500]="password?.touched && password?.invalid"
+                            [attr.aria-invalid]="password?.touched && password?.invalid"
+                            [attr.aria-describedby]="password?.touched && password?.invalid ? 'login-password-error' : null">
+                        <button type="button" (click)="togglePassword()" [attr.aria-pressed]="showPassword"
+                            aria-label="Alternar visibilidade da senha"
+                            class="absolute inset-y-0 right-2 flex items-center px-2 text-gray-600 hover:text-gray-900 transition">
+                            <i [ngClass]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+                        </button>
                     </div>
                     @if (password?.dirty && password?.invalid) {
-                        <small id="login-password-error" role="alert" class="block text-[11px] text-red-600 mt-1 error-animate">
-                            @if (password?.errors?.['required']) { A senha é obrigatória. }
-                            @if (password?.errors?.['minlength']) { Mínimo de 6 caracteres. }
-                        </small>
-                        <div class="error-underline"></div>
+                    <small id="login-password-error" role="alert"
+                        class="block text-[11px] text-red-600 mt-1 error-animate">
+                        @if (password?.errors?.['required']) { A senha é obrigatória. }
+                        @if (password?.errors?.['minlength']) { Mínimo de 6 caracteres. }
+                    </small>
+                    <div class="error-underline"></div>
                     }
                 </div>
-                <!-- Remember / Forgot -->
                 <div class="flex items-center justify-between">
                     <label class="flex items-center gap-2 cursor-pointer select-none">
-                        <input type="checkbox" formControlName="remember" class="h-4 w-4 rounded border-gray-300 text-black focus:ring-black" />
+                        <input type="checkbox" formControlName="remember"
+                            class="h-4 w-4 rounded border-gray-300 text-black focus:ring-black" />
                         <span class="text-xs text-gray-700">Lembrar</span>
                     </label>
-                    <a class="text-xs text-gray-700 hover:underline underline-offset-2 cursor-pointer" (click)="forgotPassword()">Esqueci a senha</a>
+                    <a class="text-xs text-gray-700 hover:underline underline-offset-2 cursor-pointer"
+                        (click)="forgotPassword()">Esqueci a senha</a>
                 </div>
-                <!-- Submit -->
                 <button type="submit" [disabled]="loginForm.invalid"
                     class="w-full bg-gradient-to-r from-black to-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold uppercase tracking-wide py-3 rounded-full shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-100 focus:outline-none focus:ring-2 focus:ring-black/50 transition">
                     Entrar
                 </button>
-                <!-- Divider -->
                 <div class="flex items-center gap-4">
                     <span class="flex-1 h-px bg-gray-200"></span>
                     <span class="text-[10px] uppercase text-gray-500">ou</span>
                     <span class="flex-1 h-px bg-gray-200"></span>
                 </div>
-                <!-- Social placeholders -->
                 <div class="grid grid-cols-2 gap-3">
-                    <button type="button" class="border border-gray-300 rounded-xl py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">Google</button>
-                    <button type="button" class="border border-gray-300 rounded-xl py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">Apple</button>
+                    <button type="button"
+                        class="border border-gray-300 rounded-xl py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">Google</button>
+                    <button type="button"
+                        class="border border-gray-300 rounded-xl py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">Apple</button>
                 </div>
-                <!-- Redirect to register -->
                 <div class="text-center pt-2">
                     <span class="text-xs text-gray-600">Não tem conta?</span>
-                    <a (click)="goRegister()" class="text-xs text-gray-900 font-medium ml-1 hover:underline underline-offset-4 cursor-pointer focus:outline-none focus:ring-1 focus:ring-black rounded">Criar conta</a>
+                    <a (click)="goRegister()"
+                        class="text-xs text-gray-900 font-medium ml-1 hover:underline underline-offset-4 cursor-pointer focus:outline-none focus:ring-1 focus:ring-black rounded">Criar
+                        conta</a>
                 </div>
             </form>
         </div>
