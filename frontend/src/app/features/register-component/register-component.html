@@ -1,1 +1,178 @@
-<p>register-component works!</p>
+<section class="min-h-[80vh] flex items-center justify-center py-12 px-4 bg-white">
+    <style>
+        @keyframes fadeInError {
+            from {
+                opacity: 0;
+                transform: translateY(-2px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-animate {
+            animation: fadeInError .25s ease forwards;
+        }
+
+        @keyframes underlineGrow {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        .error-underline {
+            height: 2px;
+            background: #ef4444;
+            width: 0;
+            animation: underlineGrow .25s ease forwards;
+        }
+    </style>
+    <div class="w-full max-w-md">
+        <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-1 tracking-tight">Criar Conta</h1>
+            <p class="text-sm text-gray-600 mb-6">Preencha seus dados para começar!</p>
+            <!-- Reactive Register Form -->
+            <form [formGroup]="registerForm" (ngSubmit)="registerProfile()" novalidate class="space-y-5">
+                <!-- Nome -->
+                <div>
+                    <label for="regName" class="block text-xs font-medium text-gray-700 uppercase mb-1">Nome
+                        Completo</label>
+                    <input id="regName" formControlName="name" type="text" autocomplete="name"
+                        placeholder="Seu nome completo"
+                        class="w-full px-4 py-3 rounded-xl border bg-white text-gray-900 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition placeholder:text-gray-400"
+                        [class.border-gray-300]="!name?.touched || name?.valid"
+                        [class.border-red-500]="name?.touched && name?.invalid"
+                        [attr.aria-invalid]="name?.touched && name?.invalid"
+                        [attr.aria-describedby]="name?.touched && name?.invalid ? 'reg-name-error' : null">
+                    @if (name?.touched && name?.invalid) {
+                    <small id="reg-name-error" role="alert" class="block text-[11px] text-red-600 mt-1 error-animate">
+                        @if (name?.errors?.['required']) { O nome é obrigatório. }
+                        @if (name?.errors?.['minlength']) { Mínimo de 3 caracteres. }
+                    </small>
+                    <div class="error-underline"></div>
+                    }
+                </div>
+                <!-- Email -->
+                <div>
+                    <label for="regEmail" class="block text-xs font-medium text-gray-700 uppercase mb-1">E-mail</label>
+                    <input id="regEmail" formControlName="email" type="email" autocomplete="email"
+                        placeholder="seuemail@exemplo.com"
+                        class="w-full px-4 py-3 rounded-xl border bg-white text-gray-900 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition placeholder:text-gray-400"
+                        [class.border-gray-300]="!email?.touched || email?.valid"
+                        [class.border-red-500]="email?.touched && email?.invalid"
+                        [attr.aria-invalid]="email?.touched && email?.invalid"
+                        [attr.aria-describedby]="email?.touched && email?.invalid ? 'reg-email-error' : null">
+                    @if (email?.touched && email?.invalid) {
+                    <small id="reg-email-error" role="alert"
+                        class="inline-block text-[11px] text-red-600 mt-1 error-animate">
+                        @if (email?.errors?.['required']) { O e-mail é obrigatório. }
+                        @if (email?.errors?.['email']) { Formato de e-mail inválido. }
+                    </small>
+                    <div class="error-underline"></div>
+                    }
+                </div>
+                <!-- Password -->
+                <div>
+                    <label for="regPassword"
+                        class="block text-xs font-medium text-gray-700 uppercase mb-1">Senha</label>
+                    <div class="relative">
+                        <input id="regPassword" formControlName="password" [type]="showPassword ? 'text' : 'password'"
+                            autocomplete="new-password" placeholder="••••••"
+                            class="w-full px-4 py-3 rounded-xl border bg-white text-gray-900 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition pr-12 placeholder:text-gray-400"
+                            [class.border-gray-300]="!password?.touched || password?.valid"
+                            [class.border-red-500]="password?.touched && password?.invalid"
+                            [attr.aria-invalid]="password?.touched && password?.invalid"
+                            [attr.aria-describedby]="password?.touched && password?.invalid ? 'reg-password-error' : null">
+                        <button type="button" (click)="togglePassword()" [attr.aria-pressed]="showPassword"
+                            aria-label="Alternar visibilidade da senha"
+                            class="absolute inset-y-0 right-2 flex items-center px-2 text-gray-600 hover:text-gray-900 transition">
+                            <i [ngClass]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+                        </button>
+                    </div>
+                    @if (password?.dirty && password?.invalid) {
+                    <small id="reg-password-error" role="alert"
+                        class="block text-[11px] text-red-600 mt-1 error-animate">
+                        @if (password?.errors?.['required']) { A senha é obrigatória. }
+                        @if (password?.errors?.['minlength']) { Mínimo de 6 caracteres. }
+                    </small>
+                    <div class="error-underline"></div>
+
+                    }
+                </div>
+                <!-- Confirm Password -->
+                <div>
+                    <label for="regPassword2" class="block text-xs font-medium text-gray-700 uppercase mb-1">Confirmar
+                        Senha</label>
+                    <div class="relative">
+                        <input id="regPassword2" formControlName="passwordConfirm"
+                            [type]="showPasswordConfirm ? 'text' : 'password'" autocomplete="new-password"
+                            placeholder="Repita a senha"
+                            class="w-full px-4 py-3 rounded-xl border bg-white text-gray-900 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition pr-12 placeholder:text-gray-400"
+                            [class.border-gray-300]="!passwordConfirm?.touched || passwordConfirm?.valid"
+                            [class.border-red-500]="passwordConfirm?.touched && passwordConfirm?.invalid"
+                            [attr.aria-invalid]="passwordConfirm?.touched && passwordConfirm?.invalid"
+                            [attr.aria-describedby]="passwordConfirm?.touched && passwordConfirm?.invalid ? 'reg-password-confirm-error' : null">
+                        <button type="button" (click)="togglePasswordConfirm()"
+                            [attr.aria-pressed]="showPasswordConfirm"
+                            aria-label="Alternar visibilidade da confirmação de senha"
+                            class="absolute inset-y-0 right-2 flex items-center px-2 text-gray-600 hover:text-gray-900 transition">
+                            <i [ngClass]="showPasswordConfirm ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+                        </button>
+                    </div>
+                    @if (passwordConfirm?.dirty && passwordConfirm?.invalid) {
+                    <small id="reg-password-confirm-error" role="alert"
+                        class="inline-block text-[11px] text-red-600 mt-1 error-animate">
+                        @if (passwordConfirm?.errors?.['required']) { Confirme a senha. }
+                        @if (passwordConfirm?.errors?.['mismatch']) { As senhas não coincidem. }
+                    </small>
+                    <div class="error-underline"></div>
+                    }
+                </div>
+                <!-- Terms -->
+                <div class="flex items-start gap-2">
+                    <input id="regTerms" formControlName="terms" type="checkbox"
+                        class="mt-1 h-4 w-4 rounded border-gray-300 text-black focus:ring-black" />
+                    <label for="regTerms" class="text-[11px] leading-snug text-gray-600">Declaro que li e aceito os
+                        <span class="text-gray-900 font-medium">Termos de Uso</span> e a <span
+                            class="text-gray-900 font-medium">Política de Privacidade</span>.</label>
+                </div>
+                @if (terms?.touched && terms?.invalid) {
+                <small class="block text-[11px] text-red-600 mt-1 error-animate">Você deve aceitar os termos.</small>
+                }
+                <!-- Submit -->
+                <button type="submit" [disabled]="registerForm.invalid"
+                    class="w-full bg-gradient-to-r from-black to-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold uppercase tracking-wide py-3 rounded-full shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-100 focus:outline-none focus:ring-2 focus:ring-black/50 transition">
+                    Criar Conta
+                </button>
+                <!-- Divider -->
+                <div class="flex items-center gap-4">
+                    <span class="flex-1 h-px bg-gray-200"></span>
+                    <span class="text-[10px] uppercase text-gray-500">ou</span>
+                    <span class="flex-1 h-px bg-gray-200"></span>
+                </div>
+                <!-- Social placeholders -->
+                <div class="grid grid-cols-2 gap-3">
+                    <button type="button"
+                        class="border border-gray-300 rounded-xl py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">Google</button>
+                    <button type="button"
+                        class="border border-gray-300 rounded-xl py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">Apple</button>
+                </div>
+                <!-- Redirect to login -->
+                <div class="text-center pt-2">
+                    <span class="text-xs text-gray-600">Já tem conta?</span>
+                    <a (click)="goLogin()"
+                        class="text-xs text-gray-900 font-medium ml-1 hover:underline underline-offset-4 cursor-pointer focus:outline-none focus:ring-1 focus:ring-black rounded">Entrar</a>
+                </div>
+            </form>
+        </div>
+        <div class="text-center mt-6 text-[11px] text-gray-500">
+            <p>Usaremos seus dados somente para criar a conta.</p>
+        </div>
+    </div>
+</section>
