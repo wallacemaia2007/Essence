@@ -9,8 +9,10 @@ export class CartService {
   private readonly STORAGE_KEY = 'cartItems';
   private itemsMap: Map<string, CartItem> = new Map();
   private itemsSubject = new BehaviorSubject<CartItem[]>([]);
+  private cartItemCount = new BehaviorSubject<number>(0);
 
   items$ = this.itemsSubject.asObservable();
+  cartItemCount$ = this.cartItemCount.asObservable();
 
   constructor() {
     this.loadFromStorage();
@@ -41,6 +43,9 @@ export class CartService {
 
   private emit(): void {
     this.itemsSubject.next(Array.from(this.itemsMap.values()));
+    this.cartItemCount.next(
+      Array.from(this.itemsMap.values()).reduce((sum, item) => sum + item.quantity, 0)
+    );
   }
 
   add(product: Product, quantity: number = 1): void {
@@ -110,9 +115,7 @@ export class CartService {
   }
 
   totalQuantity(): number {
-    let total = 0;
-    for (const item of this.itemsMap.values()) total += item.quantity;
-    return total;
+    return this.cartItemCount.value;
   }
 
   totalPrice(): number {

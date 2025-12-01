@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DrawerService } from '../../../core/services/drawer-service';
 import { CategoriesTypes } from '../../../core/types/categories-types';
 import { StoreService } from '../../../features/store/services/store-service';
+import { CartService } from '../../../core/services/cart-service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-header-component',
@@ -13,12 +15,18 @@ import { StoreService } from '../../../features/store/services/store-service';
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private drawerService: DrawerService,
     private storeService: StoreService,
+    private cartService: CartService,
   ) {}
+  ngOnInit(): void {
+    this.cartService.cartItemCount$.subscribe(count => {
+      this.cartItemCount = count;     
+    });
+  }
 
   categories = [
     CategoriesTypes.VESTIDOS,
@@ -30,12 +38,10 @@ export class HeaderComponent {
     CategoriesTypes.BODYS,
     CategoriesTypes.CALCADOS,
   ];
-
-  cartItemCount = 1;
-
   isSearchOpen = true;
   searchQuery = '';
   searchResults: any[] = [];
+  cartItemCount: number = 0;
 
   toggleSearch() {
     this.isSearchOpen = !this.isSearchOpen;
