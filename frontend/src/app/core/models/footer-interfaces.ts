@@ -5,7 +5,7 @@ interface ContactInfo {
 
 interface Store {
   name: string;
-  hours: string;
+  address: string;
 }
 
 interface FooterLink {
@@ -19,8 +19,7 @@ interface SocialMedia {
   href: string;
 }
 
-interface NewsLetterSubscription {
-  newsletterName : string;
-  newsletterEmail: string;
+interface PaymentMethod {
+  name: string;
+  icon: string;
 }
-

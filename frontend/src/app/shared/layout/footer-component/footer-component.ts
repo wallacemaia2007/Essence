@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer-component',
@@ -12,6 +13,8 @@ export class FooterComponent {
   newsletterName = '';
   newsletterEmail = '';
   currentYear: number = new Date().getFullYear();
+
+  constructor(private router: Router) {}
 
   contactInfo: ContactInfo[] = [
     {
@@ -31,27 +34,34 @@ export class FooterComponent {
   physicalStores: Store[] = [
     {
       name: 'Passos',
-      hours: 'Av. Comendador Francisco Avelino Maia, 3014 - Muarama, Passos - MG, 37902-170',
+      address: 'Av. Comendador Francisco Avelino Maia, 3014 - Muarama, Passos - MG, 37902-170',
     },
   ];
 
-  institutionalLinks: FooterLink[] = [
-    { name: 'Sobre nós', href: '#' },
-    { name: 'Como comprar', href: '#' },
-    { name: 'Política de privacidade', href: '#' },
-    { name: 'Garantias / Trocas', href: '#' },
-    { name: 'Feedback dos Clientes', href: '#' },
-    { name: 'Blog', href: '#' },
+  productLinks: FooterLink[] = [
+    { name: 'Catálogo', href: '/store' },
+    { name: 'Novidades', href: '/news' },
+    { name: 'Promoções', href: '/promotions' },
+    { name: 'Marcas', href: '/brands' },
+    { name: 'Avaliações', href: '/reviews' },
   ];
 
   helpCenterLinks: FooterLink[] = [
-    { name: 'Métodos de envio', href: '#' },
-    { name: 'Frete grátis', href: '#' },
-    { name: 'Formas de pagamento', href: '#' },
-    { name: 'Cancelamento e devolução', href: '#' },
-    { name: 'FAQ', href: '#' },
-    { name: 'Rastreie seu pedido', href: '#' },
-    { name: 'Contato para Suporte', href: '#' },
+    { name: 'Central de Ajuda', href: '/help-center' },
+    { name: 'Rastreie seu Pedido', href: '/track-order' },
+    { name: 'Formas de Pagamento', href: '/payment-methods' },
+    { name: 'Métodos de Envio', href: '/shipping-methods' },
+    { name: 'Devolução & Reembolso', href: '/returns-refunds' },
+    { name: 'FAQ', href: '/faq' },
+    { name: 'Contato para Suporte', href: '/support-contact' },
+  ];
+
+  policiesLinks: FooterLink[] = [
+    { name: 'Política de Privacidade', href: '/privacy-policy' },
+    { name: 'Termos de Serviço', href: '/terms-of-service' },
+    { name: 'Política de Cookies', href: '/cookie-policy' },
+    { name: 'LGPD & Dados Pessoais', href: '/lgpd' },
+    { name: 'Sobre Nós', href: '/about-us' },
   ];
 
   socialMedia: SocialMedia[] = [
@@ -72,16 +82,36 @@ export class FooterComponent {
     },
   ];
 
+  paymentMethods: PaymentMethod[] = [
+    { name: 'Visa', icon: 'assets/icons/visa.svg' },
+    { name: 'Mastercard', icon: 'assets/icons/mastercard.svg' },
+    { name: 'Elo', icon: 'assets/icons/elo.svg' },
+    { name: 'Pix', icon: 'assets/icons/pix.svg' },
+    { name: 'Boleto', icon: 'assets/icons/boleto.svg' },
+  ];
+
   companyInfo = {
     name: 'Essence Passos',
     cnpj: '27.117.151/0001-80',
   };
 
-  storeAddresses = [
-    'Av. Comendador Francisco Avelino Maia, 3014 - Muarama, Passos - MG, 37902-170',
-  ];
-
   registerNewsletter() {
-    console.log(this.newsletterName, this.newsletterEmail);
+    if (this.newsletterEmail && this.newsletterName) {
+      console.log('Newsletter inscrito:', {
+        name: this.newsletterName,
+        email: this.newsletterEmail,
+      });
+      this.newsletterEmail = '';
+      this.newsletterName = '';
+    }
   }
+
+  storeTerms() {
+    this.router.navigate(['/terms-of-service']);
+  }
+
+  catalogLinks(href: string) {
+    this.router.navigate(['/'+ href]);
+  }
+
 }
