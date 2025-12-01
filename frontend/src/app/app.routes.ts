@@ -4,6 +4,8 @@ import { StoreComponent } from './features/store/pages/store-component/store-com
 import { CartComponent } from './features/cart-component/cart-component';
 import { FavoritesComponent } from './features/favorites-component/favorites-component';
 import { NewsComponent } from './features/news-component/news-component';
+import { LoginComponent } from './features/login-component/login-component';
+import { RegisterComponent } from './features/register-component/register-component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -11,5 +13,7 @@ export const routes: Routes = [
   { path: 'carrinho', component: CartComponent },
   { path: 'favoritos', component: FavoritesComponent },
   { path: 'novidades', component: NewsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '' },
 ];

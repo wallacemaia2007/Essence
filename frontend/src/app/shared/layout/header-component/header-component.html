@@ -4,7 +4,8 @@
             <div class="flex items-center space-x-8">
                 <div class="flex-shrink-0 w-40">
                     <div class="flex items-center h-full">
-                        <img (click)="home()" src="assets/imgs/logo.jpg" alt="Essence Logo" title="Essence - Moda Feminina"
+                        <img (click)="home()" src="assets/imgs/logo.jpg" alt="Essence Logo"
+                            title="Essence - Moda Feminina"
                             class="h-20 w-auto rounded-lg cursor-pointer hover:opacity-90 transition-opacity">
                     </div>
                 </div>
@@ -87,6 +88,56 @@
                         {{ cartItemCount }}
                     </span>
                 </button>
+
+                <div class="relative group">
+                    @if ((!(islogged$ | async))) {
+                    <button aria-label="Minha Conta"
+                        class="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                        <i class="pi pi-user text-gray-700 text-xl"></i>
+                        <div class="hidden md:flex flex-col items-start">
+                            <span class="text-[10px] text-gray-600 leading-tight">Minha Conta</span>
+                            <span class="text-xs text-gray-900 font-medium leading-tight">Entrar / Cadastrar</span>
+                        </div>
+                        <i class="pi pi-chevron-down text-gray-500 text-xs hidden md:block"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-gradient-to-b from-gray-100 to-gray-50 rounded-lg shadow-lg border border-gray-200
+                                opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+                                transition-all duration-200 z-20 p-4">
+                        <button (click)="openLoginAuth()"
+                            class="w-full bg-black text-white font-semibold text-sm uppercase py-3 px-6 rounded-full
+                                   hover:scale-105 transition-transform duration-200 flex items-center justify-center gap-2">
+                            ENTRAR
+                            <i class="pi pi-chevron-right text-xs"></i>
+                        </button>
+                        <div class="text-center mt-3">
+                            <span class="text-xs text-gray-600">ou</span>
+                        </div>
+                        <a (click)="openRegisterAuth()" class="block text-center text-sm text-gray-900 mt-2 cursor-pointer
+                                  hover:underline underline-offset-2 transition-all duration-200">
+                            Cliente novo? Cadastrar
+                        </a>
+                    </div>
+                    } @else {
+                    <button (click)="toggleAccountMenu()" aria-label="Conta"
+                        class="flex items-center gap-2 p-1 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                        <div
+                            class="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-sm font-semibold">
+                            <img [src]="profile?.picture" alt="Profile Picture" class="w-8 h-8 rounded-full" /></div>
+                        <div class="hidden md:flex flex-col items-start">
+                            <span class="text-[10px] text-gray-600 leading-tight">Olá, {{ profile?.name }}</span>
+                        <i class="pi pi-chevron-down text-gray-500 text-xs"></i>
+                        </div>
+                    </button>
+                    @if (accountMenuOpen | async) {
+                    <div
+                        class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md py-1 z-20">
+                        <button (click)="logout()"
+                            class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">Sair</button>
+                    </div>
+                    }
+                    }
+                </div>
+
             </div>
         </div>
     </div>

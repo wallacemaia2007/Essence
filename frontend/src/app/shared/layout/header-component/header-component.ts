@@ -7,6 +7,7 @@ import { CategoriesTypes } from '../../../core/types/categories-types';
 import { StoreService } from '../../../features/store/services/store-service';
 import { CartService } from '../../../core/services/cart-service';
 import { BehaviorSubject } from 'rxjs';
+import { Profile } from '../../../core/models/profile-interface';
 
 @Component({
   selector: 'app-header-component',
@@ -20,12 +21,39 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private drawerService: DrawerService,
     private storeService: StoreService,
-    private cartService: CartService,
+    private cartService: CartService
   ) {}
+
   ngOnInit(): void {
-    this.cartService.cartItemCount$.subscribe(count => {
-      this.cartItemCount = count;     
+    this.cartService.cartItemCount$.subscribe((count) => {
+      this.cartItemCount = count;
     });
+  }
+
+  isLoggedIn = new BehaviorSubject<boolean>(false);
+  accountMenuOpen = new BehaviorSubject<boolean>(false);
+
+  islogged$ = this.isLoggedIn.asObservable();
+  accountMenuOpen$ = this.accountMenuOpen.asObservable();
+
+  profile: Profile | undefined;
+
+  openLoginAuth() {
+    this.router.navigate(['/login']);
+  }
+
+  openRegisterAuth() {
+    this.router.navigate(['/register']);
+  }
+
+  toggleAccountMenu() {
+    this.accountMenuOpen.next(!this.accountMenuOpen.value);
+  }
+
+  logout() {
+    this.isLoggedIn.next(false);
+    this.profile = undefined;
+    this.accountMenuOpen.next(false);
   }
 
   categories = [
@@ -67,7 +95,6 @@ export class HeaderComponent implements OnInit {
 
   onSelectResult(product: any) {
     this.router.navigate(['/loja', product.id]);
-
   }
 
   onFavorites() {
