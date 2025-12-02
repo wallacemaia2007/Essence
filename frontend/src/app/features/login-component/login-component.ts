@@ -25,6 +25,9 @@ export class LoginComponent {
       remember: [false],
     });
   }
+
+  googleAuth() {}
+
   goRegister() {
     this.router.navigate(['/register']);
   }

@@ -1,143 +1,165 @@
 <header class="bg-white shadow-md sticky top-0 z-50">
     <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between h-20">
-            <div class="flex items-center space-x-8">
-                <div class="flex-shrink-0 w-40">
-                    <div class="flex items-center h-full">
-                        <img (click)="home()" src="assets/imgs/logo.jpg" alt="Essence Logo"
-                            title="Essence - Moda Feminina"
-                            class="h-20 w-auto rounded-lg cursor-pointer hover:opacity-90 transition-opacity">
-                    </div>
-                </div>
-                <nav class="hidden md:flex space-x-6 ">
-                    <a (click)="products()" class="relative text-gray-700 font-medium text-sm uppercase tracking-wide 
-                            hover:text-cyan-600 transition-colors duration-200
-                            after:content-[''] after:absolute after:left-0 after:bottom-0 
-                            after:h-[2px] after:w-0 after:bg-cyan-600 
-                            after:transition-all after:duration-300
-                            hover:after:w-full hover:cursor-pointer"> Loja
+        <div class="flex items-center justify-between h-20 gap-4">
+            <div class="flex items-center gap-8">
+                <button (click)="home()" aria-label="Ir para página inicial" class="flex-shrink-0">
+                    <img src="assets/imgs/logo.jpg" alt="Essence - Moda Feminina"
+                        class="h-20 w-auto rounded-lg hover:opacity-90 transition-opacity">
+                </button>
+
+                <nav class="hidden md:flex items-center gap-5" aria-label="Menu principal">
+                    <a (click)="products()" class="relative text-gray-700 font-medium text-sm uppercase tracking-wide cursor-pointer
+                              hover:text-cyan-600 transition-colors duration-200
+                              after:content-[''] after:absolute after:left-0 after:-bottom-1 
+                              after:h-[2px] after:w-0 after:bg-cyan-600 
+                              after:transition-all after:duration-300 hover:after:w-full">
+                        Loja
                     </a>
                     @for (category of categories; track $index) {
-                    <a (click)="openDrawer(category)" class="relative text-gray-700 font-medium text-sm uppercase tracking-wide 
-                            hover:text-cyan-600 transition-colors duration-200
-                            after:content-[''] after:absolute after:left-0 after:bottom-0 
-                            after:h-[2px] after:w-0 after:bg-cyan-600 
-                            after:transition-all after:duration-300
-                            hover:after:w-full hover:cursor-pointer"> {{ category }}
+                    <a (click)="openDrawer(category)" class="relative text-gray-700 font-medium text-sm uppercase tracking-wide cursor-pointer
+                              hover:text-cyan-600 transition-colors duration-200
+                              after:content-[''] after:absolute after:left-0 after:-bottom-1 
+                              after:h-[2px] after:w-0 after:bg-cyan-600 
+                              after:transition-all after:duration-300 hover:after:w-full">
+                        {{ category }}
                     </a>
                     }
-                    <a (click)="news()" class="relative text-gray-700 font-medium text-sm uppercase tracking-wide 
-                            hover:text-cyan-600 transition-colors duration-200
-                            after:content-[''] after:absolute after:left-0 after:bottom-0 
-                            after:h-[2px] after:w-0 after:bg-cyan-600 
-                            after:transition-all after:duration-300
-                            hover:after:w-full hover:cursor-pointer"> Novidades
+                    <a (click)="news()" class="relative text-gray-700 font-medium text-sm uppercase tracking-wide cursor-pointer
+                              hover:text-cyan-600 transition-colors duration-200
+                              after:content-[''] after:absolute after:left-0 after:-bottom-1 
+                              after:h-[2px] after:w-0 after:bg-cyan-600 
+                              after:transition-all after:duration-300 hover:after:w-full">
+                        Novidades
                     </a>
                 </nav>
             </div>
-            <div class="flex items-center space-x-6">
+
+            <div class="flex items-center gap-4">
                 <div class="relative flex items-center">
                     <div [ngClass]="{
-                      'w-64 opacity-100': isSearchOpen,
-                      'w-0 opacity-0': !isSearchOpen
-                    }" class="overflow-hidden transition-all duration-300 ease-in-out mr-3">
-                        <div class="w-64">
-                            <input type="text" [ngModel]="searchQuery" (ngModelChange)="onSearchInput($event)"
-                                placeholder="Buscar produtos"
-                                class="w-full px-4 py-2 bg-white border border-gray-300 focus:border-gray-500 rounded-full focus:outline-none focus:ring-1 focus:ring-gray-200 text-sm text-gray-900" />
-                            @if (searchQuery && searchResults.length > 0) {
-                            <div
-                                class="absolute mt-2 w-64 bg-white border border-gray-200 shadow-md rounded-lg overflow-hidden z-10">
-                                @for (item of searchResults; track $index) {
-                                <div (click)="onSelectResult(item)"
-                                    class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors">
-                                    <img [src]="item.imageUrl" alt="{{ item.name }}"
-                                        class="w-10 h-10 object-cover rounded-md" />
-                                    <div class="flex flex-col">
-                                        <span class="text-xs font-medium text-gray-800">{{ item.name }}</span>
-                                        <span class="text-[11px] text-gray-500">R$ {{ item.price }}</span>
-                                    </div>
+                        'w-64 opacity-100': isSearchOpen,
+                        'w-0 opacity-0': !isSearchOpen
+                    }" class="overflow-hidden transition-all duration-300 ease-in-out mr-2">
+                        <input type="search" [ngModel]="searchQuery" (ngModelChange)="onSearchInput($event)"
+                            placeholder="Buscar produtos" aria-label="Buscar produtos" class="w-64 px-4 py-2 bg-white border border-gray-300 rounded-full 
+                                      text-sm text-gray-900 placeholder:text-gray-400
+                                      focus:outline-none focus:border-gray-500 focus:ring-2 focus:ring-gray-200
+                                      transition-colors" />
+
+                        @if (searchQuery && searchResults.length > 0) {
+                        <div class="absolute left-0 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden z-50"
+                            style="top: 100%;" role="listbox">
+                            @for (item of searchResults; track $index) {
+                            <button (click)="onSelectResult(item)"
+                                class="w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-50 transition-colors text-left"
+                                role="option">
+                                <img [src]="item.imageUrl" [alt]="item.name"
+                                    class="w-10 h-10 object-cover rounded-md" />
+                                <div class="flex flex-col min-w-0">
+                                    <span class="text-xs font-medium text-gray-800 truncate">{{ item.name }}</span>
+                                    <span class="text-[11px] text-gray-500">R$ {{ item.price }}</span>
                                 </div>
-                                }
-                            </div>
-                            }
-                            @if (searchQuery && searchResults.length === 0) {
-                            <div
-                                class="absolute mt-2 w-64 bg-white border border-gray-200 shadow-md rounded-lg py-3 text-center text-xs text-gray-400">
-                                Nenhum produto encontrado.
-                            </div>
+                            </button>
                             }
                         </div>
+                        }
+
+                        @if (searchQuery && searchResults.length === 0) {
+                        <div class="absolute left-0 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded-lg py-3 text-center z-50"
+                            style="top: 100%;">
+                            <p class="text-xs text-gray-400">Nenhum produto encontrado.</p>
+                        </div>
+                        }
                     </div>
-                    <button (click)="toggleSearch()" aria-label="Abrir busca"
-                        class="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
+
+                    <button (click)="toggleSearch()" [attr.aria-label]="isSearchOpen ? 'Fechar busca' : 'Abrir busca'"
+                        [attr.aria-expanded]="isSearchOpen" class="p-2 rounded-full transition-colors duration-200">
                         <i class="pi pi-search text-gray-700 text-xl"></i>
                     </button>
                 </div>
-                <button (click)="onFavorites()"
-                    class="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative"
-                    aria-label="Favorites">
+
+                <button (click)="onFavorites()" aria-label="Ver favoritos"
+                    class="relative p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
                     <i class="pi pi-heart text-gray-700 text-xl"></i>
                 </button>
-                <button (click)="onCart()"
-                    class="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative"
-                    aria-label="Cart">
+
+                <button (click)="onCart()" aria-label="Ver carrinho de compras"
+                    class="relative p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
                     <i class="pi pi-shopping-cart text-gray-700 text-xl"></i>
-                    <span
-                        class="absolute top-1 right-1 bg-cyan-600 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                    @if (cartItemCount > 0) {
+                    <span class="absolute top-1 right-1 bg-cyan-600 text-white text-xs font-medium rounded-full 
+                                 h-4 w-4 flex items-center justify-center"
+                        [attr.aria-label]="cartItemCount + ' itens no carrinho'">
                         {{ cartItemCount }}
                     </span>
+                    }
                 </button>
 
                 <div class="relative group">
-                    @if ((!(islogged$ | async))) {
-                    <button aria-label="Minha Conta"
-                        class="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                    @if (!(islogged$ | async)) {
+                    <button aria-label="Acessar minha conta"
+                        class="flex items-center justify-center py-[0.6rem] px-[0.8rem] min-w-[120px] h-[42px] hover:bg-gray-100 rounded-full transition-colors duration-200 gap-2">
                         <i class="pi pi-user text-gray-700 text-xl"></i>
-                        <div class="hidden md:flex flex-col items-start">
-                            <span class="text-[10px] text-gray-600 leading-tight">Minha Conta</span>
-                            <span class="text-xs text-gray-900 font-medium leading-tight">Entrar / Cadastrar</span>
+
+                        <div class="hidden lg:flex flex-col items-start">
+                            <span class="text-xs font-medium text-gray-900 leading-tight">Minha Conta</span>
                         </div>
-                        <i class="pi pi-chevron-down text-gray-500 text-xs hidden md:block"></i>
+
+                        <i class="pi pi-chevron-down text-gray-500 text-xs hidden lg:block"></i>
                     </button>
-                    <div class="absolute right-0 mt-2 w-48 bg-gradient-to-b from-gray-100 to-gray-50 rounded-lg shadow-lg border border-gray-200
+
+                    <div class="absolute right-0 mt-2 w-48 bg-gradient-to-b from-gray-100 to-gray-50 
+                                rounded-lg shadow-lg border border-gray-200 p-4 z-50
                                 opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-                                transition-all duration-200 z-20 p-4">
-                        <button (click)="openLoginAuth()"
-                            class="w-full bg-black text-white font-semibold text-sm uppercase py-3 px-6 rounded-full
-                                   hover:scale-105 transition-transform duration-200 flex items-center justify-center gap-2">
+                                transition-all duration-200">
+                        <button (click)="openLoginAuth()" class="w-full bg-black text-white font-semibold text-sm uppercase py-3 px-6 rounded-full
+                                       hover:scale-105 active:scale-100 transition-transform duration-200 
+                                       flex items-center justify-center gap-2
+                                       focus:outline-none focus:ring-2 focus:ring-black/50">
                             ENTRAR
                             <i class="pi pi-chevron-right text-xs"></i>
                         </button>
-                        <div class="text-center mt-3">
+
+                        <div class="flex items-center gap-2 my-3">
+                            <span class="flex-1 h-px bg-gray-300"></span>
                             <span class="text-xs text-gray-600">ou</span>
+                            <span class="flex-1 h-px bg-gray-300"></span>
                         </div>
-                        <a (click)="openRegisterAuth()" class="block text-center text-sm text-gray-900 mt-2 cursor-pointer
-                                  hover:underline underline-offset-2 transition-all duration-200">
+
+                        <button (click)="openRegisterAuth()" class="w-full text-center text-sm text-gray-900 font-medium
+                                       hover:underline underline-offset-2 transition-all duration-200
+                                       focus:outline-none focus:ring-2 focus:ring-black/30 rounded px-2 py-1">
                             Cliente novo? Cadastrar
-                        </a>
+                        </button>
                     </div>
+
                     } @else {
-                    <button (click)="toggleAccountMenu()" aria-label="Conta"
-                        class="flex items-center gap-2 p-1 hover:bg-gray-100 rounded-full transition-colors duration-200">
-                        <div
-                            class="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-sm font-semibold">
-                            <img [src]="profile?.picture" alt="Profile Picture" class="w-8 h-8 rounded-full" /></div>
-                        <div class="hidden md:flex flex-col items-start">
-                            <span class="text-[10px] text-gray-600 leading-tight">Olá, {{ profile?.name }}</span>
-                        <i class="pi pi-chevron-down text-gray-500 text-xs"></i>
+                    <button (click)="toggleAccountMenu()" [attr.aria-expanded]="accountMenuOpen | async"
+                        aria-label="Menu da conta"
+                        class="flex items-center justify-center py-[0.6rem] px-[0.8rem] min-w-[120px] h-[42px] hover:bg-gray-100 rounded-full transition-colors duration-200 gap-2">
+
+                        <img [src]="profile?.picture" [alt]="'Foto de ' + profile?.name"
+                            class="w-6 h-6 rounded-full object-cover border border-gray-200" />
+
+                        <div class="hidden lg:flex flex-col items-start">
+                            <span class="text-xs text-gray-900 font-medium leading-tight">Minha Conta</span>
                         </div>
+
+                        <i class="pi pi-chevron-down text-gray-500 text-xs hidden lg:block"></i>
                     </button>
+
                     @if (accountMenuOpen | async) {
                     <div
-                        class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md py-1 z-20">
-                        <button (click)="logout()"
-                            class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">Sair</button>
+                        class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden z-50">
+                        <button (click)="logout()" class="w-full text-left px-4 py-2 text-sm text-gray-700 
+                                       hover:bg-gray-50 transition-colors focus:outline-none focus:bg-gray-100">
+                            <i class="pi pi-sign-out text-xs mr-2"></i>
+                            Sair
+                        </button>
                     </div>
                     }
                     }
                 </div>
-
             </div>
         </div>
     </div>

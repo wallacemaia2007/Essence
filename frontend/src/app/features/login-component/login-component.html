@@ -67,12 +67,13 @@
                     <span class="text-[10px] uppercase text-gray-500">ou</span>
                     <span class="flex-1 h-px bg-gray-200"></span>
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <button type="button"
-                        class="border border-gray-300 rounded-xl py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">Google</button>
-                    <button type="button"
-                        class="border border-gray-300 rounded-xl py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">Apple</button>
-                </div>
+                <button type="button" (click)="googleAuth()"
+                    class="flex items-center justify-center gap-3 border border-gray-300 rounded-xl py-2.5 px-4 w-full text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo"
+                        class="w-5 h-5" />
+                    <span>Google</span>
+                </button>
+
                 <div class="text-center pt-2">
                     <span class="text-xs text-gray-600">Não tem conta?</span>
                     <a (click)="goRegister()"

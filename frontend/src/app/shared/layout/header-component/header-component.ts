@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  isLoggedIn = new BehaviorSubject<boolean>(false);
+  isLoggedIn = new BehaviorSubject<boolean>(true);
   accountMenuOpen = new BehaviorSubject<boolean>(false);
 
   islogged$ = this.isLoggedIn.asObservable();

@@ -30,9 +30,10 @@ export class RegisterComponent {
   }
 
   registerProfile() {}
+  googleAuth() {}
 
-  goLogin() {
-    this.router.navigate(['/login']);
+  navigatePages(path: string ) {
+    this.router.navigate([path]);
   }
 
   get name(): AbstractControl | null {
