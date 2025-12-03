@@ -120,4 +120,8 @@ export class HeaderComponent implements OnInit {
   products() {
     this.router.navigate(['/loja']);
   }
+
+  offers() {
+    this.router.navigate(['/ofertas']);
+  }
 }

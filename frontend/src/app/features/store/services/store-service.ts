@@ -956,4 +956,13 @@ export class StoreService {
       )
     );
   }
+
+  getDiscountedProducts(): Observable<Product[]> {
+    return of(
+      this.products.filter(
+        (p) => p.discount != null 
+      )
+    )
+
+  }
 }

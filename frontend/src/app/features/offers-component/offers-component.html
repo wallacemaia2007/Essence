@@ -1,0 +1,119 @@
+<main class="w-full bg-white">
+    <section class="relative w-full h-[280px] md:h-[400px] lg:h-[500px] overflow-hidden bg-gray-100"
+        (mouseenter)="pauseAutoplay()" (mouseleave)="resumeAutoplay()">
+        <div class="absolute inset-0">
+            <div class="flex h-full w-full transition-transform duration-700 ease-out"
+                [style.transform]="'translateX(-' + (currentBanner * 100) + '%)'">
+                @for (b of banners; track $index) {
+                <div class="w-full h-full flex-shrink-0">
+                    <img [src]="b" alt="Banner" class="w-full h-full object-cover" />
+                </div>
+                }
+            </div>
+        </div>
+        <button (click)="prevBanner()"
+            class="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 hover:bg-white rounded-full transition shadow-md">
+            <i class="pi pi-chevron-left text-gray-900"></i>
+        </button>
+        <button (click)="nextBanner()"
+            class="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 hover:bg-white rounded-full transition shadow-md">
+            <i class="pi pi-chevron-right text-gray-900"></i>
+        </button>
+
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+            @for (banner of banners; track $index) {
+            <button (click)="currentBanner = $index"
+                    class="h-2 w-2 rounded-full transition-all duration-300"
+                    [class.bg-gray-900]="currentBanner === $index"
+                    [class.bg-gray-300]="currentBanner !== $index"
+                    [class.scale-125]="currentBanner === $index"
+                    aria-label="Ir para banner {{ $index + 1 }}">
+            </button>
+            }
+        </div>
+    </section>
+    <section class="border-b border-gray-200">
+        <div class="container mx-auto px-4 md:px-6 py-6">
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-lg md:text-xl font-semibold text-black">
+                        Ofertas Relâmpago
+                    </h2>
+                    <p class="text-sm text-gray-500 mt-1">
+                        {{ (discountedProducts$ | async)?.length || 0 }} produtos
+                    </p>
+                </div>
+                <app-filter-modal (filtersApplied)="onFiltersApplied($event)"></app-filter-modal>
+            </div>
+        </div>
+    </section>
+    <section class="container mx-auto px-4 md:px-6 py-8 md:py-12">
+        <div [class]="viewMode === 'grid' 
+            ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6' 
+            : 'space-y-4'">
+            @for (p of (discountedProducts$ | async); track p. id) {
+            <div
+                class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                <div class="relative aspect-square md:aspect-[3/4] bg-gray-100 overflow-hidden group"
+                    (click)="onProductClick(p)">
+                    <img [src]="p.imageUrl" alt="{{ p.name }}"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                    <div
+                        class="absolute top-3 right-3 bg-black text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-md">
+                        -{{ p.discount }}%
+                    </div>
+                    <button
+                        class="absolute left-2 top-2 z-10 opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-visible:opacity-100"
+                        (click)="onToggleFavorite(p.id) ; $event.stopPropagation()" aria-label="Favoritar">
+                        <i class="pi text-[16px]" [ngClass]="isFavorite(p.id)
+                             ? 'pi-heart-fill text-red-500'
+                             : 'pi-heart text-black'"></i>
+                    </button>
+                </div>
+                <div class="p-4 md:p-5">
+                    <p class="text-sm md:text-base font-medium text-black line-clamp-2 mb-2"
+                        (click)="onProductClick(p)">
+                        {{ p.name }}
+                    </p>
+                    <p class="text-xs text-gray-500 mb-3">
+                        {{ p.category }}
+                    </p>
+                    <div class="mb-3">
+                        <div class="flex items-baseline gap-2 mb-1">
+                            <span class="text-base md:text-lg font-bold text-black">
+                                R$ {{ calculateDiscountedPrice(p.price, p.discount ?? 0).toFixed(2) }}
+                            </span>
+                            <span class="text-xs md:text-sm text-gray-400 line-through">
+                                R$ {{ p.price.toFixed(2) }}
+                            </span>
+                        </div>
+                        @if (p.maxInstallments > 1) {
+                        <p class="text-xs text-gray-500">
+                            ou {{ p.maxInstallments }}x de R$ {{ (calculateDiscountedPrice(p.price, p.discount ?? 0) /
+                            p. maxInstallments).toFixed(2) }}
+                        </p>
+                        }
+                    </div>
+                    <button type="button"
+                        class="w-full py-2 px-3 bg-black hover:bg-gray-900 text-white text-sm font-semibold rounded-lg transition"
+                        (click)="addToCart(p)">
+                        Adicionar ao Carrinho
+                    </button>
+
+                </div>
+            </div>
+            }
+        </div>
+        @if ((discountedProducts$ | async)?.length === 0) {
+        <div class="text-center py-20">
+            <i class="pi pi-tag text-gray-300 text-5xl mb-4 block"></i>
+            <p class="text-gray-800 text-lg font-medium mb-1">Nenhuma oferta disponível</p>
+            <p class="text-gray-500 text-sm mb-6">Volte mais tarde para conferir novidades</p>
+            <button (click)="goToStore()"
+                class="px-6 py-2.5 bg-black hover:bg-gray-900 text-white font-medium rounded-lg transition">
+                Ver Todos os Produtos
+            </button>
+        </div>
+        }
+    </section>
+</main>

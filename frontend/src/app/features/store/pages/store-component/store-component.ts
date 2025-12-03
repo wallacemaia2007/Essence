@@ -9,9 +9,6 @@ import { FavoriteService } from '../../../../core/services/favorite-service';
 import { ProductModalService } from '../../../../core/services/product-modal-service';
 import { Product, ProductModalData } from '../../../../core/models/product-interfaces';
 
-
-
-
 @Component({
   selector: 'app-store-component',
   imports: [CommonModule, FilterModalComponent],
