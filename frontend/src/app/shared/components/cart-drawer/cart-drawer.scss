@@ -1,0 +1,14 @@
+.drawer-enter {
+  opacity: 0;
+}
+.drawer-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+}
+.drawer-exit {
+  opacity: 1;
+}
+.drawer-exit-active {
+  opacity: 0;
+  transition: opacity 150ms ease-in;
+}

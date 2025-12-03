@@ -22,12 +22,9 @@
 
         <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
             @for (banner of banners; track $index) {
-            <button (click)="currentBanner = $index"
-                    class="h-2 w-2 rounded-full transition-all duration-300"
-                    [class.bg-gray-900]="currentBanner === $index"
-                    [class.bg-gray-300]="currentBanner !== $index"
-                    [class.scale-125]="currentBanner === $index"
-                    aria-label="Ir para banner {{ $index + 1 }}">
+            <button (click)="currentBanner = $index" class="h-2 w-2 rounded-full transition-all duration-300"
+                [class.bg-gray-900]="currentBanner === $index" [class.bg-gray-300]="currentBanner !== $index"
+                [class.scale-125]="currentBanner === $index" aria-label="Ir para banner {{ $index + 1 }}">
             </button>
             }
         </div>
@@ -68,9 +65,9 @@
                              : 'pi-heart text-black'"></i>
                     </button>
                 </div>
-                <div class="p-4 md:p-5">
+                <div class="p-4 md:p-5" (click)="onProductClick(p)">
                     <p class="text-sm md:text-base font-medium text-black line-clamp-2 mb-2"
-                        (click)="onProductClick(p)">
+                        >
                         {{ p.name }}
                     </p>
                     <p class="text-xs text-gray-500 mb-3">
@@ -93,8 +90,7 @@
                         }
                     </div>
                     <button type="button"
-                        class="w-full py-2 px-3 bg-black hover:bg-gray-900 text-white text-sm font-semibold rounded-lg transition"
-                        (click)="addToCart(p)">
+                        class="w-full py-2 px-3 bg-black hover:bg-gray-900 text-white text-sm font-semibold rounded-lg transition">
                         Adicionar ao Carrinho
                     </button>
 

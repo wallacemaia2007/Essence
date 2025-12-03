@@ -9,6 +9,7 @@ import { FilterModalComponent } from '../../shared/components/filter-modal/filte
 import { FilterOptions } from '../../core/types/filter-types';
 import { ProductModalService } from '../../core/services/product-modal-service';
 import { CartService } from '../../core/services/cart-service';
+import { CartDrawerService } from '../../core/services/cart-drawer-service';
 
 @Component({
   selector: 'app-offers-component',
@@ -42,7 +43,8 @@ export class OffersComponent implements OnInit, OnDestroy {
     private router: Router,
     private favoriteService: FavoriteService,
     private productModalService: ProductModalService,
-    private cartService: CartService
+    private cart: CartService,
+    private cartDrawer: CartDrawerService
   ) {}
 
   ngOnInit() {
@@ -98,7 +100,21 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   onProductClick(product: Product) {
-    this.productModalService.open(product);
+    const modalData = {
+      ...product,
+      sizes: Array.isArray(product.sizes)
+        ? product.sizes
+        : (product.size ? [product.size] : []),
+      colors: Array.isArray(product.colors)
+        ? product.colors
+        : (product.color ? [product.color] : []),
+    };
+    this.productModalService.open(modalData);
+  }
+
+  addToCart(product: Product) {
+    this.cart.add(product, 1);
+    this.cartDrawer.open();
   }
 
   goToStore() {
@@ -178,8 +194,4 @@ export class OffersComponent implements OnInit, OnDestroy {
     }
   }
 
-  addToCart(p: Product): void {
-    this.cartService.add(p);
-    this.router.navigate(['/carrinho']);
-  }
 }

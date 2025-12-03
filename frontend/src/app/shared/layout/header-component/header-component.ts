@@ -6,6 +6,7 @@ import { DrawerService } from '../../../core/services/drawer-service';
 import { CategoriesTypes } from '../../../core/types/categories-types';
 import { StoreService } from '../../../features/store/services/store-service';
 import { CartService } from '../../../core/services/cart-service';
+import { CartDrawerService } from '../../../core/services/cart-drawer-service';
 import { BehaviorSubject } from 'rxjs';
 import { Profile } from '../../../core/models/profile-interface';
 
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private drawerService: DrawerService,
     private storeService: StoreService,
-    private cartService: CartService
+    private cartService: CartService,
+    private cartDrawer: CartDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -102,7 +104,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onCart() {
-    this.router.navigate(['/carrinho']);
+    this.cartDrawer.open();
   }
 
   home() {

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { CartService } from '../../../core/services/cart-service';
 import { ProductModalData } from '../../../core/models/product-interfaces';
 import { ColorTypes } from '../../../core/types/colors/colors-types';
+import { CartDrawerService } from '../../../core/services/cart-drawer-service';
 
 @Component({
   selector: 'app-product-modal',
@@ -23,7 +24,8 @@ export class ProductModalComponent {
 
   constructor(
     private modalService: ProductModalService,
-    private favoriteService: FavoriteService
+    private favoriteService: FavoriteService,
+    private cartDrawerService: CartDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,7 @@ export class ProductModalComponent {
     };
     this.cart.add(productToAdd, 1);
     this.close();
+    this.cartDrawerService.open();
   }
 
   selectSize(size: string): void {

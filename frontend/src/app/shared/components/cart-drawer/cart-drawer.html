@@ -1,0 +1,90 @@
+@if (open) {
+<div class="fixed inset-0 z-[120]">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" (click)="close()"></div>
+  <div class="absolute right-0 top-0 z-[121] h-full w-[380px] md:w-[420px] bg-white shadow-2xl">
+    <div class="flex h-full flex-col">
+      <div class="flex items-center justify-between border-b border-gray-100 px-5 py-4">
+        <h2 class="text-base font-semibold text-gray-900">Resumo da sacola</h2>
+        <button (click)="close()" aria-label="Fechar" class="rounded-md p-2 text-gray-500 hover:text-black">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+      <div class="flex-1 overflow-auto px-5 py-4">
+        @if (items | async; as list) {
+          @if (list.length > 0) {
+          <div class="space-y-4">
+            @for (it of list; track $index) {
+            <div class="flex gap-3">
+              <img [src]="it.imageUrl" [alt]="it.name" class="h-16 w-16 rounded-md object-cover" />
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-900 line-clamp-2">
+                  {{ it.name }}
+                </p>
+                <p class="text-xs text-gray-500">
+                  Cor: {{ it.color }} • Tamanho: {{ it.size }}
+                </p>
+                <div class="mt-1 flex items-start justify-between">
+                  @if (it.originalPrice && it.originalPrice > it.price) {
+                  <span class="text-xs text-gray-400 line-through">
+                    R$ {{ it.originalPrice | number:'1.2-2' }}
+                  </span>
+                  }
+                  <div class="ml-auto text-right">
+                    <div class="text-sm font-semibold text-gray-900">
+                      R$ {{ it.price | number:'1.2-2' }}
+                    </div>
+                    <div class="mt-0.5 text-xs text-gray-600">
+                      Total: R$ {{ (it.price * it.quantity) | number:'1.2-2' }}
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2 flex items-center gap-2">
+                  <button class="rounded-md border px-2 py-1 text-xs" (click)="adjustQty(it.variantKey, it.quantity - 1)"
+                    aria-label="Diminuir quantidade">
+                    -
+                  </button>
+                  <span class="min-w-[2rem] text-center text-xs text-gray-700">
+                    {{ it.quantity }}
+                  </span>
+                  <button class="rounded-md border px-2 py-1 text-xs" (click)="adjustQty(it.variantKey, it.quantity + 1)"
+                    aria-label="Aumentar quantidade">
+                    +
+                  </button>
+                  <button class="rounded-md p-2 text-gray-500 hover:text-black" (click)="removeItem(it.variantKey)"
+                    aria-label="Remover">
+                    <i class="pi pi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+          } @else {
+          <div class="flex h-full items-center justify-center text-gray-400">
+            <div class="text-center">
+              <i class="pi pi-inbox mb-3 text-3xl opacity-50"></i>
+              <p class="text-sm">Sua sacola está vazia</p>
+            </div>
+          </div>
+          }
+        }
+      </div>
+      <div class="border-t border-gray-100 px-5 py-4">
+        <div class="mb-3 flex items-center justify-between text-sm">
+          <span class="text-gray-600">Subtotal</span>
+          <span class="font-semibold text-gray-900">
+            R$ {{ (subtotal | async) | number:'1.2-2' }}
+          </span>
+        </div>
+        <p class="mb-3 text-xs text-gray-500">
+          Você poderá calcular o frete e visualizar mais benefícios ao Fechar o pedido.
+        </p>
+        <button (click)="checkout()"
+          class="w-full rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white hover:bg-gray-900">
+          Fechar o pedido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+}
