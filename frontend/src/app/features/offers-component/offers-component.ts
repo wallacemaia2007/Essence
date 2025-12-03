@@ -23,10 +23,9 @@ export class OffersComponent implements OnInit, OnDestroy {
     'https://cdn.vectorstock.com/i/500p/95/65/fashion-sale-banner-clothing-promotion-vector-54439565.jpg',
     'https://st2.depositphotos.com/25867432/42849/v/1600/depositphotos_428490718-stock-illustration-sale-poster-design-clothing-store.jpg',
   ];
+  
   currentBanner = 0;
   private bannerInterval: any;
-
-  viewMode: 'grid' | 'list' = 'grid';
 
   favorites = new Set<string>();
 
