@@ -24,42 +24,44 @@ export class HomeComponent implements OnInit, OnDestroy {
   categoryTeasers = [
     {
       name: 'Vestidos',
-      slug: 'vestidos',
+      category: 'vestidos',
       image: 'https://i.pinimg.com/736x/4c/0f/83/4c0f834ed308063c9c134b1adb3022c3.jpg',
     },
     {
       name: 'Camisetas',
-      slug: 'camisetas',
+      category: 'camisetas',
       image: 'https://i.pinimg.com/736x/ff/55/b5/ff55b572cdc9e5c7bcb9e1e46aca153b.jpg',
     },
     {
       name: 'Calças',
-      slug: 'calcas',
+      category: 'calcas',
       image: 'https://i.pinimg.com/736x/68/d1/b0/68d1b06d9f140e6bd6f463937088e2a3.jpg',
     },
     {
       name: 'Croppeds',
-      slug: 'croppeds',
+      category: 'croppeds',
       image: 'https://i.pinimg.com/736x/71/6f/88/716f88e3787b1196db8e0af2f0ffbe4e.jpg',
     },
     {
       name: 'Acessórios',
-      slug: 'acessorios',
+      category: 'acessorios',
       image: 'https://i.pinimg.com/736x/21/d3/db/21d3db79afdbc995516e6022f0ad4f2b.jpg',
     },
     {
       name: 'Calçados',
-      slug: 'calçados',
+      category: 'calcados',
       image: 'https://i.pinimg.com/736x/39/fd/98/39fd986e2f03b726f019039bd39f4cb1.jpg',
     },
     {
       name: 'Jeans',
-      slug: 'jeans',
+      category: 'calcas',
+      subcategory: 'jeans',
       image: 'https://i.pinimg.com/736x/9f/8c/0d/9f8c0d0c0ade79d924e82b9b8cc84b48.jpg',
     },
     {
       name: 'Moda Trabalho',
-      slug: 'moda-trabalho',
+      category: 'colecoes',
+      subcategory: 'moda-trabalho',
       image: 'https://i.pinimg.com/736x/4c/f3/9e/4cf39e7d1ff107d99e5645152da08d6a.jpg',
     },
   ];
@@ -131,7 +133,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/novidades']);
   }
 
-  navigateToCategory(slug: string) {
-    this.router.navigate(['/loja'], { queryParams: { category: slug } });
+  navigateToCategory(category: string, subcategory?: string) {
+    const queryParams: any = { category };
+    if (subcategory) {
+      queryParams.subcategory = subcategory;
+    }
+    this.router.navigate(['/loja'], { queryParams });
   }
 }

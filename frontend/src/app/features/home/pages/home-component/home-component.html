@@ -58,7 +58,8 @@
         </div>
         <div class="grid grid-cols-4 md:grid-cols-8 gap-4">
             @for (c of categoryTeasers; track $index) {
-            <div class="flex flex-col items-center group cursor-pointer" (click)="navigateToCategory(c.slug)">
+            <div class="flex flex-col items-center group cursor-pointer"
+                (click)="navigateToCategory(c.category, c.subcategory ?? '')">
                 <div
                     class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border border-gray-200 group-hover:border-gray-400 transition">
                     <img [src]="c.image" alt="{{ c.name }}"
