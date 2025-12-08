@@ -33,7 +33,7 @@ export class LoginComponent {
   }
 
   forgotPassword() {
-    this.router.navigate(['/forgot-password']);
+    this.router.navigate(['/login/forgot-password']);
   }
 
   loginProfile() {
